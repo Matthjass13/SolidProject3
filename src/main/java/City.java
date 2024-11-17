@@ -5,6 +5,5 @@ public class City {
 
 
     // Use factory method ?
-
     // Use flyweight to draw ?
 }
