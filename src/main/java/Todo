@@ -1,5 +1,5 @@
 Matthias :
-Network, city, road : deadline :
+Network, city, road :
 Se renseigner sur JGraphT
 Deadline : 2 décembre
 
@@ -9,5 +9,7 @@ Se renseigner sur JGraphT
 Deadline : 2 décembre
 
 Classes restantes : GPS, Drawing, Interface
+
+Ajouter des commentaires de Javadoc
 
 

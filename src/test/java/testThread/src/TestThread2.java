@@ -1,5 +1,5 @@
-public class TestThread extends Thread {
-    public TestThread(String name) {
+public class TestThread2 extends Thread {
+    public TestThread2(String name) {
         super(name);
     }
 
