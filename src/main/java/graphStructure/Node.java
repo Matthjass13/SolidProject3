@@ -5,23 +5,23 @@ package graphStructure;
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
-public class City {
+public class Node {
 
-    private String name;
-
-    /**
-     * Horizontal position of the city
-     */
-    private int x;
+    private final String name;
 
     /**
-     * Vertical position of the city
+     * Horizontal position of the node
      */
-    private int y;
+    private final int x;
 
-    private int ID;
+    /**
+     * Vertical position of the node
+     */
+    private final int y;
 
-    public City(String name, int x, int y, int ID) {
+    private final int ID;
+
+    public Node(String name, int x, int y, int ID) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -37,10 +37,8 @@ public class City {
     }
 
     public String toString() {
-        return "City of " + name + ". Position : (" + x + ", " + y + ")";
+        return name + ". Position : (" + x + ", " + y + ")";
     }
 
-    // Use factory method ?
-    // Use flyweight to draw ?
 
 }

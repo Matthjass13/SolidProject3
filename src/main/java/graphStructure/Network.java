@@ -3,6 +3,8 @@ package graphStructure;
 /**
  * This class contains all data stored
  * in the graph representation of the network.
+ * @see Node
+ * @see Star
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
@@ -10,56 +12,60 @@ package graphStructure;
 public class Network {
 
     /**
-     * Number of cities in the network
+     * Number of nodes in the network
      */
-    private int SIZE = 10;
+    private final int SIZE;
 
-    private City[] cities;
+    private final Node[] nodes;
 
     /**
-     * For each city, a list contains
+     * For each node, a list contains
      * all roads incident with it.
      */
-    private File[] files;
+    private final Star[] stars;
 
 
     /**
-     * @param cities Array of City to be added in the network
+     * @param nodes Array of Node to be added in the network
      * @param costs A non-zero costs[i][j] means
-     *              there is an edge from cities[i] to cities[j] of that cost.
+     *              there is an edge from nodes[i] to nodes[j] of that cost.
      */
-    public Network(City[] cities, int[][] costs) {
-        SIZE = cities.length;
+    public Network(Node[] nodes, int[][] costs) {
+        SIZE = nodes.length;
 
-        this.cities = cities;
+        this.nodes = nodes;
 
-        files = new File[SIZE];
+        stars = new Star[SIZE];
         for (int i = 0; i < SIZE; i++)
-            files[i] = new File();
+            stars[i] = new Star();
 
         for (int i = 0; i < costs.length; i++)
             for (int j = 0; j < costs[i].length; j++)
                 if(costs[i][j]!=0)
-                    files[i].add(new Road(cities[j], costs[i][j]));
+                    stars[i].add(new Road(nodes[j], costs[i][j]));
+
     }
 
 
     public int getSIZE() {
         return SIZE;
     }
-
-    public File[] getFiles() {
-        return files;
+    public Node[] getNodes() {
+        return nodes;
+    }
+    public Star[] getStars() {
+        return stars;
+    }
+    public String toString() {
+        String string = "Stars of the networks : " + "\n\n";
+        for (int i = 0; i < stars.length; i++)
+            string += "Node of " + nodes[i].getName() + " : \n" + stars[i];
+        string += "\n";
+        return string;
     }
 
-    public void displayFiles() {
-        for (int i = 0; i < files.length; i++) {
-            System.out.println("City of " + cities[i].getName() + ":");
-            files[i].display();
-        }
-    }
 
-    // Use Memento ?
-    // Use factory
+
+
 
 }
