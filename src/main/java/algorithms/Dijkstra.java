@@ -1,4 +1,7 @@
-package graphStructure;
+package algorithms;
+
+import graphStructure.Network;
+import graphStructure.Road;
 
 /**
  * This class will be in charge of computing
@@ -79,9 +82,5 @@ public class Dijkstra extends ShortestPathAlgorithm {
         }
         return minIndex;
     }
-
-
-
-
 
 }

@@ -1,7 +1,0 @@
-Préciser les nodes (city, restaurant...)
-Pouvoir modifier la valeur des roads
-Mettre un hashmap de nodes dans Network
-Memento on network ou disktra
-Factory / builder on network, node,
-Abstract facory pour les routes (rails)
-Permettre d'autres shortest path algorithms

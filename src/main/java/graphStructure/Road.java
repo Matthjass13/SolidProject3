@@ -1,5 +1,7 @@
 package graphStructure;
 
+import graphStructure.nodes.Node;
+
 /**
  * Edges of the graph
  * @see Node
@@ -9,7 +11,7 @@ package graphStructure;
 public class Road {
 
     private final Node destination;
-    private final int cost;
+    private int cost;
 
     public Road(Node destination, int cost) {
         this.destination = destination;
@@ -22,6 +24,10 @@ public class Road {
 
     public int getCost() {
         return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     public String toString() {

@@ -14,6 +14,8 @@ public abstract class Tree {
 
     protected ArrayList<Road> roads;
 
+
+
     public Tree() {
         roads = new ArrayList<>();
     }
@@ -25,6 +27,10 @@ public abstract class Tree {
     public void add(Road road) {
         roads.add(road);
     }
+
+    public void removeRoad(int i) {
+        roads.remove(i);
+    }
     public void clear() {
         roads.clear();
     }
@@ -32,5 +38,9 @@ public abstract class Tree {
         return roads.isEmpty();
     }
     public abstract String toString();
+
+    public int getSize() {
+        return roads.size();
+    }
 
 }

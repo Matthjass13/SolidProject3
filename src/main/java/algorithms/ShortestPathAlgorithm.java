@@ -1,4 +1,7 @@
-package graphStructure;
+package algorithms;
+
+import graphStructure.Network;
+import graphStructure.Path;
 
 /**
  * This class will be in charge of computing
@@ -58,15 +61,21 @@ public abstract class ShortestPathAlgorithm {
 
 
     /**
-     * This method computes all shortest paths values
-     * and store it in lambdas.
-     * It naturally uses Dijkstra algorithm.
+     * This method computes all shortest paths and shortest path costs
+     * and store it in the class fields.
      */
     public void computeShortestPaths() {
         for(int i=0; i<lambdas.length; ++i)
             computeShortestPaths(i);
     }
 
+
+    /**
+     * This method computes all shortest and shortest path costs
+     * coming from start node and store.
+     * These calculations will be done in specific algorithm
+     * who inherit this class.
+     */
     public abstract void computeShortestPaths(int start);
 
     public void displayLambdas() {
@@ -109,7 +118,6 @@ public abstract class ShortestPathAlgorithm {
         }
         System.out.println();
     }
-
 
 
 }

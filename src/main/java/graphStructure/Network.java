@@ -1,10 +1,14 @@
 package graphStructure;
 
+import graphStructure.nodes.Node;
+
 /**
  * This class contains all data stored
  * in the graph representation of the network.
+ * Memento pattern is used to keep track of different saves of the network (originator).
  * @see Node
  * @see Star
+ * @see NetworkCaretaker
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
@@ -16,13 +20,13 @@ public class Network {
      */
     private final int SIZE;
 
-    private final Node[] nodes;
+    private Node[] nodes;
 
     /**
      * For each node, a list contains
      * all roads incident with it.
      */
-    private final Star[] stars;
+    private Star[] stars;
 
 
     /**
@@ -56,6 +60,14 @@ public class Network {
     public Star[] getStars() {
         return stars;
     }
+
+    public void setNodes(Node[] nodes) {
+        this.nodes = nodes;
+    }
+
+    public void setStars(Star[] stars) {
+        this.stars = stars;
+    }
     public String toString() {
         String string = "Stars of the networks : " + "\n\n";
         for (int i = 0; i < stars.length; i++)
@@ -66,6 +78,48 @@ public class Network {
 
 
 
+    /** This method changes the cost of edge (i, j) to cost.
+     * @param i start node
+     * @param j end node
+     * @param cost new cost
+     */
+    public void setCost(int i, int j, int cost) {
+        for(Road road : stars[i].getRoads()) {
+            if(road.getDestination().getID()==j) {
+                road.setCost(cost);
+                return;
+            }
+        }
+    }
+    public void addRoad(int i, Node destination, int cost) {
+        stars[i].add(new Road(destination, cost));
+    }
+    public void removeRoad(int i, int j) {
+        for(int index = 0; index < stars[i].getSize(); ++index)
+            if(stars[i].getRoads().get(index).getDestination().getID()==j)
+                stars[i].removeRoad(index);
+    }
+
+    /**
+     * Inner class used to apply the memento pattern.
+     */
+    public class Memento {
+        private Network network;
+        private Node[] nodes;
+        private Star[] stars;
+        public Memento(Network network, Node[] nodes, Star[] stars) {
+            this.network = network;
+            this.nodes = nodes;
+            this.stars = stars;
+        }
+        public void restore() {
+            network.setNodes(this.nodes);
+            network.setStars(this.stars);
+        }
+    }
+    public Memento save() {
+        return new Memento(this, this.nodes, this.stars);
+    }
 
 
 }

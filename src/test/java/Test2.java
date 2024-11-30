@@ -1,5 +1,5 @@
-import graphStructure.Node;
-import graphStructure.Dijkstra;
+import graphStructure.nodes.Node;
+import algorithms.Dijkstra;
 import graphStructure.Network;
 
 public class Test2 {
@@ -24,6 +24,8 @@ public class Test2 {
 
         Network network = new Network(cities, costs);
         System.out.println(network);
+
+        network.setCost(0, 0, 0);
 
         Dijkstra dijkstra = new Dijkstra(network);
         dijkstra.computeShortestPaths();

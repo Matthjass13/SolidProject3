@@ -1,4 +1,4 @@
-package graphStructure;
+package graphStructure.nodes;
 
 /**
  * Node of the network graph.
