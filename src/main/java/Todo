@@ -1,12 +1,12 @@
 Matthias :
-Network, city, road :
-Se renseigner sur JGraphT
-Deadline : 2 décembre
+Memento aussi sur les chemins des utilisateurs (source + destination)
+A*
 
 Sara :
-User, EndUser, Admin, UserRequest
-Se renseigner sur JGraphT
-Deadline : 2 décembre
+Coder les fichiers JSON + lecture et écriture
+JSON pour le graphe lui-même ?
 
 Classes restantes : GPS, Drawing, Interface
 
+Petites animations de voiture sur le chemin
+Partie graphique
