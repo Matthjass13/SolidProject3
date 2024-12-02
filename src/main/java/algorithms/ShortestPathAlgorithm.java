@@ -14,6 +14,7 @@ import graphStructure.Path;
 
 public abstract class ShortestPathAlgorithm {
 
+    //
     protected final Network network;
 
     /**
