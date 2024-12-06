@@ -10,12 +10,12 @@ import graphStructure.Road;
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
-
 public class Dijkstra extends ShortestPathAlgorithm {
 
     public Dijkstra(Network network) {
         super(network);
     }
+
 
     /**
      * This method computes all shortest paths
@@ -27,34 +27,28 @@ public class Dijkstra extends ShortestPathAlgorithm {
     public void computeShortestPaths(int start) {
 
         boolean[] visited = new boolean[lambdas.length];
+        visited[start] = true;
 
-        visited[start]=true;
-
-        int currentNodeIndex = start;
+        int current = start;
+        // Current node index
 
         while(!isComplete(visited)) {
-
-            for(Road road : network.getStars()[currentNodeIndex].getRoads()) {
-                if(lambdas[start][currentNodeIndex]
-                        + road.getCost()
-                        < lambdas[start][road.getDestination().getID()]) {
-                    lambdas[start][road.getDestination().getID()]
-                            = lambdas[start][currentNodeIndex]
-                            + road.getCost();
-                    shortestPaths[start][road.getDestination().getID()].reconstruct(
-                            shortestPaths[start][currentNodeIndex], road);
+            for(Road road : network.getStars()[current].getRoads()) {
+                if(lambdas[start][current] + road.getCost() < lambdas[start][road.getDestination().getID()]) {
+                    lambdas[start][road.getDestination().getID()] = lambdas[start][current] + road.getCost();
+                    shortestPaths[start][road.getDestination().getID()].rebuild(shortestPaths[start][current], road);
                 }
             }
 
-            currentNodeIndex = indexMin(start, visited);
-            if(currentNodeIndex!=-1)
-                visited[currentNodeIndex]=true;
+            current = indexMin(start, visited);
+            if(current!=-1)
+                visited[current]=true;
             else
                 break;
-
         }
 
     }
+
     /**
      * This method tests if a given boolean array
      * contains any false value in it.
@@ -66,6 +60,7 @@ public class Dijkstra extends ShortestPathAlgorithm {
                 return false;
         return true;
     }
+
     /**
      * This method returns the smallest value in lambdas[start]
      * among the vertices not yet validated by Dijkstra algorithm.
@@ -73,8 +68,8 @@ public class Dijkstra extends ShortestPathAlgorithm {
      */
     private int indexMin(int start, boolean[] visited) {
         int minIndex = -1;
-        int minValue = 10000;
-        for(int i=0; i<visited.length; ++i) {
+        int minValue = MAX;
+        for(int i = 0; i < visited.length; ++i) {
             if(!visited[i] && lambdas[start][i]<minValue) {
                 minIndex = i;
                 minValue = lambdas[start][minIndex];

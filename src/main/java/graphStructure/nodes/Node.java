@@ -1,7 +1,7 @@
 package graphStructure.nodes;
 
 /**
- * Node of the network graph.
+ * Node of the network graph
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
@@ -18,7 +18,6 @@ public class Node {
      * Vertical position of the node
      */
     private final int y;
-
     private final int ID;
 
     public Node(String name, int x, int y, int ID) {
@@ -31,7 +30,12 @@ public class Node {
     public String getName() {
         return name;
     }
-
+    public int getX() {
+        return x;
+    }
+    public int getY() {
+        return y;
+    }
     public int getID() {
         return ID;
     }
@@ -39,6 +43,5 @@ public class Node {
     public String toString() {
         return name + ". Position : (" + x + ", " + y + ")";
     }
-
 
 }

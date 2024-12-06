@@ -2,11 +2,11 @@ package graphStructure;
 
 import graphStructure.nodes.Node;
 
+import java.util.HashMap;
+
 /**
- * This class contains all data stored
- * in the graph representation of the network.
+ * This class contains all data stored in the graph representation of the network.
  * Memento pattern is used to keep track of different saves of the network (originator).
- * @see Node
  * @see Star
  * @see NetworkCaretaker
  * @author Matthias Gaillard
@@ -15,12 +15,8 @@ import graphStructure.nodes.Node;
 
 public class Network {
 
-    /**
-     * Number of nodes in the network
-     */
-    private final int SIZE;
 
-    private Node[] nodes;
+
 
     /**
      * For each node, a list contains
@@ -28,25 +24,85 @@ public class Network {
      */
     private Star[] stars;
 
+    /**
+     * Number of nodes in the network
+     */
+    private final int SIZE;
+
+
+    /**
+     * This field allows to quickly search the id
+     * of a given node name.
+     */
+    HashMap<String, Integer> nodesDirectory;
+
 
     /**
      * @param nodes Array of Node to be added in the network
-     * @param costs A non-zero costs[i][j] means
-     *              there is an edge from nodes[i] to nodes[j] of that cost.
+     * @param costs each row of costs contains in order :
+     *              root node index, destination root index, road cost
      */
     public Network(Node[] nodes, int[][] costs) {
+
+        nodesDirectory = new HashMap<String, Integer>();
+
         SIZE = nodes.length;
 
-        this.nodes = nodes;
-
         stars = new Star[SIZE];
-        for (int i = 0; i < SIZE; i++)
-            stars[i] = new Star();
+        for (int i = 0; i < SIZE; i++) {
+            nodesDirectory.put(nodes[i].getName(), nodes[i].getID());
+            stars[i] = new Star(nodes[i]);
+        }
 
+        for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
+            stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
+
+        /*
         for (int i = 0; i < costs.length; i++)
             for (int j = 0; j < costs[i].length; j++)
                 if(costs[i][j]!=0)
-                    stars[i].add(new Road(nodes[j], costs[i][j]));
+                    stars[i].add(new Road(nodes[j], costs[i][j]));*/
+    }
+    public Network() {
+
+        nodesDirectory = new HashMap<String, Integer>();
+
+        Node[] nodes = new Node[6];
+        nodes[0] = new Node("Saillon", 0, 0, 0);
+        nodes[1] = new Node("Leytron", 300, 0, 1);
+        nodes[2] = new Node("Riddes", 600, 600, 2);
+        nodes[3] = new Node("Chamoson", 900, 0, 3);
+        nodes[4] = new Node("Saint-Pierre-de-Clages", 900, 600, 4);
+        nodes[5] = new Node("Ardon", 1200, 600, 5);
+
+        int[][] costs = {
+            {0, 1, 10}, {0, 2, 30},
+            {1, 0, 10}, {1, 2, 5}, {1, 3, 15},
+            {2, 0, 30}, {2, 1, 5}, {2, 4, 40},
+            {3, 1, 15}, {3, 4, 20}, {3, 5, 60},
+            {4, 2, 40}, {4, 3, 20}, {4, 5, 10},
+            {5, 3, 60}, {5, 4, 10}
+        };
+        /*
+        int[][] costs = {
+            {0, 10, 30, 0, 0, 0},
+            {10, 0, 5, 15, 0, 0},
+            {30, 5, 0, 0, 40, 0},
+            {0, 15, 0, 0, 20, 60},
+            {0, 0, 40, 20, 0, 10},
+            {0, 0, 0, 60, 10, 0}
+        };*/
+
+        SIZE = nodes.length;
+
+        stars = new Star[SIZE];
+        for (int i = 0; i < SIZE; i++) {
+            nodesDirectory.put(nodes[i].getName(), nodes[i].getID());
+            stars[i] = new Star(nodes[i]);
+        }
+
+        for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
+            stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
 
     }
 
@@ -54,33 +110,26 @@ public class Network {
     public int getSIZE() {
         return SIZE;
     }
-    public Node[] getNodes() {
-        return nodes;
-    }
     public Star[] getStars() {
         return stars;
     }
-
-    public void setNodes(Node[] nodes) {
-        this.nodes = nodes;
+    public Star getStar(int index) {
+        return stars[index];
     }
-
+    public Node getNode(int index) {
+        return stars[index].getRoot();
+    }
+    public int getIDByName(String name) {
+        return nodesDirectory.get(name);
+    }
     public void setStars(Star[] stars) {
         this.stars = stars;
     }
-    public String toString() {
-        String string = "Stars of the networks : " + "\n\n";
-        for (int i = 0; i < stars.length; i++)
-            string += "Node of " + nodes[i].getName() + " : \n" + stars[i];
-        string += "\n";
-        return string;
-    }
 
-
-
-    /** This method changes the cost of edge (i, j) to cost.
-     * @param i start node
-     * @param j end node
+    /**
+     * This method changes the cost of edge (i, j).
+     * @param i start node index
+     * @param j end node index
      * @param cost new cost
      */
     public void setCost(int i, int j, int cost) {
@@ -90,9 +139,10 @@ public class Network {
                 return;
             }
         }
+        addRoad(i, j, cost);
     }
-    public void addRoad(int i, Node destination, int cost) {
-        stars[i].add(new Road(destination, cost));
+    public void addRoad(int i, int j, int cost) {
+        stars[i].add(new Road(getNode(j), cost));
     }
     public void removeRoad(int i, int j) {
         for(int index = 0; index < stars[i].getSize(); ++index)
@@ -100,25 +150,31 @@ public class Network {
                 stars[i].removeRoad(index);
     }
 
+    public String toString() {
+        String string = "Stars of the networks : " + "\n\n";
+        for (int i = 0; i < stars.length; i++)
+            string += stars[i];
+        string += "\n";
+        return string;
+    }
+
+
     /**
      * Inner class used to apply the memento pattern.
      */
     public class Memento {
         private Network network;
-        private Node[] nodes;
         private Star[] stars;
-        public Memento(Network network, Node[] nodes, Star[] stars) {
+        public Memento(Network network, Star[] stars) {
             this.network = network;
-            this.nodes = nodes;
             this.stars = stars;
         }
         public void restore() {
-            network.setNodes(this.nodes);
             network.setStars(this.stars);
         }
     }
     public Memento save() {
-        return new Memento(this, this.nodes, this.stars);
+        return new Memento(this, this.stars);
     }
 
 
