@@ -24,9 +24,18 @@ public abstract class Tree {
     public Node getRoot() {
         return root;
     }
+
+    public void setRoot(Node root) {
+        this.root=root;
+    }
     public ArrayList<Road> getRoads() {
         return roads;
     }
+
+    public void setRoads(ArrayList<Road> roads) {
+        this.roads = roads;
+    }
+
     public int getSize() {
         return roads.size();
     }

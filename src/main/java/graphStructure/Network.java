@@ -5,7 +5,7 @@ import graphStructure.nodes.Node;
 import java.util.HashMap;
 
 /**
- * This class contains all data stored in the graph representation of the network.
+ * This class contains all data stored in the oriented graph representation of the network.
  * Memento pattern is used to keep track of different saves of the network (originator).
  * @see Star
  * @see NetworkCaretaker
@@ -16,19 +16,16 @@ import java.util.HashMap;
 public class Network {
 
 
-
-
     /**
      * For each node, a list contains
      * all roads incident with it.
      */
-    private Star[] stars;
+    protected Star[] stars;
 
     /**
      * Number of nodes in the network
      */
-    private final int SIZE;
-
+    protected final int SIZE;
 
     /**
      * This field allows to quickly search the id
@@ -37,33 +34,7 @@ public class Network {
     HashMap<String, Integer> nodesDirectory;
 
 
-    /**
-     * @param nodes Array of Node to be added in the network
-     * @param costs each row of costs contains in order :
-     *              root node index, destination root index, road cost
-     */
-    public Network(Node[] nodes, int[][] costs) {
-
-        nodesDirectory = new HashMap<String, Integer>();
-
-        SIZE = nodes.length;
-
-        stars = new Star[SIZE];
-        for (int i = 0; i < SIZE; i++) {
-            nodesDirectory.put(nodes[i].getName(), nodes[i].getID());
-            stars[i] = new Star(nodes[i]);
-        }
-
-        for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
-            stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
-
-        /*
-        for (int i = 0; i < costs.length; i++)
-            for (int j = 0; j < costs[i].length; j++)
-                if(costs[i][j]!=0)
-                    stars[i].add(new Road(nodes[j], costs[i][j]));*/
-    }
-    public Network() {
+    public Network(boolean oriented) {
 
         nodesDirectory = new HashMap<String, Integer>();
 
@@ -76,13 +47,21 @@ public class Network {
         nodes[5] = new Node("Ardon", 1200, 600, 5);
 
         int[][] costs = {
+                {0, 1, 10}, {0, 2, 30},
+                {1, 2, 5}, {1, 3, 15},
+                {2, 4, 40},
+                {3, 4, 20}, {3, 5, 60},
+                {4, 5, 10}
+        };
+
+        /* int[][] costs = {
             {0, 1, 10}, {0, 2, 30},
             {1, 0, 10}, {1, 2, 5}, {1, 3, 15},
             {2, 0, 30}, {2, 1, 5}, {2, 4, 40},
             {3, 1, 15}, {3, 4, 20}, {3, 5, 60},
             {4, 2, 40}, {4, 3, 20}, {4, 5, 10},
             {5, 3, 60}, {5, 4, 10}
-        };
+        };*/
         /*
         int[][] costs = {
             {0, 10, 30, 0, 0, 0},
@@ -104,6 +83,24 @@ public class Network {
         for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
             stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
 
+
+        // We add missing reverse edges in case of unoriented network
+        if(!oriented) {
+            for(Star star : stars) {
+                for(Road road : star.getRoads()) {
+                    if(!stars[road.getDestination().getID()].hasLeaf(star.getRoot()))
+                        addRoad(road.getDestination().getID(), star.getRoot().getID(), road.getCost());
+                }
+            }
+        }
+
+    }
+
+    /**
+     * Network will be unoriented by default.
+     */
+    public Network() {
+        this(false);
     }
 
 

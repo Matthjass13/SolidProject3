@@ -1,8 +1,5 @@
 import algorithms.Dijkstra;
-import graphStructure.Network;
-import graphStructure.Path;
-import graphStructure.Road;
-import graphStructure.Star;
+import graphStructure.*;
 import graphStructure.nodes.Node;
 
 import javax.swing.*;
@@ -39,7 +36,7 @@ public class GPS extends JFrame {
 
         Dijkstra dijkstra = new Dijkstra(network);
         dijkstra.computeShortestPaths();
-        shortestPathToDisplay = dijkstra.getShortestPaths()[0][5];
+        shortestPathToDisplay = dijkstra.getShortestPaths()[5][0];
 
         add(new DrawNetwork());
 
@@ -63,7 +60,6 @@ public class GPS extends JFrame {
             draw(network, g2d);
             draw(shortestPathToDisplay, g2d, Color.RED);
 
-            System.out.println("Hello");
         }
     }
 

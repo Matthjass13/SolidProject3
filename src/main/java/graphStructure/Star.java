@@ -14,6 +14,17 @@ public class Star extends Tree {
         super(root);
     }
 
+    /**
+     * @param node
+     * @return true if the node is a leaf of the star
+     */
+    public boolean hasLeaf(Node node) {
+        for(Road road : roads)
+            if(road.getDestination()==node)
+                return true;
+        return false;
+    }
+
     @Override
     public String toString() {
         if(isEmpty())

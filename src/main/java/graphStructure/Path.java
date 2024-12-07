@@ -2,6 +2,8 @@ package graphStructure;
 
 import graphStructure.nodes.Node;
 
+import java.util.ArrayList;
+
 /**
  * This class represents a continuous path in the network.
  * It consists of an ordered list of adjacent roads putted together.
@@ -19,6 +21,9 @@ public class Path extends Tree {
 
     public int getCost() {
         return cost;
+    }
+    public void setCost(int cost) {
+        this.cost = cost;
     }
 
     @Override
@@ -63,5 +68,35 @@ public class Path extends Tree {
         string += ". Total cost : " + cost;
         return string;
     }
+
+
+    /**
+     * Inner class used to apply the memento pattern.
+     */
+    public class Memento {
+
+        private Path path;
+        private Node root;
+        private ArrayList<Road> roads;
+        private int cost;
+
+        public Memento(Path path, Node root, ArrayList<Road> roads, int cost) {
+            this.path = path;
+            this.root = root;
+            this.roads = roads;
+            this.cost = cost;
+        }
+
+        public void restore() {
+            path.setRoot(this.root);
+            path.setRoads(this.roads);
+            path.setCost(this.cost);
+        }
+    }
+    public Path.Memento save() {
+        return new Path.Memento(this, this.root, this.roads, this.cost);
+    }
+
+
 
 }

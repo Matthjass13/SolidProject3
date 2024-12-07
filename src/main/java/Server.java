@@ -9,6 +9,9 @@ import algorithms.Dijkstra;
 
 /**
  * Server class that will do operations on a given network.
+ * @see Network
+ * @since 06.12.2024
+ * @author Matthias Gaillard
  */
 public class Server {
     private Network network;

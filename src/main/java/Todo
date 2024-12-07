@@ -1,11 +1,7 @@
 Matthias :
 Petites animations de voiture sur le chemin
 Partie graphique
-Faire disparaitre le champ node de la classe Network
 Faire un graphe plus grand
-Essayer d'enlever l'id des noeuds si possible
-Utiliser memento pour les paths
-Implémenter l'algo A*
 
 Sara :
 Coder les fichiers JSON + lecture et écriture

@@ -5,6 +5,7 @@ import java.util.Scanner;
 /**
  * Client class that will connect to a server
  * and make queries on its network.
+ * @since 06.12.2024
  */
 
 public class Client {
