@@ -1,3 +1,5 @@
+package screens;
+
 import algorithms.Dijkstra;
 import graphStructure.*;
 import graphStructure.nodes.Node;
@@ -5,12 +7,7 @@ import graphStructure.nodes.Node;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * This class is the JFrame in which we will visualize the application.
- * @see Network
- * @author Matthias Gaillard
- * @since 04.12.2024
- */
+
 public class GPS extends JFrame {
 
     private Network network;

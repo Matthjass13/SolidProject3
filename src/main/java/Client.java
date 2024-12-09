@@ -1,10 +1,14 @@
+import screens.RegistrationScreen;
+import screens.Screen;
+
 import java.io.*;
 import java.net.*;
-import java.util.Scanner;
 
 /**
- * Client class that will connect to a server
+ * This class will connect to a server
  * and make queries on its network.
+ * @see Screen
+ * @author Matthias Gaillard
  * @since 06.12.2024
  */
 
@@ -36,6 +40,10 @@ public class Client {
     }
 
     public static void main(String[] args) {
+
+
+        Screen screen = new RegistrationScreen();
+        /*
         Client client = new Client("localhost", 45000);
 
         Scanner scanner = new Scanner(System.in);
@@ -45,6 +53,6 @@ public class Client {
         System.out.print("Username : ");
         System.out.print("Password : ");
 
-        client.sendRequest(request);
+        client.sendRequest(request);*/
     }
 }

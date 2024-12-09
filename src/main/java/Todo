@@ -3,8 +3,14 @@ Petites animations de voiture sur le chemin
 Partie graphique
 Faire un graphe plus grand
 
+
+Vérifier si l'user existe déjà lors de son inscription
+Mettre les comments javadoc
+Mettre des couleurs de fonds au Screen
+Ajouter un titre aux screens
+
 Sara :
-Coder les fichiers JSON + lecture et écriture
++ lecture et écriture
 JSON pour le graphe lui-même ?
 
 

@@ -6,9 +6,9 @@ import java.net.*;
 import graphStructure.Path;
 import algorithms.Dijkstra;
 
-
 /**
- * Server class that will do operations on a given network.
+ * This class will do operations on a given network
+ * and answer the client when asked by him.
  * @see Network
  * @since 06.12.2024
  * @author Matthias Gaillard

@@ -1,5 +1,9 @@
-package REQUEST;
+package requests;
 
+/**
+ * @author Sara Pereira De Pina
+ * @since 01.12.2024
+ */
 public class ZoomHandler extends Handler{
     final String allow = "Zoom";
     public void processRequest(userRequest request){
