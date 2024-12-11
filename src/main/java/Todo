@@ -9,6 +9,8 @@ Régler le titre de AdminAppScreen
 Vérifier sign in
 Mettre des boutons retour
 simplifier constructeurs des classes ui
+Régler le problème de l'affichage du JFrame (tout ne s'affiche pas bien sans redimensionnement)
+Régler problème des étiquettes des coûts des villes
 
 Sara :
 + lecture et écriture

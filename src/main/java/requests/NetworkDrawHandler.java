@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
+ * NOT USED
  * Handles the drawing of the network
  * @author Sara Pereira De Pina
  * @since 10.12.2024

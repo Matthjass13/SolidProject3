@@ -37,9 +37,6 @@ public class Server {
      */
     private final static int LABEL_MARGIN = 5;
 
-    private Path shortestPathToDisplay;
-
-
     private Handler destinationSearchHandler;
     private Handler networkDrawHandler;
     private Handler routeHistoryHandler;
@@ -132,6 +129,7 @@ public class Server {
     }*/
 
 
+    /*
     private class DrawNetwork extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
@@ -142,44 +140,8 @@ public class Server {
 
             //draw(network, g2d);
             draw(shortestPathToDisplay, g2d, Color.RED);
-
         }
-    }
-
-
-    public void drawNetwork(Screen screen, Graphics2D g2d) {
-        for(int i=0; i< network.getSIZE(); ++i) {
-            Star star = network.getStars()[i];
-            int x1 = star.getRoot().getX() + MARGIN;
-            int y1 = star.getRoot().getY() + MARGIN;
-            g2d.drawString(star.getRoot().getName(), x1 + LABEL_MARGIN, y1 - LABEL_MARGIN);
-            for(Road road : star.getRoads()) {
-                draw(road, star.getRoot(), g2d);
-            }
-        }
-    }
-
-    public void draw(Road road, Node source, Graphics2D g2d) {
-        int x1 = source.getX() + MARGIN;
-        int y1 = source.getY() + MARGIN;
-        int x2 = road.getDestination().getX() + MARGIN;
-        int y2 = road.getDestination().getY() + MARGIN;
-        g2d.drawLine(x1, y1, x2, y2);
-        g2d.drawString(String.valueOf(road.getCost()), (x1+x2)/2 + LABEL_MARGIN, (y1+y2)/2 - LABEL_MARGIN);
-    }
-
-    public void draw(Path path, Graphics2D g2d, Color color) {
-        g2d.setColor(color);
-        Node current = path.getRoot();
-        for(Road road : path.getRoads()) {
-            draw(road, current, g2d);
-            current = road.getDestination();
-        }
-    }
-
-    //Utiliser repaint quand on actualise
-
-
+    }*/
 
 
 }

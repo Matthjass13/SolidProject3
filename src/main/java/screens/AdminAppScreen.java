@@ -39,6 +39,7 @@ public class AdminAppScreen extends AppScreen {
 
         calculateAdmin = new Button("Change cost", 400, 250, this);
         calculateAdmin.addActionListener(e -> {
+                    sendRequest("Traffic Update " + firstNodeAdmin + " " + secondNodeAdmin + " " + roadCost);
                 }
         );
 

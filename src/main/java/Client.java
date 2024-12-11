@@ -67,7 +67,7 @@ public class Client {
 
 
 
-        Screen screen = new ConnectionScreen();
+        Screen screen = new AdminAppScreen();
 
 
         //drawNetwork("drawNetwork", serverAddress, serverPort);

@@ -17,10 +17,13 @@ import java.awt.*;
  */
 
 public class Screen extends JFrame {
+
+
+
     private Title titleLabel;
     private static Color BACKGROUND_COLOR = Color.decode("#87CEFA");
     public Screen() {
-        setSize(600, 400);
+        setBounds(0, 0, 800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLayout(null);

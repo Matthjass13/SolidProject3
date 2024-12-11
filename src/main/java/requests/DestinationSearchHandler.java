@@ -6,6 +6,8 @@ import graphStructure.Network;
 import graphStructure.Path;
 import screens.ServerScreen;
 
+import java.awt.*;
+
 /**
  * Handles the search of the shortest path between two nodes
  * @author Sara Pereira De Pina
@@ -37,6 +39,12 @@ public class DestinationSearchHandler extends Handler {
             int node2ID = network.getNodesDirectory().get(node2);
 
             Path shortestPathToDisplay = dijkstra.getShortestPaths()[node1ID][node2ID];
+
+
+
+            serverScreen.setShortestPathToDisplay(shortestPathToDisplay);
+            serverScreen.repaint();
+
 
             return shortestPathToDisplay.toString();
 
