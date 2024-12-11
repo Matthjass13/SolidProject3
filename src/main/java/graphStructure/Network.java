@@ -155,6 +155,10 @@ public class Network {
         return string;
     }
 
+    public HashMap<String, Integer> getNodesDirectory() {
+        return nodesDirectory;
+    }
+
 
     /**
      * Inner class used to apply the memento pattern.

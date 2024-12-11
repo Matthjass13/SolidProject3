@@ -1,17 +1,17 @@
 package screens;
 
-import algorithms.Dijkstra;
-import graphStructure.*;
+import graphStructure.Network;
+import graphStructure.Path;
+import graphStructure.Road;
+import graphStructure.Star;
 import graphStructure.nodes.Node;
 
 import javax.swing.*;
 import java.awt.*;
 
-
-public class GPS extends JFrame {
+public class ServerScreen extends Screen {
 
     private Network network;
-
 
     /**
      * Space between the graph and the border of the JFrame
@@ -23,40 +23,33 @@ public class GPS extends JFrame {
      */
     private final static int LABEL_MARGIN = 5;
 
-    private Path shortestPathToDisplay;
+    public ServerScreen(Network network) {
+        super();
+        this.network = network;
+        super.drawTitle("Server");
+        System.out.println("Hellox");
 
-
-    public GPS() {
-        setSize(800, 800);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.network = new Network();
-
-        Dijkstra dijkstra = new Dijkstra(network);
-        dijkstra.computeShortestPaths();
-        shortestPathToDisplay = dijkstra.getShortestPaths()[5][0];
+        setLayout(new BorderLayout());
 
         add(new DrawNetwork());
-
+        /*
+        getContentPane().add(new DrawNetwork(), BorderLayout.CENTER);
+        repaint();*/
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            GPS s = new GPS();
-            s.setVisible(true);
-        });
-    }
-
-    private class DrawNetwork extends JPanel {
+    public class DrawNetwork extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g2d.setColor(Color.BLACK);
-
             draw(network, g2d);
-            draw(shortestPathToDisplay, g2d, Color.RED);
+        }
 
+        @Override
+        public Dimension getPreferredSize() {
+            return new Dimension(800, 600); // Exemple : une taille de 800x600 pixels
         }
     }
 
@@ -90,6 +83,6 @@ public class GPS extends JFrame {
         }
     }
 
-    //Utiliser repaint quand on actualise
+    // Utiliser repaint quand on actualise
 
 }

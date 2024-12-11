@@ -2,6 +2,10 @@ package screens;
 
 import javax.swing.*;
 
+import screens.ui.Title;
+
+import java.awt.*;
+
 /**
  * This class will display a generic JFrame to the client.
  * Subclasses will define the specific of each screen.
@@ -13,12 +17,14 @@ import javax.swing.*;
  */
 
 public class Screen extends JFrame {
-
+    private Title titleLabel;
+    private static Color BACKGROUND_COLOR = Color.decode("#87CEFA");
     public Screen() {
-        setSize(800, 800);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLayout(null);
+        //getContentPane().setBackground(BACKGROUND_COLOR);
     }
 
     public void changeScreen(Screen s) {
@@ -29,6 +35,10 @@ public class Screen extends JFrame {
         int height = getHeight();
         s.setBounds(x, y, width, height);
         dispose();
+    }
+
+    public void drawTitle(String title) {
+        titleLabel = new Title(title, this);
     }
 
 }

@@ -1,3 +1,6 @@
+import requests.*;
+import screens.AdminAppScreen;
+import screens.ConnectionScreen;
 import screens.RegistrationScreen;
 import screens.Screen;
 
@@ -39,10 +42,37 @@ public class Client {
 
     }
 
+
+    public static void drawNetwork(String request, String serverAddress, int serverPort) {
+        try (Socket socket = new Socket(serverAddress, serverPort);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+            out.println(request);
+            System.out.println("Request sent: " + request);
+
+            String response = in.readLine();
+            System.out.println("Server response: " + response);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
     public static void main(String[] args) {
 
 
-        Screen screen = new RegistrationScreen();
+
+        Screen screen = new ConnectionScreen();
+
+
+        //drawNetwork("drawNetwork", serverAddress, serverPort);
+
+
         /*
         Client client = new Client("localhost", 45000);
 

@@ -1,5 +1,9 @@
 package screens;
 
+import org.w3c.dom.Text;
+import screens.ui.Button;
+import screens.ui.Label;
+import screens.ui.TextField;
 import users.adminUsers.AdminUserCreator;
 import users.endUsers.EndUserCreator;
 import users.UserCreator;
@@ -15,46 +19,46 @@ import javax.swing.*;
  * @author Sara Pereira De Pina
  */
 public class RegistrationScreen extends Screen {
+
+    private TextField username;
+    private TextField password;
+    private TextField mail;
+    private TextField phone;
+    private TextField address;
+    private Label adminLabel;
+    private JCheckBox admin;
+    private Button submit;
+
     public RegistrationScreen() {
         super();
 
-        JTextField usernameField = new JTextField();
-        usernameField.setBounds(200, 200, 100, 25);
-        add(usernameField);
+        super.drawTitle("Registration");
 
-        JTextField passwordField = new JTextField();
-        passwordField.setBounds(200, 250, 100, 25);
-        add(passwordField);
-
-        JTextField mailField = new JTextField();
-        mailField.setBounds(200, 300, 100, 25);
-        add(mailField);
-
-        JTextField phoneField = new JTextField();
-        phoneField.setBounds(200, 350, 100, 25);
-        add(phoneField);
-
-        JTextField addressField = new JTextField();
-        addressField.setBounds(200, 400, 100, 25);
-        add(addressField);
-
-        JCheckBox adminCheckBox = new JCheckBox();
-        adminCheckBox.setBounds(200, 450, 100, 25);
-        add(adminCheckBox);
+        username = new TextField("Username", 200, 100, 100, 25, this);
+        password = new TextField("Password", 200, 150, 100, 25, this);
+        mail = new TextField("Mail", 200, 200, 100, 25, this);
+        phone = new TextField("Phone", 200, 250, 100, 25, this);
+        address = new TextField("Address", 200, 300, 100, 25, this);
 
 
-        JButton submitButton = new JButton("Sign in");
-        submitButton.addActionListener(e -> {
-            createUser(usernameField.getText(),
-                       passwordField.getText(),
-                       mailField.getText(),
-                       phoneField.getText(),
-                       addressField.getText(),
-                       adminCheckBox.isSelected());
-            changeScreen(new AppScreen());
+        adminLabel = new Label("Admin", 200, 350, 100, 25, 16, this);
+        admin = new JCheckBox();
+        admin.setBounds(260, 350, 100, 25);
+        add(admin);
+
+        submit = new Button("Sign in", 200, 400, this);
+        submit.addActionListener(e -> {
+            createUser(username.getText(),
+                       password.getText(),
+                       mail.getText(),
+                       phone.getText(),
+                       address.getText(),
+                       admin.isSelected());
+            if(admin.isSelected())
+                changeScreen(new AdminAppScreen());
+            else
+                changeScreen(new AppScreen());
         });
-        submitButton.setBounds(200, 500, 100, 25);
-        add(submitButton);
 
     }
 
@@ -65,14 +69,7 @@ public class RegistrationScreen extends Screen {
         else
             creator = new EndUserCreator();
         creator.createUser(username, password, mail, phone, address);
+
     }
-
-
-    public void createTextField(String name, int y) {
-        JTextField usernameField = new JTextField();
-        usernameField.setBounds(200, y, 100, 25);
-        add(usernameField);
-    }
-
 
 }

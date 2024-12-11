@@ -1,13 +1,15 @@
 package requests;
 
 /**
+ * Represents a user request
+ * Implementation of the Chain of Responsability pattern
  * @author Sara Pereira De Pina
  * @since 01.12.2024
  */
-public class userRequest {
+public class UserRequest {
     String purpose;
 
-    public userRequest(String p){
+    public UserRequest(String p){
         purpose = p;
     }
 

@@ -1,7 +1,11 @@
 package screens;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import screens.ui.Button;
+import screens.ui.Label;
+import screens.ui.TextField;
 
 import javax.swing.*;
 import java.io.FileReader;
@@ -16,53 +20,79 @@ import java.io.IOException;
  */
 public class ConnectionScreen extends Screen {
 
+    private TextField username;
+    private TextField password;
+    private Label message;
+    private Button submit;
+    private Button signIn;
+
     public ConnectionScreen() {
         super();
 
-        JTextField usernameField = new JTextField();
-        usernameField.setBounds(200, 200, 100, 25);
-        add(usernameField);
+        super.drawTitle("Connection");
 
-        JTextField passwordField = new JTextField();
-        passwordField.setBounds(200, 400, 100, 25);
-        add(passwordField);
+        username = new TextField("Enter username", 200, 100, 100, 25, this);
+        password = new TextField("Enter password", 200, 150, 100, 25, this);
+        message = new Label("", 350, 500, 100, 25, 16, this);
 
-        JButton submitButton = new JButton("Validate");
-        submitButton.addActionListener(e -> {
-            boolean b = checkUser(usernameField.getText(), passwordField.getText(), "src/main/java/USERS/adminUsers.json");
-            System.out.println(usernameField.getText() +  " " + passwordField.getText());
-            System.out.println(b);
+        submit = new Button("Validate", 300, 200, this);
+        submit.addActionListener(e -> {
+            boolean isAdmin = checkUser(username.getText(), password.getText(), true);
+            if(isAdmin)
+                changeScreen(new AdminAppScreen());
+            else {
+                boolean isEndUser = checkUser(username.getText(), password.getText(), false);
+                if(isEndUser)
+                    changeScreen(new AppScreen());
+                else {
+                    message.setText("Wrong username or password, please try again !");
+                }
+            }
         });
-        submitButton.setBounds(200, 500, 100, 25);
-        add(submitButton);
 
-
-        JButton signInButton = new JButton("Sign in");
-        signInButton.addActionListener(e -> {
+        signIn = new Button("Sign in", 100, 200, this);
+        signIn.addActionListener(e -> {
             changeScreen(new RegistrationScreen());
         });
-        signInButton.setBounds(100, 500, 100, 25);
-        add(signInButton);
 
     }
 
-    public boolean checkUser(String username, String password, String fileName) {
+    public boolean checkUser(String username, String password, boolean admin) {
 
+        String filePath = "src/main/java/users/";
+        if(admin)
+            filePath+="adminUsers/adminUsers.json";
+        else
+            filePath+="endUsers/endUsers.json";
 
-        try (FileReader reader = new FileReader(fileName)) {
-            // Lire le JSON comme un objet
+        try {
+
+            FileReader reader = new FileReader(filePath);
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            // Extraire les valeurs de "username" et "password"
-            String storedUsername = jsonObject.get("username").getAsString();
-            String storedPassword = jsonObject.get("password").getAsString();
-            // Vérifier si le nom d'utilisateur et le mot de passe correspondent
-            return storedUsername.equals(username) && storedPassword.equals(password);
-        } catch (IOException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Erreur de lecture du fichier JSON.", "Erreur", JOptionPane.ERROR_MESSAGE);
-            return false;
+            reader.close();
 
+            if (!jsonObject.has("users") || !jsonObject.get("users").isJsonArray()) {
+                System.err.println("JSON file does not contain 'users' array.");
+                return false;
+            }
+
+            JsonArray usersArray = jsonObject.getAsJsonArray("users");
+
+            for (int i = 0; i < usersArray.size(); i++) {
+                JsonObject user = usersArray.get(i).getAsJsonObject();
+                if (user.get("username").getAsString().equals(username) &&
+                        user.get("password").getAsString().equals(password)) {
+                    return true;
+                }
+            }
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
+        } catch (IllegalStateException e) {
+            System.err.println("Erreur de parsing JSON : " + e.getMessage());
         }
+
+        return false;
 
     }
 
