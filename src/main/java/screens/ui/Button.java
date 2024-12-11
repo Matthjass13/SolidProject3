@@ -3,6 +3,7 @@ package screens.ui;
 import screens.Screen;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 /**
@@ -11,16 +12,17 @@ import java.awt.*;
  * @since 11.12.2024
  */
 public class Button extends JButton {
-    public Button(String text, int x, int y, int width, int height, int fontSize, Screen screen) {
+    public Button(String text, int x, int y, Color color, Screen screen) {
         super(text);
-        setBackground(Color.GREEN);
-        setBounds(x, y, width, height);
-        setFont(new Font("Arial", Font.BOLD, fontSize));
+        setBackground(color);
+        setBounds(x, y, 150, 50);
+        setFont(new Font("Tahoma", Font.BOLD, 30));
+        setBorder(new LineBorder(Color.BLACK, 3));
         screen.add(this);
     }
 
     public Button(String text, int x, int y, Screen screen) {
-        this(text, x, y, 200, 50, 20, screen);
+        this(text, x, y, Color.decode("#009DCF"), screen);
     }
 
 }

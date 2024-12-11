@@ -7,7 +7,6 @@ import screens.ui.Button;
 import screens.ui.Label;
 import screens.ui.TextField;
 
-import javax.swing.*;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -23,20 +22,20 @@ public class ConnectionScreen extends Screen {
     private TextField username;
     private TextField password;
     private Label message;
-    private Button submit;
-    private Button signIn;
+    private Button login;
+    private Button signUp;
 
     public ConnectionScreen() {
         super();
 
         super.drawTitle("Connection");
 
-        username = new TextField("Enter username", 200, 100, 100, 25, this);
-        password = new TextField("Enter password", 200, 150, 100, 25, this);
-        message = new Label("", 350, 500, 100, 25, 16, this);
+        username = new TextField("Enter username", 30, 100, this);
+        password = new TextField("Enter password", 30, 150, this);
+        message = new Label("", 350, 250, 100, this);
 
-        submit = new Button("Validate", 300, 200, this);
-        submit.addActionListener(e -> {
+        login = new Button("Login", 30, 200, this);
+        login.addActionListener(e -> {
             boolean isAdmin = checkUser(username.getText(), password.getText(), true);
             if(isAdmin)
                 changeScreen(new AdminAppScreen());
@@ -50,10 +49,13 @@ public class ConnectionScreen extends Screen {
             }
         });
 
-        signIn = new Button("Sign in", 100, 200, this);
-        signIn.addActionListener(e -> {
+        signUp = new Button("Sign up", 330, 200, this);
+        signUp.addActionListener(e -> {
             changeScreen(new RegistrationScreen());
         });
+
+
+        logOut.setVisible(false);
 
     }
 

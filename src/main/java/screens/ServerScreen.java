@@ -32,6 +32,8 @@ public class ServerScreen extends Screen {
     public ServerScreen(Network network) {
         super();
 
+        logOut.setVisible(false);
+
         setBounds(600, 0, 993, 925);
 
         this.network = network;
@@ -63,12 +65,8 @@ public class ServerScreen extends Screen {
 
     public class DrawNetwork extends JPanel {
 
-
-
         @Override
         protected void paintComponent(Graphics g) {
-
-
 
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
@@ -81,8 +79,6 @@ public class ServerScreen extends Screen {
             }
 
         }
-
-
 
     }
 

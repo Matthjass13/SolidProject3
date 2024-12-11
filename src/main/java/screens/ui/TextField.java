@@ -3,6 +3,7 @@ package screens.ui;
 import screens.Screen;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 
 
@@ -19,14 +20,18 @@ public class TextField extends JTextField {
     public TextField(String placeholder, int x, int y, int width, int height, int fontSize, Screen screen) {
         super();
         this.placeholder = placeholder;
-        setColumns(20);
+        setColumns(30);
         setBounds(x, y, width, height);
-        setFont(new Font("Arial", Font.BOLD, fontSize));
+        setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         screen.add(this);
+
+        setBorder(new LineBorder(Color.BLACK, 2));
+
+
     }
 
-    public TextField(String placeholder, int x, int y, int width, int height, Screen screen) {
-        this(placeholder, x, y, width, height, 16, screen);
+    public TextField(String placeholder, int x, int y, Screen screen) {
+        this(placeholder, x, y, 200, 30, 20, screen);
     }
 
     /**

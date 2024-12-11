@@ -3,6 +3,7 @@ package screens;
 import javax.swing.*;
 
 import screens.ui.Title;
+import screens.ui.Button;
 
 import java.awt.*;
 
@@ -20,14 +21,21 @@ public class Screen extends JFrame {
 
 
 
-    private Title titleLabel;
-    private static Color BACKGROUND_COLOR = Color.decode("#87CEFA");
+    protected Title titleLabel;
+
+    protected Button logOut;
+
+    private static Color BACKGROUND_COLOR = Color.decode("#BBD2EC");
     public Screen() {
         setBounds(0, 0, 800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLayout(null);
-        //getContentPane().setBackground(BACKGROUND_COLOR);
+        getContentPane().setBackground(BACKGROUND_COLOR);
+
+        logOut = new Button("Log out", 630, 20, Color.LIGHT_GRAY, this);
+
+
     }
 
     public void changeScreen(Screen s) {

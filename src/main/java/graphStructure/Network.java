@@ -41,7 +41,7 @@ public class Network {
 
         // New version
         Node[] nodes = new Node[14];
-        nodes[0] = new Node("Eiffel tower", 318, 480, 0);
+        nodes[0] = new Node("EiffelTower", 318, 480, 0);
         nodes[1] = new Node("Arc de Triomphe", 293, 346, 1);
         nodes[2] = new Node("Place Concorde", 400, 378, 2);
         nodes[3] = new Node("Orsay Museum", 484, 559, 3);
@@ -71,43 +71,6 @@ public class Network {
                 {11, 13, 18},
                 {12, 13, 15}
         };
-
-
-        // First version
-        /*
-        Node[] nodes = new Node[6];
-        nodes[0] = new Node("Saillon", 0, 0, 0);
-        nodes[1] = new Node("Leytron", 300, 0, 1);
-        nodes[2] = new Node("Riddes", 600, 600, 2);
-        nodes[3] = new Node("Chamoson", 900, 0, 3);
-        nodes[4] = new Node("Saint-Pierre-de-Clages", 900, 600, 4);
-        nodes[5] = new Node("Ardon", 1200, 600, 5);
-
-        int[][] costs = {
-                {0, 1, 10}, {0, 2, 30},
-                {1, 2, 5}, {1, 3, 15},
-                {2, 4, 40},
-                {3, 4, 20}, {3, 5, 60},
-                {4, 5, 10}
-        };*/
-
-        /* int[][] costs = {
-            {0, 1, 10}, {0, 2, 30},
-            {1, 0, 10}, {1, 2, 5}, {1, 3, 15},
-            {2, 0, 30}, {2, 1, 5}, {2, 4, 40},
-            {3, 1, 15}, {3, 4, 20}, {3, 5, 60},
-            {4, 2, 40}, {4, 3, 20}, {4, 5, 10},
-            {5, 3, 60}, {5, 4, 10}
-        };*/
-        /*
-        int[][] costs = {
-            {0, 10, 30, 0, 0, 0},
-            {10, 0, 5, 15, 0, 0},
-            {30, 5, 0, 0, 40, 0},
-            {0, 15, 0, 0, 20, 60},
-            {0, 0, 40, 20, 0, 10},
-            {0, 0, 0, 60, 10, 0}
-        };*/
 
         SIZE = nodes.length;
 

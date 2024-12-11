@@ -1,6 +1,5 @@
 package screens;
 
-import org.w3c.dom.Text;
 import screens.ui.Button;
 import screens.ui.Label;
 import screens.ui.TextField;
@@ -25,29 +24,29 @@ public class RegistrationScreen extends Screen {
     private TextField mail;
     private TextField phone;
     private TextField address;
-    private Label adminLabel;
     private JCheckBox admin;
-    private Button submit;
+    private Button signUp;
+    private Button login;
+
 
     public RegistrationScreen() {
         super();
 
         super.drawTitle("Registration");
 
-        username = new TextField("Username", 200, 100, 100, 25, this);
-        password = new TextField("Password", 200, 150, 100, 25, this);
-        mail = new TextField("Mail", 200, 200, 100, 25, this);
-        phone = new TextField("Phone", 200, 250, 100, 25, this);
-        address = new TextField("Address", 200, 300, 100, 25, this);
+        username = new TextField("Username", 30, 100, this);
+        password = new TextField("Password", 30, 150, this);
+        mail = new TextField("Mail", 30, 200, this);
+        phone = new TextField("Phone", 30, 250, this);
+        address = new TextField("Address", 30, 300, this);
 
-
-        adminLabel = new Label("Admin", 200, 350, 100, 25, 16, this);
+        new Label("Admin", 250, 100, 100, this);
         admin = new JCheckBox();
-        admin.setBounds(260, 350, 100, 25);
+        admin.setBounds(320, 100, 25, 25);
         add(admin);
 
-        submit = new Button("Sign in", 200, 400, this);
-        submit.addActionListener(e -> {
+        signUp = new Button("Sign up", 260, 280, this);
+        signUp.addActionListener(e -> {
             createUser(username.getText(),
                        password.getText(),
                        mail.getText(),
@@ -59,6 +58,15 @@ public class RegistrationScreen extends Screen {
             else
                 changeScreen(new AppScreen());
         });
+
+        login = new Button("Login", 450, 280, this);
+
+        login.addActionListener(e -> {
+            changeScreen(new ConnectionScreen());
+        });
+
+
+        logOut.setVisible(false);
 
     }
 

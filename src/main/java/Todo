@@ -1,19 +1,10 @@
-Matthias :
 Petites animations de voiture sur le chemin
-Partie graphique
-Faire un graphe plus grand
 Vérifier si l'user existe déjà lors de son inscription
 Mettre les comments javadoc
-Mettre des couleurs de fonds au Screen
-Régler le titre de AdminAppScreen
-Vérifier sign in
-Mettre des boutons retour
-simplifier constructeurs des classes ui
+Simplifier constructeurs des classes ui
 Régler le problème de l'affichage du JFrame (tout ne s'affiche pas bien sans redimensionnement)
-Régler problème des étiquettes des coûts des villes
-
-Sara :
-+ lecture et écriture
-JSON pour le graphe lui-même ?
-
-
+Régler problème des étiquettes des coûts des villes en les remplaçant par des Labels
+Recherche du chemin hamiltonien
+Dessiner le network dans le client
+Régler problème des espaces dans les noms des monuments
+Retester l'affichage des plus courts chemins (ça n'affiche que le premier edge ???)

@@ -1,10 +1,8 @@
 package screens;
 
-import requests.*;
 import screens.ui.Button;
 import screens.ui.Label;
 import screens.ui.TextField;
-import users.User;
 
 import javax.swing.*;
 import java.io.BufferedReader;
@@ -26,7 +24,7 @@ public class AppScreen extends Screen {
     private TextField firstNode;
     private Label to;
     private TextField secondNode;
-    private Button calculate;
+    private Button search;
     private JLabel shortestPathCostLabel;
 
     public AppScreen() {
@@ -34,18 +32,26 @@ public class AppScreen extends Screen {
 
         super.drawTitle("App");
 
-        shortestPathFromLabel = new Label("Shortest path from : ", 100, 100, 200, 25, this);
-        firstNode = new TextField("First node", 100, 150, 80, 25, this);
-        to = new Label("to", 200, 150, 40, 25, this);
-        secondNode = new TextField("Second node", 220, 150, 80, 25, this);
-        shortestPathCostLabel = new Label("Shortest path cost : ", 100, 200, 200, 25, this);
+        shortestPathFromLabel = new Label("Shortest path", 30, 100, 200, this);
+        new Label("from", 30, 150, 80, this);
+        firstNode = new TextField("First node", 30, 180, this);
+        new Label("to", 30, 210, 40, this);
+        secondNode = new TextField("Second node", 30, 240, this);
 
-        calculate = new Button("Calculate", 100, 250, this);
-        calculate.addActionListener(e -> {
+        search = new Button("Search", 30, 300, this);
+        search.addActionListener(e -> {
                     sendRequest("Destination Search "
                             + firstNode.getText() + " "
                             + secondNode.getText());
                 }
+        );
+
+
+        shortestPathCostLabel = new Label("", 30, 400, 300, this);
+
+        logOut.addActionListener(e -> {
+                changeScreen(new ConnectionScreen());
+            }
         );
 
         // sendRequest("Draw network", this);

@@ -2,6 +2,8 @@ package screens.ui;
 
 import screens.Screen;
 
+import java.awt.*;
+
 /**
  * This class is used to display the titles
  * on top of each screen.
@@ -13,6 +15,8 @@ import screens.Screen;
 public class Title extends Label {
     public Title(String text, Screen screen) {
         super(text, 30, 0, 500, 100, 30, screen);
+        setFont(new Font("Tahoma", Font.BOLD, 40));
+
     }
 
 }
