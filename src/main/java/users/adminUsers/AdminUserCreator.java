@@ -6,7 +6,7 @@ import users.UserCreator;
 /**
  * @see AdminUser
  * @see UserCreator
- * @author Sara Pereira De Pina
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public class AdminUserCreator extends UserCreator {

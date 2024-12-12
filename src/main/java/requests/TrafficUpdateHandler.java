@@ -1,23 +1,23 @@
 package requests;
 
-import algorithms.Dijkstra;
 import graphStructure.Network;
 import screens.ServerScreen;
 
 /**
- * Handle the road cost changes by the admin users
- * @author Sara Pereira De Pina
+ * Handles the road cost changes by the admin users
+ * @see Handler
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public class TrafficUpdateHandler extends Handler{
-    final String allow = "Traffic Update";
 
     public TrafficUpdateHandler(Network network, ServerScreen serverScreen) {
         super(network, serverScreen);
+        type = "Traffic Update";
     }
 
     public String processRequest(UserRequest request){
-        if(request.getPurpose().contains(allow)){
+        if(request.isAbout("Traffic Update")){
 
 
             String nodes = request.getPurpose().substring(15);
@@ -29,19 +29,12 @@ public class TrafficUpdateHandler extends Handler{
             System.out.println(node2);
             System.out.println(cost);
 
-            int node1ID = network.getNodesDirectory().get(node1);
-            int node2ID = network.getNodesDirectory().get(node2);
-
-
-
+            int node1ID = network.getIDByName(node1);
+            int node2ID = network.getIDByName(node2);
 
             serverScreen.setRoadCost(node1ID, node2ID, Integer.parseInt(cost));
             serverScreen.repaint();
 
-
-
-
-            System.out.println("Traffic Update Handler will execute the request : "+allow);
         }
         else{
             if(successor != null){

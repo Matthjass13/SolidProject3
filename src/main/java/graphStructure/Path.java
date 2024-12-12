@@ -1,7 +1,5 @@
 package graphStructure;
 
-import graphStructure.nodes.Node;
-
 import java.util.ArrayList;
 
 /**

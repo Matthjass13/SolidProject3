@@ -4,10 +4,18 @@ import graphStructure.Network;
 import graphStructure.Path;
 import graphStructure.Road;
 import graphStructure.Star;
-import graphStructure.nodes.Node;
+import graphStructure.Node;
 
 import javax.swing.*;
 import java.awt.*;
+
+
+/**
+ * This class will display the network from the server.
+ * @see Screen
+ * @author Matthias Gaillard
+ * @since 10.12.2024
+ */
 
 public class ServerScreen extends Screen {
 
@@ -32,7 +40,6 @@ public class ServerScreen extends Screen {
     public ServerScreen(Network network) {
         super();
 
-        logOut.setVisible(false);
 
         setBounds(600, 0, 993, 925);
 
@@ -60,14 +67,9 @@ public class ServerScreen extends Screen {
     }
 
 
-
-
-
     public class DrawNetwork extends JPanel {
-
         @Override
         protected void paintComponent(Graphics g) {
-
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -77,9 +79,7 @@ public class ServerScreen extends Screen {
             if (shortestPathToDisplay != null) {
                 drawShortestPath(g2d, shortestPathColor);
             }
-
         }
-
     }
 
     public void draw(Network network, Graphics2D g2d) {

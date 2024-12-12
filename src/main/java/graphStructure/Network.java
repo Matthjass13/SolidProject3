@@ -1,14 +1,10 @@
 package graphStructure;
 
-import graphStructure.nodes.Node;
-
 import java.util.HashMap;
 
 /**
  * This class contains all data stored in the oriented graph representation of the network.
- * Memento pattern is used to keep track of different saves of the network (originator).
  * @see Star
- * @see NetworkCaretaker
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
@@ -28,20 +24,23 @@ public class Network {
     protected final int SIZE;
 
     /**
-     * This field allows to quickly search the id
-     * of a given node name.
+     * This field allows to quickly search
+     * the id of a given node name.
      */
     HashMap<String, Integer> nodesDirectory;
 
 
+    /**
+     * We build the network of Paris in this constructor.
+     * See ressources for source image.
+     */
     public Network(boolean oriented) {
 
         nodesDirectory = new HashMap<String, Integer>();
 
-
         // New version
         Node[] nodes = new Node[14];
-        nodes[0] = new Node("EiffelTower", 318, 480, 0);
+        nodes[0] = new Node("Eiffel Tower", 318, 480, 0);
         nodes[1] = new Node("Arc de Triomphe", 293, 346, 1);
         nodes[2] = new Node("Place Concorde", 400, 378, 2);
         nodes[3] = new Node("Orsay Museum", 484, 559, 3);
@@ -83,7 +82,6 @@ public class Network {
         for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
             stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
 
-
         // We add missing reverse edges in case of unoriented network
         if(!oriented) {
             for(Star star : stars) {
@@ -103,7 +101,6 @@ public class Network {
         this(false);
     }
 
-
     public int getSIZE() {
         return SIZE;
     }
@@ -116,6 +113,12 @@ public class Network {
     public Node getNode(int index) {
         return stars[index].getRoot();
     }
+
+    /**
+     * Returns the id of a node by its name.
+     * @param name
+     * @return the id of the node
+     */
     public int getIDByName(String name) {
         return nodesDirectory.get(name);
     }
@@ -154,29 +157,5 @@ public class Network {
         string += "\n";
         return string;
     }
-
-    public HashMap<String, Integer> getNodesDirectory() {
-        return nodesDirectory;
-    }
-
-
-    /**
-     * Inner class used to apply the memento pattern.
-     */
-    public class Memento {
-        private Network network;
-        private Star[] stars;
-        public Memento(Network network, Star[] stars) {
-            this.network = network;
-            this.stars = stars;
-        }
-        public void restore() {
-            network.setStars(this.stars);
-        }
-    }
-    public Memento save() {
-        return new Memento(this, this.stars);
-    }
-
 
 }

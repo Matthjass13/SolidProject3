@@ -9,8 +9,8 @@ import screens.ui.TextField;
  * This class will display the main app to the admin :
  * it is the same as for the end user but with more functionalities.
  * @see AppScreen
+ * @author Sara Pereira
  * @since 10.12.2024
- * @author Sara Pereira De Pina
  */
 public class AdminAppScreen extends AppScreen {
 
@@ -28,12 +28,12 @@ public class AdminAppScreen extends AppScreen {
         titleLabel.setText("Admin App");
         super.drawTitle("Admin App");
 
-        new Label("Change road cost to ", 330, 100, 200, this);
+        new Label("Change road cost to ", 330, 100, this);
         roadCost = new TextField("New cost", 520, 100, this);
 
-        new Label("from", 330, 150, 80, this);
+        new Label("from", 330, 150, this);
         firstNodeAdmin = new TextField("First Node", 330, 180, this);
-        new Label("to", 330, 210, 40, this);
+        new Label("to", 330, 210, this);
         secondNodeAdmin = new TextField("Second node", 330, 240, this);
 
         update = new Button("Update", 330, 300, this);

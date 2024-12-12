@@ -14,8 +14,8 @@ import javax.swing.*;
  * This class will display a registration screen,
  * for the user who has no account yet.
  * @see Screen
+ * @author Sara Pereira
  * @since 09.12.2024
- * @author Sara Pereira De Pina
  */
 public class RegistrationScreen extends Screen {
 
@@ -60,13 +60,9 @@ public class RegistrationScreen extends Screen {
         });
 
         login = new Button("Login", 450, 280, this);
-
         login.addActionListener(e -> {
             changeScreen(new ConnectionScreen());
         });
-
-
-        logOut.setVisible(false);
 
     }
 

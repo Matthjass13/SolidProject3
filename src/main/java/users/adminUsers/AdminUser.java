@@ -3,10 +3,10 @@ package users.adminUsers;
 import users.User;
 
 /**
- * This class represents an account for using our app.
+ * This class represents an admin account for using our app.
  * It allows for both search and update queries.
  * @see User
- * @author Sara Pereira De Pina
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public class AdminUser extends User {

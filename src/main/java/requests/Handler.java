@@ -1,21 +1,19 @@
 package requests;
 
 import graphStructure.Network;
-import screens.Screen;
 import screens.ServerScreen;
 
 /**
- * @author Sara Pereira De Pina
+ * Abstract that will handle a request received by the server.
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public abstract class Handler {
-    Handler successor;
 
-
-    Network network;
-
-
-    ServerScreen serverScreen;
+    protected Network network;
+    protected Handler successor;
+    protected ServerScreen serverScreen;
+    protected String type;
 
     public Handler(Network network, ServerScreen serverScreen) {
         this.network = network;

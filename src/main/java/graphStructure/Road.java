@@ -1,7 +1,5 @@
 package graphStructure;
 
-import graphStructure.nodes.Node;
-
 /**
  * Edges of the graph
  * Root node is not stored in this class,

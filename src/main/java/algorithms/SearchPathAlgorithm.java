@@ -11,9 +11,11 @@ import graphStructure.Path;
  * @author Matthias Gaillard
  * @since 25.11.2024
  */
+public abstract class SearchPathAlgorithm {
 
-public abstract class ShortestPathAlgorithm {
-
+    /**
+     * Graph
+     */
     protected final Network network;
 
     /**
@@ -40,7 +42,7 @@ public abstract class ShortestPathAlgorithm {
      * It also initializes the lambdas and shortestPaths class fields.
      * @param network graph structure the algorithm will work on
      */
-    public ShortestPathAlgorithm(Network network) {
+    public SearchPathAlgorithm(Network network) {
         this.network = network;
 
         lambdas = new int[network.getSIZE()][network.getSIZE()];
@@ -62,15 +64,6 @@ public abstract class ShortestPathAlgorithm {
     }
     public Path getShortestPaths(int i, int j) {
         return shortestPaths[i][j];
-    }
-    public Path getShortestPaths(String startNodeName, String endNodeName) {
-        return getShortestPaths(network.getIDByName(startNodeName), network.getIDByName(endNodeName));
-    }
-    public int[][] getLambdas() {
-        return lambdas;
-    }
-    public int getLambda(int i, int j) {
-        return lambdas[i][j];
     }
 
 
@@ -114,19 +107,6 @@ public abstract class ShortestPathAlgorithm {
         System.out.println(shortestPaths[i][j]);
     }
 
-    /**
-     * This method is not used in the application
-     * It was used in testing to check
-     * if the paths were correctly calculated
-     */
-    public void displayShortestPathsCosts() {
-        for(int i=0; i<shortestPaths.length; ++i) {
-            for(int j=0; j<shortestPaths.length; ++j)
-                System.out.print(shortestPaths[i][j].getCost() + " ");
-            System.out.println();
-        }
-        System.out.println();
-    }
 
 
 }

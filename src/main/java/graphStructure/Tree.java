@@ -1,7 +1,6 @@
 package graphStructure;
 
 import java.util.ArrayList;
-import graphStructure.nodes.Node;
 
 /**
  * This class will be used as an abstract data structure
@@ -39,8 +38,6 @@ public abstract class Tree {
     public int getSize() {
         return roads.size();
     }
-
-    public abstract String toString();
     public void add(Road road) {
         roads.add(road);
     }
@@ -53,6 +50,6 @@ public abstract class Tree {
     public boolean isEmpty() {
         return roads.isEmpty();
     }
-
+    public abstract String toString();
 
 }

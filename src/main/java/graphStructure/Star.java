@@ -1,7 +1,5 @@
 package graphStructure;
 
-import graphStructure.nodes.Node;
-
 /**
  * This class stores all edges incident with a given vertex in our graph.
  * @see Tree

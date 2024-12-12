@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import screens.ui.Button;
 import screens.ui.Label;
+import screens.ui.Rectangle;
 import screens.ui.TextField;
 
 import java.io.FileReader;
@@ -14,8 +15,8 @@ import java.io.IOException;
  * This class will display a connection screen
  * for the user who already has an account.
  * @see Screen
+ * @author Sara Pereira
  * @since 09.12.2024
- * @author Sara Pereira De Pina
  */
 public class ConnectionScreen extends Screen {
 
@@ -30,9 +31,11 @@ public class ConnectionScreen extends Screen {
 
         super.drawTitle("Connection");
 
+        new Rectangle(10, 80, 500, 200, this);
+
         username = new TextField("Enter username", 30, 100, this);
         password = new TextField("Enter password", 30, 150, this);
-        message = new Label("", 350, 250, 100, this);
+        message = new Label("", 30, 300, 500, this);
 
         login = new Button("Login", 30, 200, this);
         login.addActionListener(e -> {
@@ -53,9 +56,6 @@ public class ConnectionScreen extends Screen {
         signUp.addActionListener(e -> {
             changeScreen(new RegistrationScreen());
         });
-
-
-        logOut.setVisible(false);
 
     }
 

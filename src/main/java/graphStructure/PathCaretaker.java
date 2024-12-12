@@ -1,5 +1,8 @@
 package graphStructure;
 
+import graphStructure.Path;
+import graphStructure.Network;
+
 import java.util.ArrayList;
 import java.util.List;
 

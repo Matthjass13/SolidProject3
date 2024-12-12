@@ -6,7 +6,7 @@ import users.UserCreator;
 /**
  * @see EndUser
  * @see UserCreator
- * @author Sara Pereira De Pina
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public class EndUserCreator extends UserCreator {

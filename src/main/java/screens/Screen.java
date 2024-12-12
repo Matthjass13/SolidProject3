@@ -13,28 +13,21 @@ import java.awt.*;
  * @see RegistrationScreen
  * @see ConnectionScreen
  * @see AppScreen
+ * @author Sara Pereira
  * @since 09.12.2024
- * @author Sara Pereira De Pina
  */
 
 public class Screen extends JFrame {
 
-
-
     protected Title titleLabel;
-
-    protected Button logOut;
-
     private static Color BACKGROUND_COLOR = Color.decode("#BBD2EC");
+
     public Screen() {
         setBounds(0, 0, 800, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
         setLayout(null);
         getContentPane().setBackground(BACKGROUND_COLOR);
-
-        logOut = new Button("Log out", 630, 20, Color.LIGHT_GRAY, this);
-
 
     }
 

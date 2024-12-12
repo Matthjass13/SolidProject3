@@ -5,6 +5,7 @@ import screens.ui.Label;
 import screens.ui.TextField;
 
 import javax.swing.*;
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -15,27 +16,26 @@ import java.net.Socket;
  * This class will display the main app to the client :
  * the graph but also forms he can fill and submit to make queries.
  * @see Screen
+ * @author Sara Pereira
  * @since 04.12.2024
- * @author Sara Pereira De Pina
  */
 public class AppScreen extends Screen {
-
-    private Label shortestPathFromLabel;
     private TextField firstNode;
-    private Label to;
     private TextField secondNode;
     private Button search;
-    private JLabel shortestPathCostLabel;
+    private Label shortestPathCostLabel;
+
+    protected Button logOut;
 
     public AppScreen() {
         super();
 
         super.drawTitle("App");
 
-        shortestPathFromLabel = new Label("Shortest path", 30, 100, 200, this);
-        new Label("from", 30, 150, 80, this);
+        new Label("Shortest path", 30, 100, this);
+        new Label("from", 30, 150, this);
         firstNode = new TextField("First node", 30, 180, this);
-        new Label("to", 30, 210, 40, this);
+        new Label("to", 30, 210, this);
         secondNode = new TextField("Second node", 30, 240, this);
 
         search = new Button("Search", 30, 300, this);
@@ -49,6 +49,8 @@ public class AppScreen extends Screen {
 
         shortestPathCostLabel = new Label("", 30, 400, 300, this);
 
+
+        logOut = new Button("Log out", 630, 20, Color.LIGHT_GRAY, this);
         logOut.addActionListener(e -> {
                 changeScreen(new ConnectionScreen());
             }

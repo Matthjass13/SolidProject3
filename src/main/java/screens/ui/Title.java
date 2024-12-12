@@ -1,7 +1,6 @@
 package screens.ui;
 
 import screens.Screen;
-
 import java.awt.*;
 
 /**
@@ -14,9 +13,7 @@ import java.awt.*;
  */
 public class Title extends Label {
     public Title(String text, Screen screen) {
-        super(text, 30, 0, 500, 100, 30, screen);
-        setFont(new Font("Tahoma", Font.BOLD, 40));
-
+        super(text, 30, 0, 500, 100, 40, true, screen);
     }
 
 }

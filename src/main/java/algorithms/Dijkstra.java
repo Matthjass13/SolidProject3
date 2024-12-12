@@ -6,11 +6,11 @@ import graphStructure.Road;
 /**
  * This class will be in charge of computing
  * shortest paths using Dijkstra algorithm.
- * @see ShortestPathAlgorithm
+ * @see SearchPathAlgorithm
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
-public class Dijkstra extends ShortestPathAlgorithm {
+public class Dijkstra extends SearchPathAlgorithm {
 
     public Dijkstra(Network network) {
         super(network);

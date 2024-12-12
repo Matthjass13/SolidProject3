@@ -5,19 +5,21 @@ import screens.ServerScreen;
 
 /**
  * Handles the history of the paths searched by the user beforehand
- * @author Sara Pereira De Pina
+ * @see Handler
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public class RouteHistoryHandler extends Handler {
-    final String allow = "Route History";
 
     public RouteHistoryHandler(Network network, ServerScreen serverScreen) {
         super(network, serverScreen);
+        type = "Route History";
     }
 
     public String processRequest(UserRequest request){
-        if(request.getPurpose().equals(allow)){
-            System.out.println("Route History Handler will execute the request : " + allow);
+        if(request.isAbout(type)){
+
+
         }
         else{
             if(successor != null){

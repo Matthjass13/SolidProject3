@@ -1,4 +1,4 @@
-package graphStructure.nodes;
+package graphStructure;
 
 /**
  * Node of the network graph
@@ -42,11 +42,6 @@ public class Node {
 
     public String toString() {
         return name + ". Position : (" + x + ", " + y + ")";
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return ID==((Node) obj).ID;
     }
 
 }

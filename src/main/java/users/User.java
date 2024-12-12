@@ -2,7 +2,7 @@ package users;
 
 /**
  * This class represents an account for using our app.
- * @author Sara Pereira De Pina
+ * @author Sara Pereira
  * @since 01.12.2024
  */
 public abstract class User {
