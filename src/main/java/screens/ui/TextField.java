@@ -5,6 +5,10 @@ import screens.Screen;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -51,6 +55,20 @@ public class TextField extends JTextField {
 
             g2.drawString(placeholder, x, y);
         }
+
+        this.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                repaint();
+            }
+        });
+
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                repaint();
+            }
+        });
     }
 
     public String toString() {

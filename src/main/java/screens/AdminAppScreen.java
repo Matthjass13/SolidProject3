@@ -38,7 +38,7 @@ public class AdminAppScreen extends AppScreen {
 
         update = new Button("Update", 330, 300, this);
         update.addActionListener(e -> {
-                    sendRequest("Traffic Update " + firstNodeAdmin + " " + secondNodeAdmin + " " + roadCost);
+                    sendRequest("Traffic Update : " + firstNodeAdmin + " : " + secondNodeAdmin + " : " + roadCost);
                 }
         );
 

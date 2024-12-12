@@ -1,11 +1,1 @@
-{
-  "users": [
-    {
-      "username": "end",
-      "password": "end",
-      "mail": "4",
-      "phone": "5",
-      "address": "6"
-    }
-  ]
-}
+{"users":[{"username":"end","password":"end","mail":"4","phone":"5","address":"6"},{"username":"admin","password":"admin","mail":"","phone":"","address":""}]}

@@ -40,10 +40,10 @@ public class AppScreen extends Screen {
 
         search = new Button("Search", 30, 300, this);
         search.addActionListener(e -> {
-                    sendRequest("Destination Search "
-                            + firstNode.getText() + " "
-                            + secondNode.getText());
-                }
+                sendRequest("Destination Search : "
+                        + firstNode.getText() + " : "
+                        + secondNode.getText());
+            }
         );
 
 
@@ -55,6 +55,11 @@ public class AppScreen extends Screen {
                 changeScreen(new ConnectionScreen());
             }
         );
+
+
+        revalidate();
+        repaint();
+
 
         // sendRequest("Draw network", this);
         // State pattern pour l'affichage du network

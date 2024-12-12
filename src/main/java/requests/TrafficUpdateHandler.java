@@ -20,10 +20,11 @@ public class TrafficUpdateHandler extends Handler{
         if(request.isAbout("Traffic Update")){
 
 
-            String nodes = request.getPurpose().substring(15);
-            String node1 = nodes.split(" ")[0];
-            String node2 = nodes.split(" ")[1];
-            String cost = nodes.split(" ")[2];
+
+            String purpose = request.getPurpose();
+            String node1 = purpose.split(" : ")[1];
+            String node2 = purpose.split(" : ")[2];
+            String cost = purpose.split(" : ")[3];
 
             System.out.println(node1);
             System.out.println(node2);

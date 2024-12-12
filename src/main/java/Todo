@@ -1,16 +1,9 @@
 Petites animations de voiture sur le chemin
-Vérifier si l'user existe déjà lors de son inscription
-Mettre les comments javadoc
-Régler le problème de l'affichage du JFrame (tout ne s'affiche pas bien sans redimensionnement)
 Régler problème des étiquettes des coûts des villes en les remplaçant par des Labels
 Recherche du chemin hamiltonien
 Dessiner le network dans le client
-Régler problème des espaces dans les noms des monuments
 Retester l'affichage des plus courts chemins (ça n'affiche que le premier edge ???)
 Enchaînement de JPanel au lieu d'enchainement de JFrames
 Class "Line"
-Mot de passe afficher avec des étoiles
-Régler le placeholder des textfields
-Changer author
-mettre rectangle sur tous les éléments
 memento sur les paths
+mettre rectangle sur tous les éléments

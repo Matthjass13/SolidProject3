@@ -24,9 +24,9 @@ public class DestinationSearchHandler extends Handler {
             Dijkstra dijkstra = new Dijkstra(network);
             dijkstra.computeShortestPaths();
 
-            String nodes = request.getPurpose().substring(19);
-            String node1 = nodes.split(" ")[0];
-            String node2 = nodes.split(" ")[1];
+            String purpose = request.getPurpose();
+            String node1 = purpose.split(" : ")[1];
+            String node2 = purpose.split(" : ")[2];
 
             System.out.println(node1);
             System.out.println(node2);
@@ -36,14 +36,10 @@ public class DestinationSearchHandler extends Handler {
 
             Path shortestPathToDisplay = dijkstra.getShortestPaths()[node1ID][node2ID];
 
-
-
             serverScreen.setShortestPathToDisplay(shortestPathToDisplay);
             serverScreen.repaint();
 
-
             return shortestPathToDisplay.toString();
-
 
         }
         else{

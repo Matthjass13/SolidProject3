@@ -24,7 +24,7 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Screen screen = new AdminAppScreen();
+        Screen screen = new ConnectionScreen();
     }
 
 }
