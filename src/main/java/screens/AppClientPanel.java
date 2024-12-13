@@ -5,6 +5,7 @@ import screens.ui.Label;
 import screens.ui.Rectangle;
 import screens.ui.TextField;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,6 +25,8 @@ public class AppClientPanel extends ClientPanel {
     private TextField firstNode;
     private TextField secondNode;
     private Button search;
+
+    private JTextArea shortestPathDescription;
     private Label shortestPathCostLabel;
     protected Button logOut;
 
@@ -33,7 +36,7 @@ public class AppClientPanel extends ClientPanel {
         super.drawTitle("App");
 
 
-        screens.ui.Rectangle connectionForm = new Rectangle(30, 110, 250, 300, this);
+        screens.ui.Rectangle connectionForm = new Rectangle(30, 110, 250, 450, this);
 
         new Label("Shortest path", 0, 0, connectionForm);
         new Label("from", 0, 50, connectionForm);
@@ -50,7 +53,22 @@ public class AppClientPanel extends ClientPanel {
         );
 
 
-        shortestPathCostLabel = new Label("", 0, 400, 300, connectionForm);
+
+
+
+
+        shortestPathDescription = new JTextArea("");
+        shortestPathDescription.setFont(new Font("Tahoma", Font.PLAIN, 18));
+        shortestPathDescription.setLineWrap(true);
+        shortestPathDescription.setBounds(20, 280, connectionForm.getWidth()-20, 400);
+        shortestPathDescription.setOpaque(false);
+        connectionForm.add(shortestPathDescription);
+
+
+        handleShortestPathDisplay("Orsay Museum : Pantheon : Bercy : 4");
+
+
+        shortestPathCostLabel = new Label("", 0, 350, 300, connectionForm);
 
 
         logOut = new Button("Log out", 500, 20, Color.LIGHT_GRAY, this);
@@ -65,7 +83,6 @@ public class AppClientPanel extends ClientPanel {
 
 
         // sendRequest("Draw network", this);
-        // State pattern pour l'affichage du network
         // Flyweight on node, road
 
     }
@@ -91,12 +108,25 @@ public class AppClientPanel extends ClientPanel {
 
     }
     public void handleRequestBack(String response) {
+        if(response!=null && response.contains(" : ")) {
+            handleShortestPathDisplay(response);
+            //shortestPathCostLabel.setText("Shortest path cost : " + cost);
+        }
+    }
 
-        String[] parties = response.split("Total cost : ");
-        String cost = parties[1].trim();
+    private void handleShortestPathDisplay(String response) {
 
-        shortestPathCostLabel.setText("Shortest path cost : " + cost);
+        shortestPathDescription.setText("");
 
+        String[] parties = response.split(" : ");
+
+        shortestPathDescription.setText("Shortest path : \n");
+
+        for(int i=0; i<parties.length-1; ++i) {
+            shortestPathDescription.append(" -> " + parties[i] + "\n");
+        }
+
+        shortestPathDescription.append("Shortest path cost : " + parties[parties.length-1]);
     }
 
 

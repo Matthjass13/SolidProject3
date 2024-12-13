@@ -18,37 +18,23 @@ public class DestinationSearchHandler extends Handler {
         type = "Destination Search";
     }
 
-    public String processRequest(UserRequest request){
-        if(request.isAbout(type)){
+    @Override
+    public String doRequest(UserRequest request) {
+        Dijkstra dijkstra = new Dijkstra(network);
+        dijkstra.computeShortestPaths();
 
-            Dijkstra dijkstra = new Dijkstra(network);
-            dijkstra.computeShortestPaths();
+        String node1 = request.getItem(0);
+        String node2 = request.getItem(1);
 
-            String purpose = request.getPurpose();
-            String node1 = purpose.split(" : ")[1];
-            String node2 = purpose.split(" : ")[2];
+        int node1ID = network.getIDByName(node1);
+        int node2ID = network.getIDByName(node2);
 
-            System.out.println(node1);
-            System.out.println(node2);
+        Path shortestPathToDisplay = dijkstra.getShortestPaths()[node1ID][node2ID];
 
-            int node1ID = network.getIDByName(node1);
-            int node2ID = network.getIDByName(node2);
+        serverScreen.setShortestPathToDisplay(shortestPathToDisplay);
+        serverScreen.repaint();
 
-            Path shortestPathToDisplay = dijkstra.getShortestPaths()[node1ID][node2ID];
-
-            serverScreen.setShortestPathToDisplay(shortestPathToDisplay);
-            serverScreen.repaint();
-
-            return shortestPathToDisplay.toString();
-
-        }
-        else{
-            if(successor != null){
-                successor.processRequest(request);
-            }
-        }
-
-        return "";
+        return shortestPathToDisplay.toString();
     }
 
 }

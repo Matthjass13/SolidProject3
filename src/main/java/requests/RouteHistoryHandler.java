@@ -16,17 +16,10 @@ public class RouteHistoryHandler extends Handler {
         type = "Route History";
     }
 
-    public String processRequest(UserRequest request){
-        if(request.isAbout(type)){
-
-
-        }
-        else{
-            if(successor != null){
-                successor.processRequest(request);
-            }
-        }
-
-        return "";
+    @Override
+    public String doRequest(UserRequest request) {
+        return null;
     }
+
+
 }

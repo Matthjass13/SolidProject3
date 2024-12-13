@@ -22,6 +22,19 @@ public abstract class Handler {
     public void setSuccessor(Handler successor){
         this.successor = successor;
     };
-    public abstract String processRequest(UserRequest request);
+
+    public String processRequest(UserRequest request){
+        if(request.getPurpose().equals(type)){
+            return doRequest(request);
+        }
+        else{
+            if(successor != null){
+                successor.processRequest(request);
+            }
+        }
+        return "";
+    }
+
+    public abstract String doRequest(UserRequest request);
 
 }

@@ -62,8 +62,8 @@ public class Path extends Tree {
             return "Empty";
         String string = root.getName();
         for (Road road : roads)
-            string += " -> " + road.getDestination().getName();
-        string += ". Total cost : " + cost;
+            string += " : " + road.getDestination().getName();
+        string += " : " + cost;
         return string;
     }
 

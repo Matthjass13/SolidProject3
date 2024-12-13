@@ -66,8 +66,7 @@ public class Server {
             UserRequest userRequest = new UserRequest(request);
             String result = destinationSearchHandler.processRequest(userRequest);
 
-            System.out.println(result + "server side");
-            out.println(result + "client side");
+            out.println(result);
 
 
         } catch (IOException e) {

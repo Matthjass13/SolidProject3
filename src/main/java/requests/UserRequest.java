@@ -1,5 +1,7 @@
 package requests;
 
+import java.util.ArrayList;
+
 /**
  * Represents a user request
  * Implementation of the chain of responsability pattern
@@ -8,21 +10,22 @@ package requests;
  */
 public class UserRequest {
     String purpose;
+    ArrayList<String> items;
+    public UserRequest(String input){
+        String[] elements = input.split(" : ");
+        purpose = elements[0];
 
-    public UserRequest(String p){
-        purpose = p;
+        items = new ArrayList<>();
+        for(int i=1; i<elements.length; ++i) {
+            items.add(elements[i]);
+        }
     }
 
     public String getPurpose() {
         return purpose;
     }
-    public void setPurpose(String purpose) {
-        this.purpose = purpose;
-    }
-
-
-    public boolean isAbout(String type) {
-        return purpose.contains(type);
+    public String getItem(int i) {
+        return items.get(i);
     }
 
 }

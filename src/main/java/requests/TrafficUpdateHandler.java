@@ -16,34 +16,21 @@ public class TrafficUpdateHandler extends Handler{
         type = "Traffic Update";
     }
 
-    public String processRequest(UserRequest request){
-        if(request.isAbout("Traffic Update")){
+    @Override
+    public String doRequest(UserRequest request) {
 
 
+        String node1 = request.getItem(0);
+        String node2 = request.getItem(1);
+        String cost = request.getItem(2);
 
-            String purpose = request.getPurpose();
-            String node1 = purpose.split(" : ")[1];
-            String node2 = purpose.split(" : ")[2];
-            String cost = purpose.split(" : ")[3];
+        int node1ID = network.getIDByName(node1);
+        int node2ID = network.getIDByName(node2);
 
-            System.out.println(node1);
-            System.out.println(node2);
-            System.out.println(cost);
+        serverScreen.setRoadCost(node1ID, node2ID, Integer.parseInt(cost));
+        serverScreen.repaint();
 
-            int node1ID = network.getIDByName(node1);
-            int node2ID = network.getIDByName(node2);
-
-            serverScreen.setRoadCost(node1ID, node2ID, Integer.parseInt(cost));
-            serverScreen.repaint();
-
-        }
-        else{
-            if(successor != null){
-                successor.processRequest(request);
-            }
-        }
-
-
-        return "";
+        return cost;
     }
+
 }

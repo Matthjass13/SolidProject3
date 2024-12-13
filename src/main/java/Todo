@@ -1,7 +1,5 @@
 Petites animations de voiture sur le chemin
-Régler problème des étiquettes des coûts des villes en les remplaçant par des Labels
 Dessiner le network dans le client
-memento sur les paths
+memento sur les paths ( bouton previous )
 checkUser et createUser dans le serveur
-processRequest décrire dans Handler et pas dans les sous-class
-(Recherche du chemin hamiltonien)
+Threads implementation

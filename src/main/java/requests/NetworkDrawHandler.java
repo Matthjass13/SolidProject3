@@ -11,32 +11,15 @@ import screens.ServerScreen;
  */
 public class NetworkDrawHandler extends Handler {
 
-
     public NetworkDrawHandler(Network network, ServerScreen serverScreen) {
         super(network, serverScreen);
         type = "Draw network";
     }
 
-    public String processRequest(UserRequest request){
-        if(request.isAbout(type)){
-
-        }
-        else{
-            if(successor != null){
-                successor.processRequest(request);
-            }
-        }
-
-        return "";
+    @Override
+    public String doRequest(UserRequest request) {
+        return null;
     }
-
-
-
-
-
-
-
-
 
 
 }
