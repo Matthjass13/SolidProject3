@@ -2,6 +2,7 @@ package screens.ui;
 
 import screens.Screen;
 
+import javax.swing.*;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -16,12 +17,12 @@ public class PasswordField extends TextField {
 
     private final PasswordDocument passwordDocument;
 
-    public PasswordField(String placeholder, int x, int y, int width, int height, int fontSize, Screen screen) {
+    public PasswordField(String placeholder, int x, int y, int width, int height, int fontSize, JPanel screen) {
         super(placeholder, x, y, width, height, fontSize, screen);
         this.passwordDocument = new PasswordDocument();
         this.setDocument(passwordDocument); // Associer le document personnalisé
     }
-    public PasswordField(String placeholder, int x, int y, Screen screen) {
+    public PasswordField(String placeholder, int x, int y, JPanel screen) {
         this(placeholder, x, y, 200, 30, 20, screen);
     }
 

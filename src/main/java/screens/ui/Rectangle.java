@@ -17,8 +17,16 @@ public class Rectangle extends JPanel {
         super();
         setBounds(x, y, width, height);
         setBorder(new LineBorder(Color.BLACK, 7));
-        setOpaque(false);
+
+        setLayout(null);
+        setBackground(Color.decode("#BBD2EC"));
         screen.add(this);
+
+
     }
+
+
+
+
 
 }

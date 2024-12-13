@@ -6,14 +6,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import screens.ui.Title;
-import screens.ui.Button;
 
 import java.awt.*;
 import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * This class will display a generic JFrame to the client.
+ * This class will display a generic JPanel to the client.
  * Subclasses will define the specific of each screen.
  * @see RegistrationScreen
  * @see ConnectionScreen
@@ -22,17 +21,21 @@ import java.io.IOException;
  * @since 09.12.2024
  */
 
-public class Screen extends JFrame {
+public class Screen extends JPanel implements ClientState {
+
+    protected Client client;
 
     protected Title titleLabel;
-    private static Color BACKGROUND_COLOR = Color.decode("#BBD2EC");
+    private static Color BACKGROUND_COLOR = Color.decode("#009DCF");
 
-    public Screen() {
+
+    public Screen(Client client) {
+
+        this.client = client;
+
         setBounds(0, 0, 800, 400);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         setLayout(null);
-        getContentPane().setBackground(BACKGROUND_COLOR);
+        setBackground(BACKGROUND_COLOR);
 
         revalidate();
         repaint();
@@ -40,15 +43,46 @@ public class Screen extends JFrame {
         setVisible(true);
     }
 
-    public void changeScreen(Screen s) {
-        s.setVisible(true);
-        int x = getX();
-        int y = getY();
-        int width = getWidth();
-        int height = getHeight();
-        s.setBounds(x, y, width, height);
-        dispose();
+    public Screen() {
+
+        setBounds(0, 0, 800, 400);
+        setLayout(null);
+        setBackground(BACKGROUND_COLOR);
+
+        revalidate();
+        repaint();
+
+        setVisible(true);
     }
+
+
+    public String getTitle() {
+        return titleLabel.getText();
+    }
+
+    @Override
+    public void logOut() {
+        client.setCurrentState(client.getConnectionScreen());
+    }
+
+    @Override
+    public void logIn(boolean admin) {
+        if(admin)
+            client.setCurrentState(client.getAdminAppScreen());
+        else
+            client.setCurrentState(client.getAppScreen());
+    }
+
+    @Override
+    public void goToConnection() {
+        client.setCurrentState(client.getConnectionScreen());
+    }
+
+    @Override
+    public void goToRegistration() {
+        client.setCurrentState(client.getRegistrationScreen());
+    }
+
 
     public void drawTitle(String title) {
         titleLabel = new Title(title, this);
@@ -93,8 +127,6 @@ public class Screen extends JFrame {
         return false;
 
     }
-
-
 
 
 }

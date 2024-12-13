@@ -3,6 +3,7 @@ package screens;
 
 import screens.ui.Button;
 import screens.ui.Label;
+import screens.ui.Rectangle;
 import screens.ui.TextField;
 
 /**
@@ -21,27 +22,35 @@ public class AdminAppScreen extends AppScreen {
 
     private int SPACE_BETWEEN_FORMS;
 
-    public AdminAppScreen() {
-        super();
-
+    public AdminAppScreen(Client client) {
+        super(client);
 
         titleLabel.setText("Admin App");
         super.drawTitle("Admin App");
 
-        new Label("Change road cost to ", 330, 100, this);
-        roadCost = new TextField("New cost", 520, 100, this);
 
-        new Label("from", 330, 150, this);
-        firstNodeAdmin = new TextField("First Node", 330, 180, this);
-        new Label("to", 330, 210, this);
-        secondNodeAdmin = new TextField("Second node", 330, 240, this);
+        screens.ui.Rectangle connectionForm = new Rectangle(330, 110, 400, 300, this);
 
-        update = new Button("Update", 330, 300, this);
+
+        new Label("Change road cost to ", 0, 0, connectionForm);
+        roadCost = new TextField("New cost", 190, 0, 100, connectionForm);
+
+        new Label("from", 0, 50, connectionForm);
+        firstNodeAdmin = new TextField("First Node", 0, 80, connectionForm);
+        new Label("to", 0, 110, connectionForm);
+        secondNodeAdmin = new TextField("Second node", 0, 140, connectionForm);
+
+        update = new Button("Update", 0, 200, connectionForm);
         update.addActionListener(e -> {
                     sendRequest("Traffic Update : " + firstNodeAdmin + " : " + secondNodeAdmin + " : " + roadCost);
                 }
         );
 
+
+
     }
+
+
+
 
 }

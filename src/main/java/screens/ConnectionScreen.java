@@ -1,12 +1,6 @@
 package screens;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import screens.ui.*;
-
-import java.io.FileReader;
-import java.io.IOException;
 
 /**
  * This class will display a connection screen
@@ -17,50 +11,51 @@ import java.io.IOException;
  */
 public class ConnectionScreen extends Screen {
 
+
+
     private TextField username;
     private PasswordField password;
     private Label message;
     private Button login;
     private Button signUp;
 
-    public ConnectionScreen() {
-        super();
+    public ConnectionScreen(Client client) {
+        super(client);
 
         super.drawTitle("Connection");
 
-        new Rectangle(10, 80, 500, 200, this);
 
-        username = new TextField("Enter username", 30, 100, this);
-        password = new PasswordField("Enter password", 30, 150, this);
-        message = new Label("", 30, 300, 500, this);
+        Rectangle connectionForm = new Rectangle(30, 110, 250, 200, this);
 
-        login = new Button("Login", 30, 200, this);
+        username = new TextField("Enter username", 0, 0, connectionForm);
+        password = new PasswordField("Enter password", 0, 50, connectionForm);
+        message = new Label("", 0, 75, 500, connectionForm);
+
+        login = new Button("Login", 0, 100, connectionForm);
         login.addActionListener(e -> {
             boolean isAdmin = checkUser(username.getText(), password.getText(), true);
             if(isAdmin)
-                changeScreen(new AdminAppScreen());
+                logIn(true);
             else {
                 boolean isEndUser = checkUser(username.getText(), password.getText(), false);
-                if(isEndUser)
-                    changeScreen(new AppScreen());
+                if(isEndUser) {
+                    logIn(false);
+                }
                 else {
                     message.setText("Wrong username or password, please try again !");
                 }
             }
         });
 
-        signUp = new Button("Sign up", 330, 200, this);
+        signUp = new Button("Sign up", 300, 220, this);
         signUp.addActionListener(e -> {
-            changeScreen(new RegistrationScreen());
+            goToRegistration();
         });
-
 
         revalidate();
         repaint();
 
     }
-
-
 
 }
 

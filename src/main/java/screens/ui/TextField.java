@@ -19,19 +19,24 @@ import java.awt.event.KeyEvent;
 public class TextField extends JTextField {
 
     private String placeholder;
+    protected int SPACE_TO_PANEL = 20;
 
-    public TextField(String placeholder, int x, int y, int width, int height, int fontSize, Screen screen) {
+    public TextField(String placeholder, int x, int y, int width, int height, int fontSize, JPanel screen) {
         super();
         this.placeholder = placeholder;
         setColumns(30);
-        setBounds(x, y, width, height);
+        setBounds(x + SPACE_TO_PANEL, y + SPACE_TO_PANEL, width, height);
         setFont(new Font("Tahoma", Font.PLAIN, fontSize));
         screen.add(this);
         setBorder(new LineBorder(Color.BLACK, 2));
     }
 
-    public TextField(String placeholder, int x, int y, Screen screen) {
+    public TextField(String placeholder, int x, int y, JPanel screen) {
         this(placeholder, x, y, 200, 30, 20, screen);
+    }
+
+    public TextField(String placeholder, int x, int y, int width, JPanel screen) {
+        this(placeholder, x, y, width, 30, 20, screen);
     }
 
     /**

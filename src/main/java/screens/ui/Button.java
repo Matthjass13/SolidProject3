@@ -12,16 +12,17 @@ import java.awt.*;
  * @since 11.12.2024
  */
 public class Button extends JButton {
-    public Button(String text, int x, int y, Color color, Screen screen) {
+    private int SPACE_TO_PANEL = 20;
+    public Button(String text, int x, int y, Color color, JPanel screen) {
         super(text);
         setBackground(color);
-        setBounds(x, y, 150, 50);
+        setBounds(x + SPACE_TO_PANEL, y + SPACE_TO_PANEL, 150, 50);
         setFont(new Font("Tahoma", Font.BOLD, 30));
         setBorder(new LineBorder(Color.BLACK, 3));
         screen.add(this);
     }
 
-    public Button(String text, int x, int y, Screen screen) {
+    public Button(String text, int x, int y, JPanel screen) {
         this(text, x, y, Color.decode("#009DCF"), screen);
     }
 

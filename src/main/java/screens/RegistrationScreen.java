@@ -1,9 +1,6 @@
 package screens;
 
-import screens.ui.Button;
-import screens.ui.Label;
-import screens.ui.PasswordField;
-import screens.ui.TextField;
+import screens.ui.*;
 import users.adminUsers.AdminUserCreator;
 import users.endUsers.EndUserCreator;
 import users.UserCreator;
@@ -18,7 +15,8 @@ import javax.swing.*;
  * @author Sara Pereira
  * @since 09.12.2024
  */
-public class RegistrationScreen extends Screen {
+public class RegistrationScreen extends Screen implements ClientState {
+
 
     private TextField username;
     private PasswordField password;
@@ -32,34 +30,53 @@ public class RegistrationScreen extends Screen {
     private Label message;
 
 
-    public RegistrationScreen() {
-        super();
+    public RegistrationScreen(Client client) {
+        super(client);
 
         super.drawTitle("Registration");
 
-        username = new TextField("Username", 30, 100, this);
-        password = new PasswordField("Password", 30, 150, this);
-        mail = new TextField("Mail", 30, 200, this);
-        phone = new TextField("Phone", 30, 250, this);
-        address = new TextField("Address", 30, 300, this);
 
-        new Label("Admin", 250, 100, 100, this);
+        Rectangle connectionForm = new Rectangle(30, 110, 500, 300, this);
+
+        username = new TextField("Username", 0, 0, connectionForm);
+        password = new PasswordField("Password", 0, 50, connectionForm);
+        mail = new TextField("Mail", 0, 100, connectionForm);
+        phone = new TextField("Phone", 0, 150, connectionForm);
+        address = new TextField("Address", 0, 200, connectionForm);
+
+        new Label("Admin", 220, 0, 100, connectionForm);
         admin = new JCheckBox();
-        admin.setBounds(320, 100, 25, 25);
-        add(admin);
+        admin.setBounds(310, 20, 25, 25);
+        connectionForm.add(admin);
 
-        signUp = new Button("Sign up", 260, 280, this);
+        signUp = new Button("Sign up", 240, 180, connectionForm);
         signUp.addActionListener(e -> {
 
-            signUp();
+            if(checkUser(username.getText(), password.getText(), admin.isSelected())) {
+                message.setText("You already have an account. Please log in.");
+            } else {
+                createUser(username.getText(),
+                        password.getText(),
+                        mail.getText(),
+                        phone.getText(),
+                        address.getText(),
+                        admin.isSelected());
+                if(admin.isSelected())
+                    logIn(true);
+                else
+                    logIn(false);
+            }
+
         });
 
-        login = new Button("Login", 450, 280, this);
+        login = new Button("Login",
+                connectionForm.getX() + connectionForm.getWidth() + 20,
+                connectionForm.getY() + signUp.getY()-20, this);
         login.addActionListener(e -> {
-            changeScreen(new ConnectionScreen());
+            goToConnection();
         });
 
-        message = new Label("", 30, 350, 500, this);
+        message = new Label("", 30, 350, 500, connectionForm);
 
         revalidate();
         repaint();
@@ -76,25 +93,5 @@ public class RegistrationScreen extends Screen {
 
     }
 
-
-    public void signUp() {
-
-        if(checkUser(username.getText(), password.getText(), admin.isSelected())) {
-            message.setText("You already have an account. Please log in.");
-        } else {
-            createUser(username.getText(),
-                    password.getText(),
-                    mail.getText(),
-                    phone.getText(),
-                    address.getText(),
-                    admin.isSelected());
-            if(admin.isSelected())
-                changeScreen(new AdminAppScreen());
-            else
-                changeScreen(new AppScreen());
-        }
-
-
-    }
 
 }

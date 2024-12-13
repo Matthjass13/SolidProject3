@@ -2,6 +2,7 @@ package screens;
 
 import screens.ui.Button;
 import screens.ui.Label;
+import screens.ui.Rectangle;
 import screens.ui.TextField;
 
 import javax.swing.*;
@@ -20,25 +21,28 @@ import java.net.Socket;
  * @since 04.12.2024
  */
 public class AppScreen extends Screen {
+
     private TextField firstNode;
     private TextField secondNode;
     private Button search;
     private Label shortestPathCostLabel;
-
     protected Button logOut;
 
-    public AppScreen() {
-        super();
+    public AppScreen(Client client) {
+        super(client);
 
         super.drawTitle("App");
 
-        new Label("Shortest path", 30, 100, this);
-        new Label("from", 30, 150, this);
-        firstNode = new TextField("First node", 30, 180, this);
-        new Label("to", 30, 210, this);
-        secondNode = new TextField("Second node", 30, 240, this);
 
-        search = new Button("Search", 30, 300, this);
+        screens.ui.Rectangle connectionForm = new Rectangle(30, 110, 250, 300, this);
+
+        new Label("Shortest path", 0, 0, connectionForm);
+        new Label("from", 0, 50, connectionForm);
+        firstNode = new TextField("First node", 0, 80, connectionForm);
+        new Label("to", 0, 110, connectionForm);
+        secondNode = new TextField("Second node", 0, 140, connectionForm);
+
+        search = new Button("Search", 0, 200, connectionForm);
         search.addActionListener(e -> {
                 sendRequest("Destination Search : "
                         + firstNode.getText() + " : "
@@ -47,12 +51,12 @@ public class AppScreen extends Screen {
         );
 
 
-        shortestPathCostLabel = new Label("", 30, 400, 300, this);
+        shortestPathCostLabel = new Label("", 0, 400, 300, connectionForm);
 
 
-        logOut = new Button("Log out", 630, 20, Color.LIGHT_GRAY, this);
+        logOut = new Button("Log out", 500, 20, Color.LIGHT_GRAY, this);
         logOut.addActionListener(e -> {
-                changeScreen(new ConnectionScreen());
+                logOut();
             }
         );
 
@@ -87,7 +91,6 @@ public class AppScreen extends Screen {
         }
 
     }
-
     public void handleRequestBack(String response) {
 
         String[] parties = response.split("Total cost : ");

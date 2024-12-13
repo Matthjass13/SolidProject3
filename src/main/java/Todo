@@ -1,9 +1,10 @@
 Petites animations de voiture sur le chemin
 Régler problème des étiquettes des coûts des villes en les remplaçant par des Labels
-Recherche du chemin hamiltonien
 Dessiner le network dans le client
 Retester l'affichage des plus courts chemins (ça n'affiche que le premier edge ???)
-Enchaînement de JPanel au lieu d'enchainement de JFrames
-Class "Line"
 memento sur les paths
-mettre rectangle sur tous les éléments
+Tableau de JComponents
+checkUser et createUser dans le serveur
+processRequest décrire dans Handler et pas dans les sous-class
+
+(Recherche du chemin hamiltonien)

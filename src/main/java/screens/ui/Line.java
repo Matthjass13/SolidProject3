@@ -19,18 +19,20 @@ public class Line extends JPanel {
     private int y2;
     private Color color;
 
-    public Line(int x1, int y1, int x2, int y2, Color color) {
+    public Line(int x1, int y1, int x2, int y2, Color color, JPanel pnl) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
         this.color = color;
+
+        pnl.add(this);
     }
-    public Line(Node node1, Node node2, Color color) {
-        this(node1.getX(), node1.getY(), node2.getX(), node2.getY(), color);
+    public Line(Node node1, Node node2, Color color, JPanel pnl) {
+        this(node1.getX(), node1.getY(), node2.getX(), node2.getY(), color, pnl);
     }
-    public Line(Node node1, Node node2) {
-        this(node1.getX(), node1.getY(), node2.getX(), node2.getY(), Color.BLACK);
+    public Line(Node node1, Node node2, JPanel pnl) {
+        this(node1.getX(), node1.getY(), node2.getX(), node2.getY(), Color.BLACK, pnl);
     }
 
     @Override

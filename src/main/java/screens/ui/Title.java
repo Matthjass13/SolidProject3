@@ -1,6 +1,8 @@
 package screens.ui;
 
 import screens.Screen;
+
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -12,8 +14,8 @@ import java.awt.*;
  * @since 11.12.2024
  */
 public class Title extends Label {
-    public Title(String text, Screen screen) {
-        super(text, 30, 0, 500, 100, 40, true, screen);
+    public Title(String text, JPanel screen) {
+        super(text, 10, -20, 500, 100, 40, true, screen);
     }
 
 }
