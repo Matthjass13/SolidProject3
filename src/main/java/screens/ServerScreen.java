@@ -35,7 +35,9 @@ public class ServerScreen extends JFrame {
 
     private Path shortestPathToDisplay = null;
 
-    private Color shortestPathColor = Color.red;
+    private Color shortestPathColor;
+
+    private DrawNetwork drawNetwork;
 
     public ServerScreen(Network network) {
         super();
@@ -45,7 +47,7 @@ public class ServerScreen extends JFrame {
 
         this.network = network;
         //super.drawTitle("Server");
-        System.out.println("Hellox");
+        shortestPathColor = Color.blue;
 
         // Utiliser un JLayeredPane pour gérer les couches
         JLayeredPane layeredPane = new JLayeredPane();
@@ -59,7 +61,7 @@ public class ServerScreen extends JFrame {
         layeredPane.add(imageLabel, Integer.valueOf(0)); // Ajouter l'image à la couche inférieure
 
         // Ajouter le panneau DrawNetwork en avant-plan
-        DrawNetwork drawNetwork = new DrawNetwork();
+        drawNetwork = new DrawNetwork();
         drawNetwork.setBounds(0, 0, 993, 925); // Même taille que le JFrame
         drawNetwork.setOpaque(false); // Rendre le panneau transparent pour laisser passer l'image
         layeredPane.add(drawNetwork, Integer.valueOf(1)); // Ajouter à la couche supérieure
@@ -73,7 +75,7 @@ public class ServerScreen extends JFrame {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setColor(Color.BLACK);
+            //g2d.setColor(Color.BLACK);
 
             draw(network, g2d);
             if (shortestPathToDisplay != null) {
@@ -89,15 +91,29 @@ public class ServerScreen extends JFrame {
             Star star = network.getStars()[i];
             int x1 = star.getRoot().getX() + MARGIN_X;
             int y1 = star.getRoot().getY() + MARGIN_Y;
+
+
+            // Obtenir les dimensions du texte
+            String costText = String.valueOf(star.getRoot().getName());
+            FontMetrics metrics = g2d.getFontMetrics();
+            int textWidth = metrics.stringWidth(costText);
+            int textHeight = metrics.getHeight();
+            g2d.setColor(Color.WHITE);
+            g2d.fillRect(x1 + LABEL_MARGIN - 2, y1 - LABEL_MARGIN - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+            g2d.setColor(Color.BLACK);
             g2d.drawString(star.getRoot().getName(), x1 + LABEL_MARGIN, y1 - LABEL_MARGIN);
+
             for(Road road : star.getRoads()) {
-                draw(road, star.getRoot(), g2d);
+                draw(road, star.getRoot(), g2d, Color.BLACK);
             }
 
             System.out.println(shortestPathToDisplay + "SHORTEST PATH");
         }
 
     }
+
+
+    /*
 
     public void draw(Road road, Node source, Graphics2D g2d) {
         int x1 = source.getX() + MARGIN_X;
@@ -137,19 +153,62 @@ public class ServerScreen extends JFrame {
                 current = road.getDestination();
             }
         }
+    }*/
+
+
+    public void draw(Road road, Node source, Graphics2D g2d, Color color) {
+        int x1 = source.getX() + MARGIN_X;
+        int y1 = source.getY() + MARGIN_Y;
+        int x2 = road.getDestination().getX() + MARGIN_X;
+        int y2 = road.getDestination().getY() + MARGIN_Y;
+
+        // Dessiner la ligne avec la couleur spécifiée
+        g2d.setColor(color);
+        g2d.drawLine(x1, y1, x2, y2);
+
+        int labelX = (x1 + x2) / 2 + LABEL_MARGIN;
+        int labelY = (y1 + y2) / 2 - LABEL_MARGIN;
+
+        // Obtenir les dimensions du texte
+        String costText = String.valueOf(road.getCost());
+        FontMetrics metrics = g2d.getFontMetrics();
+        int textWidth = metrics.stringWidth(costText);
+        int textHeight = metrics.getHeight();
+
+        // Dessiner un rectangle blanc derrière le texte
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(labelX - 2, labelY - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+
+        // Dessiner le texte par-dessus le rectangle
+        g2d.setColor(Color.BLACK);
+        g2d.drawString(costText, labelX, labelY);
     }
+
+    public void drawShortestPath(Graphics2D g2d, Color color) {
+        if (shortestPathToDisplay != null) {
+            Node current = shortestPathToDisplay.getRoot();
+            for (Road road : shortestPathToDisplay.getRoads()) {
+                draw(road, current, g2d, color); // Spécifiez la couleur pour chaque segment
+                current = road.getDestination();
+            }
+        }
+    }
+
 
 
     public void setShortestPathToDisplay(Path shortestPathToDisplay) {
         this.shortestPathToDisplay = shortestPathToDisplay;
-        repaint();
     }
 
 
     public void setRoadCost(int node1ID, int node2ID, int cost) {
         network.setCost(node1ID, node2ID, cost);
-        repaint();
+        System.out.println("prout" + network.getStars()[node1ID].getRoads().getFirst().toString());
     }
 
+
+    public void repaint() {
+        drawNetwork.repaint();
+    }
 
 }
