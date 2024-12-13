@@ -1,7 +1,5 @@
 package screens.ui;
 
-import screens.Screen;
-
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;

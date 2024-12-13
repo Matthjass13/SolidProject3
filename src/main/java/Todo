@@ -3,8 +3,6 @@ Régler problème des étiquettes des coûts des villes en les remplaçant par d
 Dessiner le network dans le client
 Retester l'affichage des plus courts chemins (ça n'affiche que le premier edge ???)
 memento sur les paths
-Tableau de JComponents
 checkUser et createUser dans le serveur
 processRequest décrire dans Handler et pas dans les sous-class
-
 (Recherche du chemin hamiltonien)

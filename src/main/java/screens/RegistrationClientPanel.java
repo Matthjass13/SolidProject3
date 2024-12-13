@@ -11,11 +11,11 @@ import javax.swing.*;
 /**
  * This class will display a registration screen,
  * for the user who has no account yet.
- * @see Screen
+ * @see ClientPanel
  * @author Sara Pereira
  * @since 09.12.2024
  */
-public class RegistrationScreen extends Screen implements ClientState {
+public class RegistrationClientPanel extends ClientPanel implements ClientState {
 
 
     private TextField username;
@@ -30,7 +30,7 @@ public class RegistrationScreen extends Screen implements ClientState {
     private Label message;
 
 
-    public RegistrationScreen(Client client) {
+    public RegistrationClientPanel(Client client) {
         super(client);
 
         super.drawTitle("Registration");

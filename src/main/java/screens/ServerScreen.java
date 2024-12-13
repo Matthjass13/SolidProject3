@@ -12,12 +12,12 @@ import java.awt.*;
 
 /**
  * This class will display the network from the server.
- * @see Screen
+ * @see ClientPanel
  * @author Matthias Gaillard
  * @since 10.12.2024
  */
 
-public class ServerScreen extends Screen {
+public class ServerScreen extends JFrame {
 
     private Network network;
 
@@ -44,7 +44,7 @@ public class ServerScreen extends Screen {
         setBounds(600, 0, 993, 925);
 
         this.network = network;
-        super.drawTitle("Server");
+        //super.drawTitle("Server");
         System.out.println("Hellox");
 
         // Utiliser un JLayeredPane pour gérer les couches

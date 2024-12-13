@@ -5,11 +5,11 @@ import screens.ui.*;
 /**
  * This class will display a connection screen
  * for the user who already has an account.
- * @see Screen
+ * @see ClientPanel
  * @author Sara Pereira
  * @since 09.12.2024
  */
-public class ConnectionScreen extends Screen {
+public class ConnectionClientPanel extends ClientPanel {
 
 
 
@@ -19,7 +19,7 @@ public class ConnectionScreen extends Screen {
     private Button login;
     private Button signUp;
 
-    public ConnectionScreen(Client client) {
+    public ConnectionClientPanel(Client client) {
         super(client);
 
         super.drawTitle("Connection");

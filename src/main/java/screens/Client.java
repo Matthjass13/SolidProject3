@@ -8,7 +8,7 @@ import java.awt.*;
  * and make queries on its network.
  * This class is the context of the state pattern
  * for screen states.
- * @see Screen
+ * @see ClientPanel
  * @author Matthias Gaillard
  * @since 06.12.2024
  */
@@ -32,10 +32,10 @@ public class Client extends JFrame {
         this.serverAddress = serverAddress;
         this.serverPort = serverPort;
 
-        connectionScreen = new ConnectionScreen(this);
-        registrationScreen = new RegistrationScreen(this);
-        appScreen = new AppScreen(this);
-        adminAppScreen = new AdminAppScreen(this);
+        connectionScreen = new ConnectionClientPanel(this);
+        registrationScreen = new RegistrationClientPanel(this);
+        appScreen = new AppClientPanel(this);
+        adminAppScreen = new AdminAppClientPanel(this);
         currentState = adminAppScreen;
 
         cardLayout = new CardLayout();

@@ -1,15 +1,14 @@
 package screens.ui;
 
-import screens.Screen;
+import screens.ClientPanel;
 
 import javax.swing.*;
-import java.awt.*;
 
 /**
  * This class is used to display the titles
  * on top of each screen.
  * @see Label
- * @see Screen
+ * @see ClientPanel
  * @author Matthias Gaillard
  * @since 11.12.2024
  */

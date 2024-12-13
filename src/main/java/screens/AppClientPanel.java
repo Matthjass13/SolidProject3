@@ -5,7 +5,6 @@ import screens.ui.Label;
 import screens.ui.Rectangle;
 import screens.ui.TextField;
 
-import javax.swing.*;
 import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,11 +15,11 @@ import java.net.Socket;
 /**
  * This class will display the main app to the client :
  * the graph but also forms he can fill and submit to make queries.
- * @see Screen
+ * @see ClientPanel
  * @author Sara Pereira
  * @since 04.12.2024
  */
-public class AppScreen extends Screen {
+public class AppClientPanel extends ClientPanel {
 
     private TextField firstNode;
     private TextField secondNode;
@@ -28,7 +27,7 @@ public class AppScreen extends Screen {
     private Label shortestPathCostLabel;
     protected Button logOut;
 
-    public AppScreen(Client client) {
+    public AppClientPanel(Client client) {
         super(client);
 
         super.drawTitle("App");

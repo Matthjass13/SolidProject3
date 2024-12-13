@@ -14,14 +14,14 @@ import java.io.IOException;
 /**
  * This class will display a generic JPanel to the client.
  * Subclasses will define the specific of each screen.
- * @see RegistrationScreen
- * @see ConnectionScreen
- * @see AppScreen
+ * @see RegistrationClientPanel
+ * @see ConnectionClientPanel
+ * @see AppClientPanel
  * @author Sara Pereira
  * @since 09.12.2024
  */
 
-public class Screen extends JPanel implements ClientState {
+public class ClientPanel extends JPanel implements ClientState {
 
     protected Client client;
 
@@ -29,7 +29,7 @@ public class Screen extends JPanel implements ClientState {
     private static Color BACKGROUND_COLOR = Color.decode("#009DCF");
 
 
-    public Screen(Client client) {
+    public ClientPanel(Client client) {
 
         this.client = client;
 
@@ -43,7 +43,7 @@ public class Screen extends JPanel implements ClientState {
         setVisible(true);
     }
 
-    public Screen() {
+    public ClientPanel() {
 
         setBounds(0, 0, 800, 400);
         setLayout(null);

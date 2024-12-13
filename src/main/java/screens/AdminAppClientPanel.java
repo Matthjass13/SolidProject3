@@ -9,11 +9,11 @@ import screens.ui.TextField;
 /**
  * This class will display the main app to the admin :
  * it is the same as for the end user but with more functionalities.
- * @see AppScreen
+ * @see AppClientPanel
  * @author Sara Pereira
  * @since 10.12.2024
  */
-public class AdminAppScreen extends AppScreen {
+public class AdminAppClientPanel extends AppClientPanel {
 
     private TextField firstNodeAdmin;
     private TextField secondNodeAdmin;
@@ -22,7 +22,7 @@ public class AdminAppScreen extends AppScreen {
 
     private int SPACE_BETWEEN_FORMS;
 
-    public AdminAppScreen(Client client) {
+    public AdminAppClientPanel(Client client) {
         super(client);
 
         titleLabel.setText("Admin App");

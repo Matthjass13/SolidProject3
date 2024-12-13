@@ -28,6 +28,7 @@ public class Server {
         this.port = port;
 
         serverScreen = new ServerScreen(network);
+        serverScreen.setVisible(true);
 
         destinationSearchHandler = new DestinationSearchHandler(network, serverScreen);
         networkDrawHandler = new NetworkDrawHandler(network, serverScreen);
