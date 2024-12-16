@@ -2,4 +2,4 @@ Petites animations de voiture sur le chemin
 Dessiner le network dans le client
 memento sur les paths ( bouton previous )
 checkUser et createUser dans le serveur
-Threads implementation
+Threads implementation pour pouvoir lancer plusieurs clients
