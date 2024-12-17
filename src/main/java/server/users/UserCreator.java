@@ -29,10 +29,10 @@ public abstract class UserCreator {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             reader.close();
 
-            if (!jsonObject.has("server/users") || !jsonObject.get("server/users").isJsonArray())
-                jsonObject.add("server/users", new JsonArray());
+            if (!jsonObject.has("users") || !jsonObject.get("users").isJsonArray())
+                jsonObject.add("users", new JsonArray());
 
-            JsonArray usersArray = jsonObject.getAsJsonArray("server/users");
+            JsonArray usersArray = jsonObject.getAsJsonArray("users");
 
             JsonObject newUser = new JsonObject();
             newUser.addProperty("username", user.getUsername());

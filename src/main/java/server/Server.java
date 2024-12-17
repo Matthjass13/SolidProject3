@@ -74,7 +74,7 @@ public class Server {
             System.out.println("Received request: " + request);
 
             UserRequest userRequest = new UserRequest(request);
-            String result = checkUserHandler.processRequest(userRequest);
+            String result = createUserHandler.processRequest(userRequest);
 
             out.println(result);
 

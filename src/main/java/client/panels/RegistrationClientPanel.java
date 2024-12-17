@@ -53,21 +53,11 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
         signUp = new Button("Sign up", 240, 180, connectionForm);
         signUp.addActionListener(e -> {
 
-            /*
-            if(checkUser(username.getText(), password.getText(), admin.isSelected())) {
-                message.setText("You already have an account. Please log in.");
-            } else {
-                createUser(username.getText(),
-                        password.getText(),
-                        mail.getText(),
-                        phone.getText(),
-                        address.getText(),
-                        admin.isSelected());
-                if(admin.isSelected())
-                    logIn(true);
-                else
-                    logIn(false);
-            }*/
+
+
+            sendRequest("Check user : " + username.getText() + " : " + password.getText());
+
+
 
         });
 
@@ -78,7 +68,7 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
             goToConnection();
         });
 
-        message = new Label("", 30, 350, 500, connectionForm);
+        message = new Label("Hello", 0, 240, 500, connectionForm);
 
         revalidate();
         repaint();
@@ -88,17 +78,25 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
     @Override
     public void handleRequestBack(String response) {
 
+        System.out.println("*"+response+"*");
+        switch(response) {
+            case "false" :
+                sendRequest("Create user : "
+                        + username.getText() + " : "
+                        + password.getText() + " : "
+                        + mail.getText() + " : "
+                        + phone.getText() + " : "
+                        + address.getText() + " : "
+                        + admin.isSelected());
+                goToConnection();
+                break;
+            case "admin" :
+            case "end" :
+                message.setText("You already have an account. Please log in.");
+        }
+
     }
 
-    public void createUser(String username, String password, String mail, String phone, String address, boolean admin) {
-        UserCreator creator;
-        if(admin)
-            creator = new AdminUserCreator();
-        else
-            creator = new EndUserCreator();
-        creator.createUser(username, password, mail, phone, address);
-
-    }
 
 
 }

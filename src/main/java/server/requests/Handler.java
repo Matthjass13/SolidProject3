@@ -29,7 +29,9 @@ public abstract class Handler {
         }
         else{
             if(successor != null){
-                successor.processRequest(request);
+
+                System.out.println(type + "OUI");
+                return successor.processRequest(request);
             }
         }
         return "";
