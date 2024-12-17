@@ -12,8 +12,6 @@ import client.ui.*;
  */
 public class ConnectionClientPanel extends ClientPanel {
 
-
-
     private TextField username;
     private PasswordField password;
     private Label message;
@@ -35,8 +33,11 @@ public class ConnectionClientPanel extends ClientPanel {
         login = new Button("Login", 0, 100, connectionForm);
         login.addActionListener(e -> {
             boolean isAdmin = checkUser(username.getText(), password.getText(), true);
-            if(isAdmin)
+            if(isAdmin) {
+                System.out.println(username.getText());
+                System.out.println(password.getText());
                 logIn(true);
+            }
             else {
                 boolean isEndUser = checkUser(username.getText(), password.getText(), false);
                 if(isEndUser) {

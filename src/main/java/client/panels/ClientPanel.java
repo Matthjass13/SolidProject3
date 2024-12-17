@@ -92,7 +92,7 @@ public class ClientPanel extends JPanel implements ClientState {
 
     public boolean checkUser(String username, String password, boolean admin) {
 
-        String filePath = "src/main/java/users/";
+        String filePath = "src/main/java/server/users/";
         if(admin)
             filePath+="adminUsers/adminUsers.json";
         else
@@ -104,12 +104,12 @@ public class ClientPanel extends JPanel implements ClientState {
             JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
             reader.close();
 
-            if (!jsonObject.has("server/users") || !jsonObject.get("server/users").isJsonArray()) {
+            if (!jsonObject.has("users") || !jsonObject.get("users").isJsonArray()) {
                 System.err.println("JSON file does not contain 'users' array.");
                 return false;
             }
 
-            JsonArray usersArray = jsonObject.getAsJsonArray("server/users");
+            JsonArray usersArray = jsonObject.getAsJsonArray("users");
 
             for (int i = 0; i < usersArray.size(); i++) {
                 JsonObject user = usersArray.get(i).getAsJsonObject();
