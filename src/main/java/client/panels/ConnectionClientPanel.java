@@ -32,21 +32,13 @@ public class ConnectionClientPanel extends ClientPanel {
 
         login = new Button("Login", 0, 100, connectionForm);
         login.addActionListener(e -> {
-            boolean isAdmin = checkUser(username.getText(), password.getText(), true);
-            if(isAdmin) {
-                System.out.println(username.getText());
-                System.out.println(password.getText());
-                logIn(true);
-            }
-            else {
-                boolean isEndUser = checkUser(username.getText(), password.getText(), false);
-                if(isEndUser) {
-                    logIn(false);
-                }
-                else {
-                    message.setText("Wrong username or password, please try again !");
-                }
-            }
+
+
+
+            sendRequest("Check user : " + username.getText() + " : " + password.getText());
+
+
+
         });
 
         signUp = new Button("Sign up", 300, 220, this);
@@ -58,6 +50,27 @@ public class ConnectionClientPanel extends ClientPanel {
         repaint();
 
     }
+
+    @Override
+    public void handleRequestBack(String response) {
+
+        System.out.println(response + "?!");
+
+        if(response.equals("admin")) {
+            System.out.println("hello");
+            logIn(true);
+        }
+        else {
+            if(response.equals("end")) {
+                logIn(false);
+            }
+            else {
+                message.setText("Wrong username or password, please try again !");
+            }
+        }
+
+    }
+
 
 }
 

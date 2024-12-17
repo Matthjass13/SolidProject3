@@ -17,6 +17,9 @@ public class Server {
     private int port;
     private ServerScreen serverScreen;
 
+
+    private Handler createUserHandler;
+    private Handler checkUserHandler;
     private Handler destinationSearchHandler;
     private Handler networkDrawHandler;
     private Handler routeHistoryHandler;
@@ -31,12 +34,18 @@ public class Server {
         serverScreen = new ServerScreen(network);
         serverScreen.setVisible(true);
 
+
+        createUserHandler = new CreateUserHandler(network, serverScreen);
+        checkUserHandler = new CheckUserHandler(network, serverScreen);
         destinationSearchHandler = new DestinationSearchHandler(network, serverScreen);
         networkDrawHandler = new NetworkDrawHandler(network, serverScreen);
         routeHistoryHandler = new RouteHistoryHandler(network, serverScreen);
         settingsUpdateHandler = new SettingsUpdateHandler(network, serverScreen);
         trafficUpdateHandler = new TrafficUpdateHandler(network, serverScreen);
 
+
+        createUserHandler.setSuccessor(checkUserHandler);
+        checkUserHandler.setSuccessor(destinationSearchHandler);
         destinationSearchHandler.setSuccessor(networkDrawHandler);
         networkDrawHandler.setSuccessor(routeHistoryHandler);
         routeHistoryHandler.setSuccessor(settingsUpdateHandler);
@@ -65,10 +74,9 @@ public class Server {
             System.out.println("Received request: " + request);
 
             UserRequest userRequest = new UserRequest(request);
-            String result = destinationSearchHandler.processRequest(userRequest);
+            String result = checkUserHandler.processRequest(userRequest);
 
             out.println(result);
-
 
         } catch (IOException e) {
             e.printStackTrace();

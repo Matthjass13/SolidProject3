@@ -9,8 +9,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 import java.awt.*;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.Socket;
 
 /**
  * This class will display a generic JPanel to the client.
@@ -22,7 +22,7 @@ import java.io.IOException;
  * @since 09.12.2024
  */
 
-public class ClientPanel extends JPanel implements ClientState {
+public abstract class ClientPanel extends JPanel implements ClientState {
 
     protected Client client;
 
@@ -90,44 +90,32 @@ public class ClientPanel extends JPanel implements ClientState {
     }
 
 
-    public boolean checkUser(String username, String password, boolean admin) {
 
-        String filePath = "src/main/java/server/users/";
-        if(admin)
-            filePath+="adminUsers/adminUsers.json";
-        else
-            filePath+="endUsers/endUsers.json";
 
-        try {
 
-            FileReader reader = new FileReader(filePath);
-            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
-            reader.close();
 
-            if (!jsonObject.has("users") || !jsonObject.get("users").isJsonArray()) {
-                System.err.println("JSON file does not contain 'users' array.");
-                return false;
-            }
+    public void sendRequest(String request) {
+        try (Socket socket = new Socket("localhost", 45000);
+             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            JsonArray usersArray = jsonObject.getAsJsonArray("users");
+            out.println(request);
+            System.out.println("Request sent: " + request);
 
-            for (int i = 0; i < usersArray.size(); i++) {
-                JsonObject user = usersArray.get(i).getAsJsonObject();
-                if (user.get("username").getAsString().equals(username) &&
-                        user.get("password").getAsString().equals(password)) {
-                    return true;
-                }
-            }
+            String response = in.readLine();
+            System.out.println("server.Server response: " + response);
+
+            handleRequestBack(response);
+
 
         } catch (IOException e) {
-            System.err.println("Erreur lors de la lecture du fichier : " + e.getMessage());
-        } catch (IllegalStateException e) {
-            System.err.println("Erreur de parsing JSON : " + e.getMessage());
+            e.printStackTrace();
         }
 
-        return false;
-
     }
+
+
+    public abstract void handleRequestBack(String response);
 
 
 }

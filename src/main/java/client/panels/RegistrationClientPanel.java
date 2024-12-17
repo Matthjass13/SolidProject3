@@ -53,6 +53,7 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
         signUp = new Button("Sign up", 240, 180, connectionForm);
         signUp.addActionListener(e -> {
 
+            /*
             if(checkUser(username.getText(), password.getText(), admin.isSelected())) {
                 message.setText("You already have an account. Please log in.");
             } else {
@@ -66,7 +67,7 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
                     logIn(true);
                 else
                     logIn(false);
-            }
+            }*/
 
         });
 
@@ -81,6 +82,11 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
 
         revalidate();
         repaint();
+
+    }
+
+    @Override
+    public void handleRequestBack(String response) {
 
     }
 

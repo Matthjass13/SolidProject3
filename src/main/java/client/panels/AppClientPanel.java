@@ -5,11 +5,6 @@ import client.ui.Button;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 /**
  * This class will display the main app to the client :
@@ -84,25 +79,7 @@ public class AppClientPanel extends ClientPanel {
     }
 
 
-    public void sendRequest(String request) {
-        try (Socket socket = new Socket("localhost", 45000);
-             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
 
-            out.println(request);
-            System.out.println("Request sent: " + request);
-
-            String response = in.readLine();
-            System.out.println("server.Server response: " + response);
-
-            handleRequestBack(response);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
     public void handleRequestBack(String response) {
         if(response!=null && response.contains(" : ")) {
             handleShortestPathDisplay(response);
