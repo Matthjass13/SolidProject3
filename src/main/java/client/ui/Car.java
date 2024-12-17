@@ -1,6 +1,12 @@
 package client.ui;
 
 
+import server.algorithms.Dijkstra;
+import server.graphStructure.Network;
+import server.graphStructure.Node;
+import server.graphStructure.Path;
+import server.graphStructure.Road;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,72 +16,113 @@ import java.awt.*;
  * @author Matthias Gaillard
  * @since 13.12.2024
  */
-class Car extends JPanel {
-    private int carX = 0; // Position de la voiture (x)
-    private int carY = 200; // Position verticale fixe
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
 
+// Classe Car pour animer une voiture sur un chemin composé de segments
+import javax.swing.*;
+import java.awt.*;
+import java.util.List;
+
+public class Car extends JPanel {
+    private double carX = 0;
+    private double carY = 0;
     private final int CAR_WIDTH = 100;
     private final int CAR_HEIGHT = 50;
-
     private Timer timer;
+    private Path path;
+    private double dx, dy;
+    private Image image;
 
-    public Car() {
-        timer = new Timer(30, e -> {
-            carX += 5;
-            if (carX > getWidth()) {
-                carX = -CAR_WIDTH;
-            }
-            repaint();
-        });
+    public Car(Path path) {
+        this.path = path;
+        image = new ImageIcon("src/main/resources/car.png").getImage();
     }
 
-    public void startAnimation() {
-        timer.start();
+
+    public Car() {
+        image = new ImageIcon("src/main/resources/car.png").getImage();
+    }
+
+
+
+    public void startAnimation(Path path) {
+        Node source = path.getRoot();
+        carX = source.getX();
+        carY = source.getY();
+        startAnimation(source, 0, path);
+    }
+
+    public void startAnimation(Node source, int roadNumber, Path path) {
+        if (roadNumber < path.getSize()) {
+            int x1 = source.getX();
+            int y1 = source.getY();
+            Road road = path.getRoads().get(roadNumber);
+            int x2 = road.getDestination().getX();
+            int y2 = road.getDestination().getY();
+
+            double distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            this.dx = (x2 - x1) / distance;
+            this.dy = (y2 - y1) / distance;
+
+            timer = new Timer(30, e -> {
+                // Mettre à jour les coordonnées de la voiture
+                carX += dx * 2; // Ajuster la vitesse si nécessaire
+                carY += dy * 2;
+
+                // Vérification de la fin du mouvement
+                if (Math.abs(carX - x2) < Math.abs(dx) && Math.abs(carY - y2) < Math.abs(dy)) {
+                    timer.stop();
+                    carX = x2;
+                    carY = y2;
+                    startAnimation(road.getDestination(), roadNumber + 1, path);
+                }
+
+                repaint();
+            });
+            timer.start();
+        }
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Effacer l'ancien dessin
+        drawCar(g, (int) carX, (int) carY);
+    }
 
-        // Dessiner la route
-        g.setColor(Color.GRAY);
-        g.fillRect(0, carY + CAR_HEIGHT / 2, getWidth(), 10);
-
-        // Dessiner la voiture
-        drawCar(g, carX, carY);
+    public void move(Node source, Road road) {
+        // Méthode inutilisée
     }
 
     private void drawCar(Graphics g, int x, int y) {
-        // Dessiner le corps de la voiture
-        g.setColor(Color.BLUE);
-        g.fillRect(x, y, CAR_WIDTH, CAR_HEIGHT);
-
-        // Dessiner les roues
-        g.setColor(Color.BLACK);
-        g.fillOval(x + 10, y + CAR_HEIGHT, 20, 20); // Roue avant
-        g.fillOval(x + CAR_WIDTH - 30, y + CAR_HEIGHT, 20, 20); // Roue arrière
-
-        // Dessiner les fenêtres
-        g.setColor(Color.WHITE);
-        g.fillRect(x + 10, y + 10, 30, 20); // Fenêtre avant
-        g.fillRect(x + 50, y + 10, 30, 20); // Fenêtre arrière
+        g.drawImage(image, x, y, this);
     }
-
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Animation de voiture");
-        Car carPanel = new Car(); // Panel qui gère l'animation
+
+        Network network = new Network();
+        Dijkstra d = new Dijkstra(network);
+        d.computeShortestPaths();
+        Path path = d.getShortestPaths(0, 12);
+
+
+        Car carPanel = new Car(path);
+
 
         frame.add(carPanel);
-        frame.setSize(800, 400); // Taille de la fenêtre
+
+
+        frame.setSize(800, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        carPanel.startAnimation(path);
+    }
 
-        carPanel.startAnimation(); // Démarrer l'animation
+    public void setPath(Path path) {
+        this.path = path;
     }
 
 
 }
-
-
-

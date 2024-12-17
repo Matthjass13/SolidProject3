@@ -1,6 +1,8 @@
 package server;
 
 import client.panels.ClientPanel;
+import client.ui.Car;
+import server.algorithms.Dijkstra;
 import server.graphStructure.Network;
 import server.graphStructure.Path;
 import server.graphStructure.Road;
@@ -40,6 +42,8 @@ public class ServerScreen extends JFrame {
 
     private DrawNetwork drawNetwork;
 
+    private Car car;
+
     public ServerScreen(Network network) {
         super();
 
@@ -49,6 +53,12 @@ public class ServerScreen extends JFrame {
         this.network = network;
         //super.drawTitle("server.Server");
         shortestPathColor = Color.blue;
+
+        this.car = new Car();
+
+        add(car);
+        car.setVisible(true);
+
 
         // Utiliser un JLayeredPane pour gérer les couches
         JLayeredPane layeredPane = new JLayeredPane();
@@ -114,48 +124,6 @@ public class ServerScreen extends JFrame {
     }
 
 
-    /*
-
-    public void draw(Road road, Node source, Graphics2D g2d) {
-        int x1 = source.getX() + MARGIN_X;
-        int y1 = source.getY() + MARGIN_Y;
-        int x2 = road.getDestination().getX() + MARGIN_X;
-        int y2 = road.getDestination().getY() + MARGIN_Y;
-        g2d.drawLine(x1, y1, x2, y2);
-
-        int labelX = (x1 + x2) / 2 + LABEL_MARGIN;
-        int labelY = (y1 + y2) / 2 - LABEL_MARGIN;
-
-        // Obtenir les dimensions du texte
-        String costText = String.valueOf(road.getCost());
-        FontMetrics metrics = g2d.getFontMetrics();
-        int textWidth = metrics.stringWidth(costText);
-        int textHeight = metrics.getHeight();
-
-        // Dessiner un rectangle blanc derrière le texte
-        g2d.setColor(Color.WHITE);
-        g2d.fillRect(labelX - 2, labelY - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
-
-        // Dessiner le texte par-dessus le rectangle
-        g2d.setColor(Color.BLACK);
-        g2d.drawString(String.valueOf(road.getCost()), labelX, labelY);
-
-
-
-    }
-
-    public void drawShortestPath(Graphics2D g2d, Color color) {
-        g2d.setColor(color);
-
-        if(shortestPathToDisplay!=null) {
-            Node current = shortestPathToDisplay.getRoot();
-            for(Road road : shortestPathToDisplay.getRoads()) {
-                draw(road, current, g2d);
-                current = road.getDestination();
-            }
-        }
-    }*/
-
 
     public void draw(Road road, Node source, Graphics2D g2d, Color color) {
         int x1 = source.getX() + MARGIN_X;
@@ -193,8 +161,23 @@ public class ServerScreen extends JFrame {
                 current = road.getDestination();
             }
         }
+
     }
 
+
+    /*
+    public void test() {
+
+
+        Dijkstra d = new Dijkstra(network);
+        d.computeShortestPaths();
+        Path path = d.getShortestPaths(0, 12);
+
+
+
+        car.setPath(path);
+        car.startAnimation(path);
+    }*/
 
 
     public void setShortestPathToDisplay(Path shortestPathToDisplay) {
