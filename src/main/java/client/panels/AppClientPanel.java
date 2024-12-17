@@ -2,6 +2,8 @@ package client.panels;
 
 import client.Client;
 import client.ui.Button;
+import client.ui.Label;
+import client.ui.TextField;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,13 +17,15 @@ import java.awt.*;
  */
 public class AppClientPanel extends ClientPanel {
 
-    private client.ui.TextField firstNode;
-    private client.ui.TextField secondNode;
-    private client.ui.Button search;
+    private TextField firstNode;
+    private TextField secondNode;
+    private Button search;
 
     private JTextArea shortestPathDescription;
-    private client.ui.Label shortestPathCostLabel;
-    protected client.ui.Button logOut;
+    private Label shortestPathCostLabel;
+    protected Button logOut;
+
+    private Button animate;
 
     public AppClientPanel(Client client) {
         super(client);
@@ -33,9 +37,9 @@ public class AppClientPanel extends ClientPanel {
 
         new client.ui.Label("Shortest path", 0, 0, connectionForm);
         new client.ui.Label("from", 0, 50, connectionForm);
-        firstNode = new client.ui.TextField("First node", 0, 80, connectionForm);
+        firstNode = new TextField("First node", 0, 80, connectionForm);
         new client.ui.Label("to", 0, 110, connectionForm);
-        secondNode = new client.ui.TextField("Second node", 0, 140, connectionForm);
+        secondNode = new TextField("Second node", 0, 140, connectionForm);
 
         search = new client.ui.Button("Search", 0, 200, connectionForm);
         search.addActionListener(e -> {
@@ -44,10 +48,6 @@ public class AppClientPanel extends ClientPanel {
                         + secondNode.getText());
             }
         );
-
-
-
-
 
 
         shortestPathDescription = new JTextArea("");
@@ -67,6 +67,17 @@ public class AppClientPanel extends ClientPanel {
                 logOut();
             }
         );
+
+
+        animate = new Button("Animate", 350, 420, Color.RED, this);
+        animate.addActionListener(e -> {
+                    sendRequest("Animate car");
+                }
+        );
+       animate.setVisible(false);
+
+
+
 
 
         revalidate();
@@ -100,6 +111,10 @@ public class AppClientPanel extends ClientPanel {
         }
 
         shortestPathDescription.append("Shortest path cost : " + parties[parties.length-1]);
+
+        animate.setVisible(true);
+
+
     }
 
 

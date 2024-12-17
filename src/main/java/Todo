@@ -1,8 +1,5 @@
-Petites animations de voiture sur le chemin
 memento sur les paths ( bouton previous )
-
 Threads implementation pour pouvoir lancer plusieurs clients
 Dessiner le network dans le client
 
-
-
+Encore quelques petits bugs d'affichage des coûts des routes

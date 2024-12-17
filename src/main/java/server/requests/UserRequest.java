@@ -17,7 +17,7 @@ public class UserRequest {
 
         items = new ArrayList<>();
         for(int i=1; i<elements.length; ++i) {
-            items.add(elements[i]);
+            items.add(elements[i].trim());
         }
     }
 

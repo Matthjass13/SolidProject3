@@ -87,7 +87,7 @@ public class Client extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
 
-        setBounds(0, 0, 800, 400);
+        setBounds(0, 0, 800, 600);
 
     }
 

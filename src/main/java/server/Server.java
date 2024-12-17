@@ -21,6 +21,7 @@ public class Server {
     private Handler createUserHandler;
     private Handler checkUserHandler;
     private Handler destinationSearchHandler;
+    private Handler animateCarHandler;
     private Handler networkDrawHandler;
     private Handler routeHistoryHandler;
     private Handler settingsUpdateHandler;
@@ -38,6 +39,7 @@ public class Server {
         createUserHandler = new CreateUserHandler(network, serverScreen);
         checkUserHandler = new CheckUserHandler(network, serverScreen);
         destinationSearchHandler = new DestinationSearchHandler(network, serverScreen);
+        animateCarHandler = new AnimateCarHandler(network, serverScreen);
         networkDrawHandler = new NetworkDrawHandler(network, serverScreen);
         routeHistoryHandler = new RouteHistoryHandler(network, serverScreen);
         settingsUpdateHandler = new SettingsUpdateHandler(network, serverScreen);
@@ -46,7 +48,8 @@ public class Server {
 
         createUserHandler.setSuccessor(checkUserHandler);
         checkUserHandler.setSuccessor(destinationSearchHandler);
-        destinationSearchHandler.setSuccessor(networkDrawHandler);
+        destinationSearchHandler.setSuccessor(animateCarHandler);
+        animateCarHandler.setSuccessor(networkDrawHandler);
         networkDrawHandler.setSuccessor(routeHistoryHandler);
         routeHistoryHandler.setSuccessor(settingsUpdateHandler);
         settingsUpdateHandler.setSuccessor(trafficUpdateHandler);

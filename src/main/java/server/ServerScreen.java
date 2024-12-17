@@ -47,17 +47,11 @@ public class ServerScreen extends JFrame {
     public ServerScreen(Network network) {
         super();
 
-
-        setBounds(600, 0, 993, 925);
+        setBounds(550, 0, 993, 925);
 
         this.network = network;
         //super.drawTitle("server.Server");
         shortestPathColor = Color.blue;
-
-        this.car = new Car();
-
-        add(car);
-        car.setVisible(true);
 
 
         // Utiliser un JLayeredPane pour gérer les couches
@@ -65,11 +59,21 @@ public class ServerScreen extends JFrame {
         layeredPane.setBounds(0, 0, 993, 925);
         add(layeredPane);
 
+
+
         // Ajouter l'image en arrière-plan
         ImageIcon backgroundImg = new ImageIcon("src/main/resources/ParisMap.png");
         JLabel imageLabel = new JLabel(backgroundImg);
         imageLabel.setBounds(0, 0, backgroundImg.getIconWidth(), backgroundImg.getIconHeight());
         layeredPane.add(imageLabel, Integer.valueOf(0)); // Ajouter l'image à la couche inférieure
+
+
+
+        this.car = new Car();
+        car.setBounds(400, 400, 100, 100);
+        car.setVisible(true);
+        layeredPane.add(car, 2);
+
 
         // Ajouter le panneau DrawNetwork en avant-plan
         drawNetwork = new DrawNetwork();
@@ -77,6 +81,13 @@ public class ServerScreen extends JFrame {
         drawNetwork.setOpaque(false); // Rendre le panneau transparent pour laisser passer l'image
         layeredPane.add(drawNetwork, Integer.valueOf(1)); // Ajouter à la couche supérieure
 
+        //animateCar();
+        //test();
+
+
+        Dijkstra d = new Dijkstra(network);
+        d.computeShortestPaths();
+        shortestPathToDisplay = d.getShortestPaths(1, 8);
     }
 
 
@@ -86,12 +97,18 @@ public class ServerScreen extends JFrame {
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            //g2d.setColor(Color.BLACK);
 
+
+            g2d.setStroke(new BasicStroke(1.0f));
             draw(network, g2d);
+
+
+            g2d.setStroke(new BasicStroke(5.0f));
             if (shortestPathToDisplay != null) {
                 drawShortestPath(g2d, shortestPathColor);
             }
+            //car.repaint();
+            g.drawImage(car.getImage(), (int) car.getCurrentX() - 32, (int) car.getCurrentY() -32, this);
         }
     }
 
@@ -118,7 +135,6 @@ public class ServerScreen extends JFrame {
                 draw(road, star.getRoot(), g2d, Color.BLACK);
             }
 
-            System.out.println(shortestPathToDisplay + "SHORTEST PATH");
         }
 
     }
@@ -165,20 +181,27 @@ public class ServerScreen extends JFrame {
     }
 
 
-    /*
-    public void test() {
 
+    public void test() {
 
         Dijkstra d = new Dijkstra(network);
         d.computeShortestPaths();
-        Path path = d.getShortestPaths(0, 12);
+        Path path = d.getShortestPaths(1, 8);
 
-
-
-        car.setPath(path);
         car.startAnimation(path);
-    }*/
+    }
 
+
+    public void animateCar() {
+
+
+        /*
+        Dijkstra d = new Dijkstra(network);
+        d.computeShortestPaths();
+        shortestPathToDisplay = d.getShortestPaths(1, 8);
+*/
+        car.startAnimation(shortestPathToDisplay);
+    }
 
     public void setShortestPathToDisplay(Path shortestPathToDisplay) {
         this.shortestPathToDisplay = shortestPathToDisplay;
