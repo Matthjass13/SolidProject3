@@ -10,19 +10,15 @@ import client.ui.*;
  * @author Sara Pereira
  * @since 09.12.2024
  */
-public class ConnectionClientPanel extends ClientPanel {
+public class ConnectionPanel extends ClientPanel {
 
-    private TextField username;
-    private PasswordField password;
-    private Label message;
-    private Button login;
-    private Button signUp;
+    private final TextField username;
+    private final PasswordField password;
+    private final Label message;
 
-    public ConnectionClientPanel(Client client) {
+    public ConnectionPanel(Client client) {
         super(client);
-
         super.drawTitle("Connection");
-
 
         Rectangle connectionForm = new Rectangle(30, 110, 250, 200, this);
 
@@ -30,36 +26,20 @@ public class ConnectionClientPanel extends ClientPanel {
         password = new PasswordField("Enter password", 0, 50, connectionForm);
         message = new Label("", 0, 75, 500, connectionForm);
 
-        login = new Button("Login", 0, 100, connectionForm);
-        login.addActionListener(e -> {
+        Button login = new Button("Login", 0, 100, connectionForm);
+        login.addActionListener(e -> sendRequest("User check : " + username.getText() + " : " + password.getText()));
 
-
-
-            sendRequest("User check : " + username.getText() + " : " + password.getText());
-
-
-
-        });
-
-        signUp = new Button("Sign up", 300, 220, this);
-        signUp.addActionListener(e -> {
-            goToRegistration();
-        });
+        Button signUp = new Button("Sign up", 300, 220, this);
+        signUp.addActionListener(e -> goToRegistration());
 
         revalidate();
         repaint();
-
     }
 
     @Override
     public void handleRequestBack(String response) {
-
-        System.out.println(response + "?!");
-
-        if(response.equals("admin")) {
-            System.out.println("hello");
+        if(response.equals("admin"))
             logIn(true);
-        }
         else {
             if(response.equals("end")) {
                 logIn(false);
@@ -68,12 +48,6 @@ public class ConnectionClientPanel extends ClientPanel {
                 message.setText("Wrong username or password, please try again !");
             }
         }
-
     }
 
-
 }
-
-
-
-

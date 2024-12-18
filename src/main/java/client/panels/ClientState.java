@@ -1,6 +1,5 @@
 package client.panels;
 
-
 /**
  * Abstract state of the JFrame of the client.
  * Implementation of the state pattern.
@@ -12,22 +11,21 @@ public interface ClientState {
     /**
      * Transition from AppState to ConnectionState
      */
-    public void logOut();
+    void logOut();
 
     /**
      * Transition from ConnectionState to AppState or AdminAppState
      */
-    public void logIn(boolean admin);
+    void logIn(boolean admin);
 
     /**
      * Transition from RegistrationState to ConnectionState
      */
-    public void goToConnection();
+    void goToConnection();
 
     /**
      * Transition from ConnectionState to RegistrationState
      */
-    public void goToRegistration();
-
+    void goToRegistration();
 
 }
