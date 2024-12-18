@@ -1,38 +1,37 @@
 package server.requests;
 
 import server.algorithms.Dijkstra;
-import server.algorithms.Hamilton;
 import server.graphStructure.Network;
 import server.graphStructure.Path;
 import server.ServerScreen;
 
 /**
- * Handles the search of the shortest path between two nodes
+ * Handles the search of the shortest path between two nodes,
+ * using Dijkstra algorithm.
  * @see Handler
+ * @see Dijkstra
  * @author Sara Pereira
  * @since 01.12.2024
  */
-public class DestinationSearchHandler extends Handler {
+public class DijkstraHandler extends Handler {
 
-    public DestinationSearchHandler(Network network, ServerScreen serverScreen) {
+    public DijkstraHandler(Network network, ServerScreen serverScreen) {
         super(network, serverScreen);
-        type = "Destination Search";
+        type = "Dijkstra";
     }
 
     @Override
     public String doRequest(UserRequest request) {
-        Dijkstra dijkstra = new Dijkstra(network);
-        dijkstra.computeShortestPaths();
-
         String node1 = request.getItem(0);
         String node2 = request.getItem(1);
 
         int node1ID = network.getIDByName(node1);
         int node2ID = network.getIDByName(node2);
 
-        Path shortestPathToDisplay = dijkstra.getShortestPaths()[node1ID][node2ID];
+        Dijkstra dijkstra = new Dijkstra(network);
+        Path shortestPathToDisplay = dijkstra.findPath(node1ID, node2ID);
 
-        serverScreen.setShortestPathToDisplay(shortestPathToDisplay);
+        serverScreen.setPathToDisplay(shortestPathToDisplay);
         serverScreen.repaint();
 
         return shortestPathToDisplay.toString();

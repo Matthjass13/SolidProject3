@@ -1,42 +1,77 @@
 package server.algorithms;
 
 import server.graphStructure.Network;
+import server.graphStructure.Path;
 import server.graphStructure.Road;
 
 /**
  * This class will be in charge of computing
  * shortest paths using Dijkstra algorithm.
- * @see SearchPathAlgorithm
+ * @see PathAlgorithm
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
-public class Dijkstra extends SearchPathAlgorithm {
+public class Dijkstra extends PathAlgorithm {
+
+    /**
+     * shortestPaths[i][j] is the shortest path
+     * between node i and node j.
+     */
+    protected final Path[][] shortestPaths;
+
+    /**
+     * lambda[i][j] will receive the cost
+     * of the shortest path from node i to node j.
+     */
+    protected int[][] lambdas;
+
+    /**
+     * Max value of a path.
+     * Value by default in the lambdas array.
+     */
+    protected final int MAX = 10000;
 
     public Dijkstra(Network network) {
         super(network);
+
+        lambdas = new int[network.getSIZE()][network.getSIZE()];
+        for(int i=0; i<lambdas.length; ++i) {
+            for(int j=0; j<lambdas.length; ++j) {
+                lambdas[i][j]=MAX;
+            }
+            lambdas[i][i]=0;
+        }
+
+        shortestPaths = new Path[network.getSIZE()][network.getSIZE()];
+        for(int i=0; i<lambdas.length; ++i)
+            for(int j=0; j<lambdas.length; ++j)
+                shortestPaths[i][j] = new Path(network.getNode(i));
     }
 
+    @Override
+    public Path findPath(int i, int j) {
+        computeShortestPaths(i);
+        return shortestPaths[i][j];
+    }
 
     /**
-     * This method computes all shortest paths
+     * Computes all shortest paths
      * from start node to all other nodes.
      * It updates both lambdas and shortestPaths fields.
      * @param start start node
      */
-    @Override
     public void computeShortestPaths(int start) {
 
         boolean[] visited = new boolean[lambdas.length];
         visited[start] = true;
 
         int current = start;
-        // Current node index
 
         while(!isComplete(visited)) {
-            for(Road road : network.getStars()[current].getRoads()) {
-                if(lambdas[start][current] + road.getCost() < lambdas[start][road.getDestination().getID()]) {
-                    lambdas[start][road.getDestination().getID()] = lambdas[start][current] + road.getCost();
-                    shortestPaths[start][road.getDestination().getID()].rebuild(shortestPaths[start][current], road);
+            for(Road road : network.getStar(current).getRoads()) {
+                if(lambdas[start][current] + road.getCost() < lambdas[start][road.getDestination().ID()]) {
+                    lambdas[start][road.getDestination().ID()] = lambdas[start][current] + road.getCost();
+                    shortestPaths[start][road.getDestination().ID()].rebuild(shortestPaths[start][current], road);
                 }
             }
 
@@ -50,7 +85,7 @@ public class Dijkstra extends SearchPathAlgorithm {
     }
 
     /**
-     * This method tests if a given boolean array
+     * Tests if a given boolean array
      * contains any false value in it.
      * @param visited boolean array
      */

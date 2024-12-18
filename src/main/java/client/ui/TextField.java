@@ -8,39 +8,46 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-
 /**
- * Customised text fields
+ * Customised text field
  * @author Matthias Gaillard
  * @since 11.12.2024
  */
 public class TextField extends JTextField {
 
-    private String placeholder;
-    protected int SPACE_TO_PANEL = 20;
+    protected static int SPACE_TO_PANEL = 20;
+    private final String placeholder;
 
-    public TextField(String placeholder, int x, int y, int width, int height, int fontSize, JPanel screen) {
+    public TextField(String placeholder, int x, int y, int width, int height, int fontSize, JPanel panel) {
         super();
         this.placeholder = placeholder;
-        setColumns(30);
         setBounds(x + SPACE_TO_PANEL, y + SPACE_TO_PANEL, width, height);
-        setFont(new Font("Tahoma", Font.PLAIN, fontSize));
-        screen.add(this);
         setBorder(new LineBorder(Color.BLACK, 2));
+        setFont(new Font("Tahoma", Font.PLAIN, fontSize));
+        setColumns(30);
+        panel.add(this);
     }
 
-    public TextField(String placeholder, int x, int y, JPanel screen) {
-        this(placeholder, x, y, 150, 30, 20, screen);
+    public TextField(String placeholder, int x, int y, int width, JPanel panel) {
+        this(placeholder, x, y, width, 30, 20, panel);
+    }
+    public TextField(String placeholder, int x, int y, JPanel panel) {
+        this(placeholder, x, y, 150, 30, 20, panel);
     }
 
-    public TextField(String placeholder, int x, int y, int width, JPanel screen) {
-        this(placeholder, x, y, width, 30, 20, screen);
+
+    /**
+     * Allows to freely use the text field as a String
+     * @return String value of the text field
+     */
+    public String toString() {
+        return getText();
     }
 
     /**
      * Stuff to add to correctly display the placeholder
      * ChatGPT generated
-     * @param g the <code>Graphics</code> object to protect
+     * @param g the Graphics object to protect
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -74,9 +81,4 @@ public class TextField extends JTextField {
         });
     }
 
-    public String toString() {
-        return getText();
-    }
-
 }
-

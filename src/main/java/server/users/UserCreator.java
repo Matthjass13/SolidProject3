@@ -13,15 +13,15 @@ import java.io.IOException;
  * @since 01.12.2024
  */
 public abstract class UserCreator {
-    public abstract User createUser(String username, String password, String mail, String phone, String address);
+    public abstract void createUser(String username, String password, String mail, String phone, String address);
 
     /**
-     * Save a new user into a json file
-     * Chat GPT generated
-     * @param user
-     * @param filePath
+     * Saves a new user into a json file
+     * ChatGPT generated
+     * @param user new user
+     * @param filePath path of the json file
      */
-    public void saveToJson(User user, String filePath) {
+    public void save(User user, String filePath) {
 
         try {
 
@@ -47,15 +47,12 @@ public abstract class UserCreator {
             writer.write(jsonObject.toString());
             writer.close();
 
-            System.out.println("Utilisateur ajouté avec succès !");
-
         } catch (IOException e) {
-            System.err.println("Erreur lors de la lecture ou de l'écriture du fichier : " + e.getMessage());
+            System.err.println("Error while writing or reading the file : " + e.getMessage());
         } catch (IllegalStateException e) {
-            System.err.println("Erreur de parsing JSON : " + e.getMessage());
+            System.err.println("JSON parsing error : " + e.getMessage());
         }
 
     }
-
 
 }

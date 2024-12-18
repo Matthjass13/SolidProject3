@@ -55,7 +55,7 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
 
 
 
-            sendRequest("Check user : " + username.getText() + " : " + password.getText());
+            sendRequest("User check : " + username.getText() + " : " + password.getText());
 
 
 
@@ -81,7 +81,7 @@ public class RegistrationClientPanel extends ClientPanel implements ClientState 
         System.out.println("*"+response+"*");
         switch(response) {
             case "false" :
-                sendRequest("Create user : "
+                sendRequest("User creation : "
                         + username.getText() + " : "
                         + password.getText() + " : "
                         + mail.getText() + " : "

@@ -3,9 +3,8 @@ package server.graphStructure;
 import java.util.ArrayList;
 
 /**
- * This class will be used as an abstract data structure
- * to store a collection of roads.
- * Subclasses : {@link Path} and {@link Star}
+ * This class is used as an abstract data structure
+ * to store a collection of roads with a source node.
  * @see Road
  * @author Matthias Gaillard
  * @since 24.11.2024
@@ -23,14 +22,12 @@ public abstract class Tree {
     public Node getRoot() {
         return root;
     }
-
     public void setRoot(Node root) {
         this.root=root;
     }
     public ArrayList<Road> getRoads() {
         return roads;
     }
-
     public void setRoads(ArrayList<Road> roads) {
         this.roads = roads;
     }

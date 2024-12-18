@@ -13,14 +13,14 @@ import java.net.Socket;
 
 /**
  * This class will manage the different clients,
- * each will use a different thread.
+ * each using a different thread.
+ * ChatGPT generated.
  * @see ClientPanel
  * @author Matthias Gaillard
- * @author Sara Pereira
  * @since 18.12.2024
  */
-
 public class ClientHandler implements Runnable {
+
     private Socket clientSocket;
     private Handler handlerChain;
 
@@ -38,11 +38,9 @@ public class ClientHandler implements Runnable {
             while ((request = in.readLine()) != null) {
                 System.out.println("Request from client: " + request);
 
-                // Traiter la requête avec la chaîne de responsabilité
                 UserRequest userRequest = new UserRequest(request);
                 String result = handlerChain.processRequest(userRequest);
 
-                // Envoyer la réponse au client
                 out.println(result);
 
                 if (request.equalsIgnoreCase("exit")) {

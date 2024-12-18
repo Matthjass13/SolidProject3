@@ -8,56 +8,42 @@ import server.graphStructure.Road;
  * This class will compute Hamilton path
  * (path that goes through every vertex once)
  * on a given Network from a given node to another one.
- * @see SearchPathAlgorithm
+ * Mostly ChatGPT generated.
+ * @see PathAlgorithm
  * @author Matthias Gaillard
  * @since 12.12.2024
  */
-public class Hamilton extends SearchPathAlgorithm {
+public class Hamilton extends PathAlgorithm {
+
     public Hamilton(Network network) {
         super(network);
     }
 
-    @Override
-    public void computeShortestPaths(int rootIndex) {
-        for(int j=0; j<network.getSIZE(); ++j) {
-            shortestPaths[rootIndex][j] = findHamiltonianPath(rootIndex, j);
-            lambdas[rootIndex][j] = shortestPaths[rootIndex][j].getCost();
-        }
-    }
-
-    public Path findHamiltonianPath(int source, int destination) {
+    public Path findPath(int i, int j) {
         boolean[] visited = new boolean[network.getSIZE()];
-        Path path = new Path(network.getStars()[source].getRoot());
+        Path path = new Path(network.getNode(i));
 
-        visited[source] = true;
+        visited[i] = true;
 
-        if (dfs(source, destination, visited, path)) {
+        if (dfs(i, j, visited, path))
             return path;
-        } else {
-            System.out.println("No hamiltonian path found between " + source + " and " + destination);
+        else
             return null;
-        }
     }
 
     private boolean dfs(int currentNode, int destination, boolean[] visited, Path path) {
-        if (path.getSize() + 1 == network.getSIZE()) {
+        if (path.getSize() + 1 == network.getSIZE())
             return currentNode == destination;
-        }
 
-        for (Road road : network.getStars()[currentNode].getRoads()) {
-            int neighbor = road.getDestination().getID();
+        for (Road road : network.getStar(currentNode).getRoads()) {
+            int neighbor = road.getDestination().ID();
 
             if (!visited[neighbor]) {
                 visited[neighbor] = true;
-
                 path.add(road);
-
-                if (dfs(neighbor, destination, visited, path)) {
+                if (dfs(neighbor, destination, visited, path))
                     return true;
-                }
-
                 visited[neighbor] = false;
-
                 path.removeRoad(path.getSize() - 1);
             }
         }
@@ -65,7 +51,4 @@ public class Hamilton extends SearchPathAlgorithm {
         return false;
     }
 
-
 }
-
-

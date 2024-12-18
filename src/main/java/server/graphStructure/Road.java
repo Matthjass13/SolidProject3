@@ -1,9 +1,9 @@
 package server.graphStructure;
 
 /**
- * Edges of the graph
+ * Edge of a graph
  * Root node is not stored in this class,
- * but will instead be stored in specific road structures {@link Path} and {@link Star}
+ * but will instead be stored in specific roads collections structures.
  * @see Node
  * @author Matthias Gaillard
  * @since 24.11.2024
@@ -29,7 +29,7 @@ public class Road {
     }
 
     public String toString() {
-        return "Road to " + destination.getName() + ". Cost : " + cost;
+        return "Road to " + destination.name() + ". Cost : " + cost;
     }
 
 }

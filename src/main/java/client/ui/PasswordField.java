@@ -34,7 +34,8 @@ public class PasswordField extends TextField {
      * ChatGPT generated
      */
     private static class PasswordDocument extends PlainDocument {
-        private final StringBuilder realText = new StringBuilder(); // Contient le texte réel
+
+        private final StringBuilder realText = new StringBuilder();
 
         @Override
         public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {

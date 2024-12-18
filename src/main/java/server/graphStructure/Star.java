@@ -13,7 +13,7 @@ public class Star extends Tree {
     }
 
     /**
-     * @param node
+     * @param node external node
      * @return true if the node is a leaf of the star
      */
     public boolean hasLeaf(Node node) {
@@ -27,7 +27,7 @@ public class Star extends Tree {
     public String toString() {
         if(isEmpty())
             return "Empty";
-        String string = "Node of " + root.getName() + " : \n";
+        String string = "Node of " + root.name() + " : \n";
         for (Road road : roads)
             string += road.toString() + "\n";
         string += "\n";

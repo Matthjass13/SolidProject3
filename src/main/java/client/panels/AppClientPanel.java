@@ -51,7 +51,7 @@ public class AppClientPanel extends ClientPanel {
 
         search = new Button("Search", 0, 200, connectionForm);
         search.addActionListener(e -> {
-                sendRequest("Destination Search : "
+                sendRequest("Dijkstra : "
                         + firstNode.getText() + " : "
                         + secondNode.getText());
                 pathCaretaker.save(createMemento());
@@ -60,7 +60,7 @@ public class AppClientPanel extends ClientPanel {
 
         hamilton = new Button("Hamilton", 200, 200, Color.YELLOW, connectionForm);
         hamilton.addActionListener(e -> {
-                    sendRequest("Hamilton Search : "
+                    sendRequest("Hamilton : "
                             + firstNode.getText() + " : "
                             + secondNode.getText());
                 }
@@ -80,7 +80,7 @@ public class AppClientPanel extends ClientPanel {
 
         animate = new Button("Animate", 250, 20, Color.decode("#CD5C5C"), this);
         animate.addActionListener(e -> {
-                    sendRequest("Animate car");
+                    sendRequest("Car animation");
                 }
         );
         //animate.setVisible(false);

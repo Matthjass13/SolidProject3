@@ -1,13 +1,8 @@
 Faire le diagramme uml
 
 Contrôle général + commentaires
-client
-panels
-ui
-server
-algos
-graphstructure
-requests
-users
+Classe Client et package panels
 
 Voir si on peut pas ajouter des interfaces
+
+Foutre les labels des nodes devant

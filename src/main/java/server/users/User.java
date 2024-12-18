@@ -1,7 +1,7 @@
 package server.users;
 
 /**
- * This class represents an account for using our app.
+ * This class represents an account for using our application.
  * @author Sara Pereira
  * @since 01.12.2024
  */

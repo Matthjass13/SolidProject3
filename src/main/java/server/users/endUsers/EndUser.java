@@ -2,9 +2,8 @@ package server.users.endUsers;
 
 import server.users.User;
 
-
 /**
- * This class represents an end user account for using our app.
+ * This class represents an end user account.
  * It only allows search queries.
  * @see User
  * @author Sara Pereira

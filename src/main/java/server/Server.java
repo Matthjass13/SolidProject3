@@ -17,42 +17,33 @@ import server.requests.*;
  * @since 06.12.2024
  */
 public class Server {
-    private Network network;
-    private int port;
-    private ServerScreen serverScreen;
 
-    private ExecutorService threadPool = Executors.newCachedThreadPool();
+    private final int port;
 
-    private Handler createUserHandler;
-    private Handler checkUserHandler;
-    private Handler destinationSearchHandler;
+    private final ExecutorService threadPool = Executors.newCachedThreadPool();
 
-    private Handler hamiltonHandler;
-    private Handler animateCarHandler;
-    private Handler trafficUpdateHandler;
+    private final Handler userCreationHandler;
 
 
     public Server(Network network, int port) {
-        this.network = network;
+
         this.port = port;
 
-        serverScreen = new ServerScreen(network);
+        ServerScreen serverScreen = new ServerScreen(network);
         serverScreen.setVisible(true);
 
+        userCreationHandler = new UserCreationHandler(network, serverScreen);
+        Handler userCheckHandler = new UserCheckHandler(network, serverScreen);
+        Handler dijkstraHandler = new DijkstraHandler(network, serverScreen);
+        Handler hamiltonHandler = new HamiltonHandler(network, serverScreen);
+        Handler carAnimationHandler = new CarAnimationHandler(network, serverScreen);
+        Handler trafficUpdateHandler = new TrafficUpdateHandler(network, serverScreen);
 
-        createUserHandler = new CreateUserHandler(network, serverScreen);
-        checkUserHandler = new CheckUserHandler(network, serverScreen);
-        destinationSearchHandler = new DestinationSearchHandler(network, serverScreen);
-        hamiltonHandler = new HamiltonHandler(network, serverScreen);
-        animateCarHandler = new AnimateCarHandler(network, serverScreen);
-        trafficUpdateHandler = new TrafficUpdateHandler(network, serverScreen);
-
-
-        createUserHandler.setSuccessor(checkUserHandler);
-        checkUserHandler.setSuccessor(destinationSearchHandler);
-        destinationSearchHandler.setSuccessor(hamiltonHandler);
-        hamiltonHandler.setSuccessor(animateCarHandler);
-        animateCarHandler.setSuccessor(trafficUpdateHandler);
+        userCreationHandler.setSuccessor(userCheckHandler);
+        userCheckHandler.setSuccessor(dijkstraHandler);
+        dijkstraHandler.setSuccessor(hamiltonHandler);
+        hamiltonHandler.setSuccessor(carAnimationHandler);
+        carAnimationHandler.setSuccessor(trafficUpdateHandler);
 
     }
 
@@ -62,25 +53,8 @@ public class Server {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected");
-                threadPool.submit(new ClientHandler(clientSocket, createUserHandler));
+                threadPool.submit(new ClientHandler(clientSocket, userCreationHandler));
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handleClient(Socket clientSocket) {
-        try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-             PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-
-            String request = in.readLine();
-            System.out.println("Received request: " + request);
-
-            UserRequest userRequest = new UserRequest(request);
-            String result = createUserHandler.processRequest(userRequest);
-
-            out.println(result);
-
         } catch (IOException e) {
             e.printStackTrace();
         }

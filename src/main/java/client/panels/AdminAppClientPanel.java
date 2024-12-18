@@ -46,7 +46,7 @@ public class AdminAppClientPanel extends AppClientPanel {
 
         update = new Button("Update", 0, 200, connectionForm);
         update.addActionListener(e -> {
-                    sendRequest("Traffic Update : " + firstNodeAdmin + " : " + secondNodeAdmin + " : " + roadCost);
+                    sendRequest("Traffic update : " + firstNodeAdmin + " : " + secondNodeAdmin + " : " + roadCost);
                 }
         );
 

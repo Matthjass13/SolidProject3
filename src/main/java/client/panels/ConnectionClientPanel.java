@@ -35,7 +35,7 @@ public class ConnectionClientPanel extends ClientPanel {
 
 
 
-            sendRequest("Check user : " + username.getText() + " : " + password.getText());
+            sendRequest("User check : " + username.getText() + " : " + password.getText());
 
 
 

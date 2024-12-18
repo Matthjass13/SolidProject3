@@ -1,7 +1,5 @@
 package server.graphStructure;
 
-import java.util.ArrayList;
-
 /**
  * This class represents a continuous path in the network.
  * It consists of an ordered list of adjacent roads putted together.
@@ -20,9 +18,6 @@ public class Path extends Tree {
     public int getCost() {
         return cost;
     }
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
 
     @Override
     public void add(Road road) {
@@ -36,7 +31,7 @@ public class Path extends Tree {
     }
 
     /**
-     * This method is used in Dijkstra algorithm
+     * Used in Dijkstra algorithm
      * to redefine the shortest path.
      * @param path2 new path to use
      * @param road last road to add to the concatenation
@@ -48,7 +43,7 @@ public class Path extends Tree {
     }
 
     /**
-     * This method adds path2 to the current path.
+     * Adds path2 to the current path.
      * @param path2 second path to concatenate
      */
     private void concat(Path path2) {
@@ -60,41 +55,11 @@ public class Path extends Tree {
     public String toString() {
         if(isEmpty())
             return "Empty";
-        String string = root.getName();
+        String string = root.name();
         for (Road road : roads)
-            string += " : " + road.getDestination().getName();
+            string += " : " + road.getDestination().name();
         string += " : " + cost;
         return string;
     }
-
-
-    /**
-     * Inner class used to apply the memento pattern.
-     */
-    public class Memento {
-
-        private Path path;
-        private Node root;
-        private ArrayList<Road> roads;
-        private int cost;
-
-        public Memento(Path path, Node root, ArrayList<Road> roads, int cost) {
-            this.path = path;
-            this.root = root;
-            this.roads = roads;
-            this.cost = cost;
-        }
-
-        public void restore() {
-            path.setRoot(this.root);
-            path.setRoads(this.roads);
-            path.setCost(this.cost);
-        }
-    }
-    public Path.Memento save() {
-        return new Path.Memento(this, this.root, this.roads, this.cost);
-    }
-
-
 
 }

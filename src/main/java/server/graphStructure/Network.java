@@ -3,14 +3,15 @@ package server.graphStructure;
 import java.util.HashMap;
 
 /**
- * This class contains all data stored in the oriented graph representation of the network.
+ * This class contains all data stored
+ * in the graph representation of a network.
  * @see Star
  * @author Matthias Gaillard
  * @since 24.11.2024
  */
-
 public class Network {
 
+    private final boolean oriented;
 
     /**
      * For each node, a list contains
@@ -27,23 +28,19 @@ public class Network {
      * This field allows to quickly search
      * the id of a given node name.
      */
-    HashMap<String, Integer> nodesDirectory;
-
-
-    private boolean oriented;
+    private final HashMap<String, Integer> nodesDirectory;
 
 
     /**
      * We build the network of Paris in this constructor.
-     * See ressources for source image.
+     * See resources for source image.
      */
     public Network(boolean oriented) {
 
         this.oriented = oriented;
 
-        nodesDirectory = new HashMap<String, Integer>();
+        nodesDirectory = new HashMap<>();
 
-        // New version
         Node[] nodes = new Node[14];
         nodes[0] = new Node("Eiffel Tower", 318, 480, 0);
         nodes[1] = new Node("Arc de Triomphe", 293, 346, 1);
@@ -61,45 +58,44 @@ public class Network {
         nodes[13] = new Node("Bercy", 845, 685, 13);
 
         int[][] costs = {
-                {0, 1, 10}, {0, 2, 8}, {0, 3, 10}, {0, 6, 15},
-                {1, 9, 30}, {1, 2, 10},
-                {2, 9, 25}, {2, 6, 10},
-                {3, 6, 10}, {3, 5, 5}, {3, 4, 15},
-                {4, 12, 12}, {4, 5, 10},
-                {5, 12, 14}, {5, 13, 20}, {5, 11, 7}, {5, 7, 5},
-                {6, 9, 20}, {6, 7, 5}, {6, 11, 15},
-                {8, 11, 20}, {8, 13, 20}, {8, 10, 25},
-                {9, 11, 25}, {9, 10, 18},
-                {10, 11, 35},
-                {11, 13, 18},
-                {12, 13, 15}
+            {0, 1, 10}, {0, 2, 8}, {0, 3, 10}, {0, 6, 15},
+            {1, 9, 30}, {1, 2, 10},
+            {2, 9, 25}, {2, 6, 10},
+            {3, 6, 10}, {3, 5, 5}, {3, 4, 15},
+            {4, 12, 12}, {4, 5, 10},
+            {5, 12, 14}, {5, 13, 20}, {5, 11, 7}, {5, 7, 5},
+            {6, 9, 20}, {6, 7, 5}, {6, 11, 15},
+            {8, 11, 20}, {8, 13, 20}, {8, 10, 25},
+            {9, 11, 25}, {9, 10, 18},
+            {10, 11, 35},
+            {11, 13, 18},
+            {12, 13, 15}
         };
 
         SIZE = nodes.length;
 
         stars = new Star[SIZE];
         for (int i = 0; i < SIZE; i++) {
-            nodesDirectory.put(nodes[i].getName(), nodes[i].getID());
+            nodesDirectory.put(nodes[i].name(), nodes[i].ID());
             stars[i] = new Star(nodes[i]);
         }
 
         for (int roadIndex = 0; roadIndex < costs.length; roadIndex++)
             stars[costs[roadIndex][0]].add(new Road(nodes[costs[roadIndex][1]], costs[roadIndex][2]));
 
-        // We add missing reverse edges in case of unoriented network
+        // We add missing reverse edges in case of undirected network
         if(!oriented) {
             for(Star star : stars) {
                 for(Road road : star.getRoads()) {
-                    if(!stars[road.getDestination().getID()].hasLeaf(star.getRoot()))
-                        addRoad(road.getDestination().getID(), star.getRoot().getID(), road.getCost());
+                    if(!stars[road.getDestination().ID()].hasLeaf(star.getRoot()))
+                        addRoad(road.getDestination().ID(), star.getRoot().ID(), road.getCost());
                 }
             }
         }
 
     }
-
     /**
-     * Network will be unoriented by default.
+     * Network will be undirected by default.
      */
     public Network() {
         this(false);
@@ -107,9 +103,6 @@ public class Network {
 
     public int getSIZE() {
         return SIZE;
-    }
-    public Star[] getStars() {
-        return stars;
     }
     public Star getStar(int index) {
         return stars[index];
@@ -120,30 +113,28 @@ public class Network {
 
     /**
      * Returns the id of a node by its name.
-     * @param name
+     * @param name node name
      * @return the id of the node
      */
     public int getIDByName(String name) {
         return nodesDirectory.get(name);
     }
-    public void setStars(Star[] stars) {
-        this.stars = stars;
-    }
 
     /**
-     * This method changes the cost of edge (i, j).
+     * This method changes the cost of edge (i, j),
+     * and (j, i) is the network is not oriented.
      * @param i start node index
      * @param j end node index
      * @param cost new cost
      */
     public void setCost(int i, int j, int cost) {
         for(Road road : stars[i].getRoads()) {
-            if(road.getDestination().getID()==j) {
+            if(road.getDestination().ID()==j) {
                 road.setCost(cost);
 
                 if(!oriented) {
                     for(Road reverseRoad : stars[j].getRoads()) {
-                        if(reverseRoad.getDestination().getID()==i)
+                        if(reverseRoad.getDestination().ID()==i)
                             reverseRoad.setCost(cost);
                     }
                 }
@@ -156,16 +147,11 @@ public class Network {
     public void addRoad(int i, int j, int cost) {
         stars[i].add(new Road(getNode(j), cost));
     }
-    public void removeRoad(int i, int j) {
-        for(int index = 0; index < stars[i].getSize(); ++index)
-            if(stars[i].getRoads().get(index).getDestination().getID()==j)
-                stars[i].removeRoad(index);
-    }
 
     public String toString() {
         String string = "Stars of the networks : " + "\n\n";
-        for (int i = 0; i < stars.length; i++)
-            string += stars[i];
+        for (Star star : stars)
+            string += star;
         string += "\n";
         return string;
     }

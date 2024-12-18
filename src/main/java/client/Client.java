@@ -112,21 +112,8 @@ public class Client extends JFrame {
 
     }
 
-    public void sendRequest(String request) {
-        if (out != null) {
-            out.println(request);
-            try {
-                String response = in.readLine(); // Lire la réponse du serveur
-                System.out.println("Server response: " + response);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 
     public void updateScreen() {
-
         if (currentState == registrationScreen) {
             cardLayout.show(mainPanel, "Registration");
         } else if (currentState == connectionScreen) {
@@ -139,8 +126,6 @@ public class Client extends JFrame {
 
         revalidate();
         repaint();
-
     }
-
 
 }

@@ -5,8 +5,8 @@ import client.panels.ClientPanel;
 import javax.swing.*;
 
 /**
- * This class is used to display the titles
- * on top of each screen.
+ * This class corresponds to the titles
+ * on top of each client panel.
  * @see Label
  * @see ClientPanel
  * @author Matthias Gaillard
