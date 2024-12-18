@@ -1,8 +1,12 @@
 package server;
 
+import client.ClientHandler;
 import server.graphStructure.Network;
 import java.io.*;
 import java.net.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import server.requests.*;
 
 /**
@@ -17,6 +21,7 @@ public class Server {
     private int port;
     private ServerScreen serverScreen;
 
+    private ExecutorService threadPool = Executors.newCachedThreadPool();
 
     private Handler createUserHandler;
     private Handler checkUserHandler;
@@ -58,11 +63,14 @@ public class Server {
 
     public void start() {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
-            System.out.println("server.Server started on port " + port);
+            System.out.println("Server started on port " + port);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected");
-                handleClient(clientSocket);
+                //handleClient(clientSocket);
+
+                threadPool.submit(new ClientHandler(clientSocket, createUserHandler));
+
             }
         } catch (IOException e) {
             e.printStackTrace();
