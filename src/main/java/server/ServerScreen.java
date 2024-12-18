@@ -82,7 +82,7 @@ public class ServerScreen extends JFrame {
         layeredPane.add(drawNetwork, Integer.valueOf(1)); // Ajouter à la couche supérieure
 
         //animateCar();
-        //test();
+        test();
 
 
         Dijkstra d = new Dijkstra(network);
@@ -94,6 +94,8 @@ public class ServerScreen extends JFrame {
     public class DrawNetwork extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
+            drawNetwork.setOpaque(false);
+            drawNetwork.setBackground(new Color(0, 0, 0, 0));
             super.paintComponent(g);
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -186,9 +188,8 @@ public class ServerScreen extends JFrame {
 
         Dijkstra d = new Dijkstra(network);
         d.computeShortestPaths();
-        Path path = d.getShortestPaths(1, 8);
-
-        car.startAnimation(path);
+        shortestPathToDisplay = d.getShortestPaths(1, 8);
+        animateCar();
     }
 
 

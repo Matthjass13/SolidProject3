@@ -30,11 +30,16 @@ public class Network {
     HashMap<String, Integer> nodesDirectory;
 
 
+    private boolean oriented;
+
+
     /**
      * We build the network of Paris in this constructor.
      * See ressources for source image.
      */
     public Network(boolean oriented) {
+
+        this.oriented = oriented;
 
         nodesDirectory = new HashMap<String, Integer>();
 
@@ -136,6 +141,14 @@ public class Network {
         for(Road road : stars[i].getRoads()) {
             if(road.getDestination().getID()==j) {
                 road.setCost(cost);
+
+                if(!oriented) {
+                    for(Road reverseRoad : stars[j].getRoads()) {
+                        if(reverseRoad.getDestination().getID()==i)
+                            reverseRoad.setCost(cost);
+                    }
+                }
+
                 return;
             }
         }

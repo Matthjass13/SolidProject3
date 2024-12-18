@@ -111,8 +111,6 @@ public class Car extends JPanel {
             timer = new Timer(road.getCost()*2, e -> {
                 currentX += dx * 2;
                 currentY += dy * 2;
-
-                System.out.println(Math.abs(currentX - x2) + " * " + Math.abs(currentY - y2));
                 if (Math.abs(currentX - x2) <= Math.abs(dx) && Math.abs(currentY - y2) <= Math.abs(dy)) {
                     timer.stop();
                     currentX = x2;
