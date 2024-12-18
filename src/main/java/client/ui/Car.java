@@ -1,7 +1,5 @@
 package client.ui;
 
-import server.algorithms.Dijkstra;
-import server.graphStructure.Network;
 import server.graphStructure.Node;
 import server.graphStructure.Path;
 import server.graphStructure.Road;
@@ -18,32 +16,24 @@ public class Car extends JPanel {
     private double currentX;
     private double currentY;
     private Timer timer;
-    private Image image;
 
+
+    private Image image;
     private Image downImage;
     private Image upImage;
     private Image leftImage;
     private Image rightImage;
 
-    private Image upLeftImage;
-    private Image upRightImage;
-    private Image downLeftImage;
-    private Image downRightImage;
-
 
     public Car() {
-        downImage = new ImageIcon("src/main/resources/downCar.png").getImage();
-        upImage = new ImageIcon("src/main/resources/upCar.png").getImage();
-        leftImage = new ImageIcon("src/main/resources/leftCar.png").getImage();
-        rightImage = new ImageIcon("src/main/resources/rightCar.png").getImage();
 
-        upLeftImage = new ImageIcon("src/main/resources/upLeftImage.png").getImage();
-        upRightImage = new ImageIcon("src/main/resources/upRightImage.png").getImage();
-        downLeftImage = new ImageIcon("src/main/resources/downLeftImage.png").getImage();
-        downRightImage = new ImageIcon("src/main/resources/downRightImage.png").getImage();
+        String folderPath = "src/main/resources/car/";
 
-
-        image = new ImageIcon("src/main/resources/rightCar.png").getImage();
+        downImage = new ImageIcon(folderPath + "down.png").getImage();
+        upImage = new ImageIcon(folderPath + "up.png").getImage();
+        leftImage = new ImageIcon(folderPath + "left.png").getImage();
+        rightImage = new ImageIcon(folderPath + "right.png").getImage();
+        image = rightImage;
     }
 
 
@@ -94,7 +84,6 @@ public class Car extends JPanel {
             }
 
 
-
             /*
             String[] directions = {"right", "downRight", "down", "downLeft",
                     "left", "upLeft", "up", "upRight"};
@@ -105,10 +94,7 @@ public class Car extends JPanel {
             setImage(directions[index]);*/
 
 
-
-
-
-            timer = new Timer(road.getCost()*2, e -> {
+            timer = new Timer(road.getCost(), e -> {
                 currentX += dx * 2;
                 currentY += dy * 2;
                 if (Math.abs(currentX - x2) <= Math.abs(dx) && Math.abs(currentY - y2) <= Math.abs(dy)) {
@@ -146,18 +132,6 @@ public class Car extends JPanel {
                 break;
             case "down":
                 image = downImage;
-                break;
-            case "upRight":
-                image = upRightImage;
-                break;
-            case "upLeft":
-                image = upLeftImage;
-                break;
-            case "downLeft":
-                image = downLeftImage;
-                break;
-            case "downRight":
-                image = downRightImage;
                 break;
         }
     }

@@ -28,8 +28,16 @@ public class Label extends JLabel {
     public Label(String text, int x, int y, int width, JPanel screen) {
         this(text, x, y, width, 25, 20, false, screen);
     }
+
+    public Label(String text, int x, int y, int width, boolean bold, JPanel screen) {
+        this(text, x, y, width, 25, 20, bold, screen);
+    }
     public Label(String text, int x, int y, JPanel screen) {
         this(text, x, y, 200, 25, 20, false, screen);
+    }
+
+    public Label(String text, int x, int y, boolean bold, JPanel screen) {
+        this(text, x, y, 200, 25, 20, bold, screen);
     }
     public String toString() {
         return getText();

@@ -1,6 +1,13 @@
-memento sur les paths ( bouton previous )
+Faire le diagramme uml
 
+Contrôle général + commentaires
+client
+panels
+ui
+server
+algos
+graphstructure
+requests
+users
 
-
-Ajuster le Clientpanel pour qu'il occupe le quart de l'écran
-Circuit hamiltonien
+Voir si on peut pas ajouter des interfaces

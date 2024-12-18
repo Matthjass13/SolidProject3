@@ -3,6 +3,7 @@ package server;
 import client.panels.ClientPanel;
 import client.ui.Car;
 import server.algorithms.Dijkstra;
+import server.algorithms.Hamilton;
 import server.graphStructure.Network;
 import server.graphStructure.Path;
 import server.graphStructure.Road;
@@ -39,6 +40,8 @@ public class ServerScreen extends JFrame {
     private Path shortestPathToDisplay = null;
 
     private Color shortestPathColor;
+
+    private Font customFont = new Font("Tahoma", Font.BOLD, 15);
 
     private DrawNetwork drawNetwork;
 
@@ -85,9 +88,6 @@ public class ServerScreen extends JFrame {
         test();
 
 
-        Dijkstra d = new Dijkstra(network);
-        d.computeShortestPaths();
-        shortestPathToDisplay = d.getShortestPaths(1, 8);
     }
 
 
@@ -100,6 +100,7 @@ public class ServerScreen extends JFrame {
             Graphics2D g2d = (Graphics2D) g;
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+            g2d.setFont(customFont);
 
             g2d.setStroke(new BasicStroke(1.0f));
             draw(network, g2d);
@@ -109,7 +110,6 @@ public class ServerScreen extends JFrame {
             if (shortestPathToDisplay != null) {
                 drawShortestPath(g2d, shortestPathColor);
             }
-            //car.repaint();
             g.drawImage(car.getImage(), (int) car.getCurrentX() - 32, (int) car.getCurrentY() -32, this);
         }
     }
@@ -131,11 +131,16 @@ public class ServerScreen extends JFrame {
             g2d.setColor(Color.WHITE);
             g2d.fillRect(x1 + LABEL_MARGIN - 2, y1 - LABEL_MARGIN - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
             g2d.setColor(Color.BLACK);
+            g2d.drawRect(x1 + LABEL_MARGIN - 2, y1 - LABEL_MARGIN - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+
+
             g2d.drawString(star.getRoot().getName(), x1 + LABEL_MARGIN, y1 - LABEL_MARGIN);
 
             for(Road road : star.getRoads()) {
                 draw(road, star.getRoot(), g2d, Color.BLACK);
             }
+
+
 
         }
 
@@ -164,7 +169,11 @@ public class ServerScreen extends JFrame {
 
         // Dessiner un rectangle blanc derrière le texte
         g2d.setColor(Color.WHITE);
-        g2d.fillRect(labelX - 2, labelY - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+        g2d.fillRect(labelX - 2, labelY - textHeight + metrics.getDescent(), textWidth + 4, textHeight);
+        g2d.setColor(Color.BLACK);
+        g2d.setStroke(new BasicStroke(1.0f));
+        g2d.drawRect(labelX - 2, labelY - textHeight + metrics.getDescent(), textWidth + 4, textHeight);
+
 
         // Dessiner le texte par-dessus le rectangle
         g2d.setColor(Color.BLACK);
@@ -175,6 +184,7 @@ public class ServerScreen extends JFrame {
         if (shortestPathToDisplay != null) {
             Node current = shortestPathToDisplay.getRoot();
             for (Road road : shortestPathToDisplay.getRoads()) {
+                g2d.setStroke(new BasicStroke(5.0f));
                 draw(road, current, g2d, color); // Spécifiez la couleur pour chaque segment
                 current = road.getDestination();
             }
@@ -184,13 +194,6 @@ public class ServerScreen extends JFrame {
 
 
 
-    public void test() {
-
-        Dijkstra d = new Dijkstra(network);
-        d.computeShortestPaths();
-        shortestPathToDisplay = d.getShortestPaths(1, 8);
-        animateCar();
-    }
 
 
     public void animateCar() {
@@ -201,7 +204,9 @@ public class ServerScreen extends JFrame {
         d.computeShortestPaths();
         shortestPathToDisplay = d.getShortestPaths(1, 8);
 */
-        car.startAnimation(shortestPathToDisplay);
+
+        if(shortestPathToDisplay!=null)
+            car.startAnimation(shortestPathToDisplay);
     }
 
     public void setShortestPathToDisplay(Path shortestPathToDisplay) {
@@ -217,6 +222,23 @@ public class ServerScreen extends JFrame {
 
     public void repaint() {
         drawNetwork.repaint();
+    }
+
+
+
+    public void test() {
+
+        /*
+        Dijkstra d = new Dijkstra(network);
+        d.computeShortestPaths();
+        shortestPathToDisplay = d.getShortestPaths(1, 8);
+        */
+
+
+        Hamilton h = new Hamilton(network);
+        shortestPathToDisplay = h.findHamiltonianPath(0, 1);
+
+        animateCar();
     }
 
 }

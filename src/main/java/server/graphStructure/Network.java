@@ -52,12 +52,12 @@ public class Network {
         nodes[4] = new Node("Catacombs", 490, 717, 4);
         nodes[5] = new Node("Pantheon", 582, 596, 5);
         nodes[6] = new Node("Louvre museum", 506, 439, 6);
-        nodes[7] = new Node("Notre Dame", 615, 520, 7);
-        nodes[8] = new Node("Père Lachaise Cemetery", 850, 443, 8);
+        nodes[7] = new Node("Notre Dame", 605, 520, 7);
+        nodes[8] = new Node("Père Lachaise", 850, 443, 8);
         nodes[9] = new Node("Sacré Coeur", 600, 244, 9);
         nodes[10] = new Node("City of Science", 824, 168, 10);
         nodes[11] = new Node("Bastille", 720, 512, 11);
-        nodes[12] = new Node("Saint-Suplice Church", 610, 767, 12);
+        nodes[12] = new Node("Saint-Suplice", 610, 767, 12);
         nodes[13] = new Node("Bercy", 845, 685, 13);
 
         int[][] costs = {
@@ -68,7 +68,6 @@ public class Network {
                 {4, 12, 12}, {4, 5, 10},
                 {5, 12, 14}, {5, 13, 20}, {5, 11, 7}, {5, 7, 5},
                 {6, 9, 20}, {6, 7, 5}, {6, 11, 15},
-                {7, 11, 10},
                 {8, 11, 20}, {8, 13, 20}, {8, 10, 25},
                 {9, 11, 25}, {9, 10, 18},
                 {10, 11, 35},

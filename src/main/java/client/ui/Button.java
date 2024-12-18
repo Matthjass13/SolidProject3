@@ -21,7 +21,7 @@ public class Button extends JButton {
     }
 
     public Button(String text, int x, int y, JPanel screen) {
-        this(text, x, y, Color.decode("#009DCF"), screen);
+        this(text, x, y, Color.decode("#6495ED"), screen);
     }
 
 }

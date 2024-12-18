@@ -1,6 +1,7 @@
 package server.requests;
 
 import server.algorithms.Dijkstra;
+import server.algorithms.Hamilton;
 import server.graphStructure.Network;
 import server.graphStructure.Path;
 import server.ServerScreen;

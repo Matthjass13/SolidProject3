@@ -30,7 +30,7 @@ public class TextField extends JTextField {
     }
 
     public TextField(String placeholder, int x, int y, JPanel screen) {
-        this(placeholder, x, y, 200, 30, 20, screen);
+        this(placeholder, x, y, 150, 30, 20, screen);
     }
 
     public TextField(String placeholder, int x, int y, int width, JPanel screen) {

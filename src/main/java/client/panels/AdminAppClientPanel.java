@@ -30,11 +30,14 @@ public class AdminAppClientPanel extends AppClientPanel {
         super.drawTitle("Admin App");
 
 
-        Rectangle connectionForm = new Rectangle(330, 110, 400, 300, this);
+        Rectangle connectionForm = new Rectangle(450, 110, 320, 300, this);
 
 
-        new Label("Change road cost to ", 0, 0, connectionForm);
-        roadCost = new TextField("New cost", 190, 0, 100, connectionForm);
+        new Label("Change road cost to ", 0, 0, 250, true, connectionForm);
+
+
+
+        roadCost = new TextField("New cost", 205, 0, 85, connectionForm);
 
         new Label("from", 0, 50, connectionForm);
         firstNodeAdmin = new TextField("First Node", 0, 80, connectionForm);

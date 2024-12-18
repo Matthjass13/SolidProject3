@@ -26,10 +26,9 @@ public class Server {
     private Handler createUserHandler;
     private Handler checkUserHandler;
     private Handler destinationSearchHandler;
+
+    private Handler hamiltonHandler;
     private Handler animateCarHandler;
-    private Handler networkDrawHandler;
-    private Handler routeHistoryHandler;
-    private Handler settingsUpdateHandler;
     private Handler trafficUpdateHandler;
 
 
@@ -44,20 +43,16 @@ public class Server {
         createUserHandler = new CreateUserHandler(network, serverScreen);
         checkUserHandler = new CheckUserHandler(network, serverScreen);
         destinationSearchHandler = new DestinationSearchHandler(network, serverScreen);
+        hamiltonHandler = new HamiltonHandler(network, serverScreen);
         animateCarHandler = new AnimateCarHandler(network, serverScreen);
-        networkDrawHandler = new NetworkDrawHandler(network, serverScreen);
-        routeHistoryHandler = new RouteHistoryHandler(network, serverScreen);
-        settingsUpdateHandler = new SettingsUpdateHandler(network, serverScreen);
         trafficUpdateHandler = new TrafficUpdateHandler(network, serverScreen);
 
 
         createUserHandler.setSuccessor(checkUserHandler);
         checkUserHandler.setSuccessor(destinationSearchHandler);
-        destinationSearchHandler.setSuccessor(animateCarHandler);
-        animateCarHandler.setSuccessor(networkDrawHandler);
-        networkDrawHandler.setSuccessor(routeHistoryHandler);
-        routeHistoryHandler.setSuccessor(settingsUpdateHandler);
-        settingsUpdateHandler.setSuccessor(trafficUpdateHandler);
+        destinationSearchHandler.setSuccessor(hamiltonHandler);
+        hamiltonHandler.setSuccessor(animateCarHandler);
+        animateCarHandler.setSuccessor(trafficUpdateHandler);
 
     }
 
@@ -67,10 +62,7 @@ public class Server {
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Client connected");
-                //handleClient(clientSocket);
-
                 threadPool.submit(new ClientHandler(clientSocket, createUserHandler));
-
             }
         } catch (IOException e) {
             e.printStackTrace();

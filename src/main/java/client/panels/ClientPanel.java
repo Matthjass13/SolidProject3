@@ -27,7 +27,7 @@ public abstract class ClientPanel extends JPanel implements ClientState {
     protected Client client;
 
     protected Title titleLabel;
-    private static Color BACKGROUND_COLOR = Color.decode("#009DCF");
+    private static Color BACKGROUND_COLOR = Color.decode("#4682B4");
 
 
     public ClientPanel(Client client) {

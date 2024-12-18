@@ -20,12 +20,18 @@ public class AppClientPanel extends ClientPanel {
     private TextField firstNode;
     private TextField secondNode;
     private Button search;
-
+    private Button hamilton;
     private JTextArea shortestPathDescription;
-    private Label shortestPathCostLabel;
+    private Button animate;
+    private PathCaretaker pathCaretaker = new PathCaretaker();
+
+    /**
+     * This button allows the user
+     * to check the previous searched path.
+     */
+    private Button previous;
     protected Button logOut;
 
-    private Button animate;
 
     public AppClientPanel(Client client) {
         super(client);
@@ -33,52 +39,68 @@ public class AppClientPanel extends ClientPanel {
         super.drawTitle("App");
 
 
-        client.ui.Rectangle connectionForm = new client.ui.Rectangle(30, 110, 250, 450, this);
+        client.ui.Rectangle connectionForm = new client.ui.Rectangle(30, 110, 400, 300, this);
 
-        new client.ui.Label("Shortest path", 0, 0, connectionForm);
-        new client.ui.Label("from", 0, 50, connectionForm);
+        Label shortestPath = new client.ui.Label("Shortest path", 0, 0, true, connectionForm);
+
+
+        new Label("from", 0, 50, connectionForm);
         firstNode = new TextField("First node", 0, 80, connectionForm);
-        new client.ui.Label("to", 0, 110, connectionForm);
+        new Label("to", 0, 110, connectionForm);
         secondNode = new TextField("Second node", 0, 140, connectionForm);
 
-        search = new client.ui.Button("Search", 0, 200, connectionForm);
+        search = new Button("Search", 0, 200, connectionForm);
         search.addActionListener(e -> {
                 sendRequest("Destination Search : "
                         + firstNode.getText() + " : "
                         + secondNode.getText());
+                pathCaretaker.save(createMemento());
             }
         );
 
+        hamilton = new Button("Hamilton", 200, 200, Color.YELLOW, connectionForm);
+        hamilton.addActionListener(e -> {
+                    sendRequest("Hamilton Search : "
+                            + firstNode.getText() + " : "
+                            + secondNode.getText());
+                }
+        );
 
-        shortestPathDescription = new JTextArea("");
+
+
+
+        shortestPathDescription = new JTextArea("Test");
         shortestPathDescription.setFont(new Font("Tahoma", Font.PLAIN, 18));
         shortestPathDescription.setLineWrap(true);
-        shortestPathDescription.setBounds(20, 280, connectionForm.getWidth()-20, 400);
+        shortestPathDescription.setBounds(200, 30, connectionForm.getWidth()-20, 400);
         shortestPathDescription.setOpaque(false);
         connectionForm.add(shortestPathDescription);
 
 
 
-        shortestPathCostLabel = new client.ui.Label("", 0, 350, 300, connectionForm);
-
-
-        logOut = new Button("Log out", 500, 20, Color.LIGHT_GRAY, this);
-        logOut.addActionListener(e -> {
-                logOut();
-            }
-        );
-
-
-        animate = new Button("Animate", 350, 420, Color.RED, this);
+        animate = new Button("Animate", 250, 20, Color.decode("#CD5C5C"), this);
         animate.addActionListener(e -> {
                     sendRequest("Animate car");
                 }
         );
-       animate.setVisible(false);
+        //animate.setVisible(false);
 
 
+        previous = new Button("Previous", 425, 20, Color.decode("#A9E53D"), this);
+        previous.addActionListener(e -> {
+                    pathCaretaker.revert(this);
+                    sendRequest("Destination Search : "
+                            + firstNode.getText() + " : "
+                            + secondNode.getText());
+                }
+        );
 
 
+        logOut = new Button("Log out", 600, 20, Color.LIGHT_GRAY, this);
+        logOut.addActionListener(e -> {
+                logOut();
+            }
+        );
 
         revalidate();
         repaint();
@@ -88,8 +110,6 @@ public class AppClientPanel extends ClientPanel {
         // Flyweight on node, road
 
     }
-
-
 
     public void handleRequestBack(String response) {
         if(response!=null && response.contains(" : ")) {
@@ -110,12 +130,47 @@ public class AppClientPanel extends ClientPanel {
             shortestPathDescription.append(" -> " + parties[i] + "\n");
         }
 
-        shortestPathDescription.append("Shortest path cost : " + parties[parties.length-1]);
+        shortestPathDescription.append("Path cost : " + parties[parties.length-1]);
 
         animate.setVisible(true);
 
 
     }
+
+
+
+
+
+
+    public Memento createMemento() {
+        System.out.println("Originator: Saving to Memento.");
+        return new Memento(firstNode.getText(), secondNode.getText());
+    }
+
+    public void setMemento(Memento memento) {
+        firstNode.setText(memento.getStartNode());
+        secondNode.setText(memento.getEndNode());
+        System.out.println("Originator: State after restoring from Memento: ");
+    }
+
+    public class Memento {
+        private final String startNode;
+        private final String endNode;
+
+        public Memento(String startNode, String endNode) {
+            this.startNode = startNode;
+            this.endNode = endNode;
+        }
+        public String getStartNode() {
+            return startNode;
+        }
+        public String getEndNode() {
+            return endNode;
+        }
+    }
+
+
+
 
 
 }

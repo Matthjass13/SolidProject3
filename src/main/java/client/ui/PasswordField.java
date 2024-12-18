@@ -18,10 +18,10 @@ public class PasswordField extends TextField {
     public PasswordField(String placeholder, int x, int y, int width, int height, int fontSize, JPanel screen) {
         super(placeholder, x, y, width, height, fontSize, screen);
         this.passwordDocument = new PasswordDocument();
-        this.setDocument(passwordDocument); // Associer le document personnalisé
+        this.setDocument(passwordDocument);
     }
     public PasswordField(String placeholder, int x, int y, JPanel screen) {
-        this(placeholder, x, y, 200, 30, 20, screen);
+        this(placeholder, x, y, 150, 30, 20, screen);
     }
 
     public String getText() {
