@@ -59,6 +59,8 @@ public class ServerScreen extends JFrame {
         car.setVisible(false);
         layeredPane.add(car, 2);
 
+        test();
+
     }
 
     public void setPathToDisplay(Path pathToDisplay) {

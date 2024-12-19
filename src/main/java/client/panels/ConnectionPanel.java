@@ -24,7 +24,7 @@ public class ConnectionPanel extends ClientPanel {
 
         username = new TextField("Enter username", 0, 0, connectionForm);
         password = new PasswordField("Enter password", 0, 50, connectionForm);
-        message = new Label("Wrong identifiers !", 0, 160, 500, connectionForm);
+        message = new Label("", 0, 160, 500, connectionForm);
 
         Button login = new Button("Login", 0, 100, connectionForm);
         login.addActionListener(e -> sendRequest("User check : " + username.getText() + " : " + password.getText()));
