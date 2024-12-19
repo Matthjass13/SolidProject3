@@ -28,7 +28,7 @@ public class ServerScreen extends JFrame {
      */
     private String pathType = "Dijkstra";
     private final Color dijkstraColor = Color.BLUE;
-    private final Color hamiltonColor = Color.decode("#FFC934");
+    private final Color hamiltonColor = Color.decode("#DB7B27");
     private final BasicStroke thickStroke = new BasicStroke(5.0f);
     private final BasicStroke thinStroke = new BasicStroke(1.0f);
     private final Font boldFont = new Font("Tahoma", Font.BOLD, 15);
@@ -59,7 +59,6 @@ public class ServerScreen extends JFrame {
         car.setVisible(false);
         layeredPane.add(car, 2);
 
-        //test();
     }
 
     public void setPathToDisplay(Path pathToDisplay) {
@@ -99,22 +98,10 @@ public class ServerScreen extends JFrame {
             int x1 = star.getRoot().x();
             int y1 = star.getRoot().y();
 
-            String costText = String.valueOf(star.getRoot().name());
-            FontMetrics metrics = g2d.getFontMetrics();
-            int textWidth = metrics.stringWidth(costText);
-            int textHeight = metrics.getHeight();
-            g2d.setColor(Color.WHITE);
-            g2d.fillRect(x1 - 2, y1 - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
-            g2d.setColor(Color.BLACK);
-            g2d.drawRect(x1 - 2, y1 - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
-
-            g2d.drawString(star.getRoot().name(), x1, y1);
-
             for(Road road : star.getRoads())
                 draw(road, star.getRoot(), g2d, Color.BLACK);
 
         }
-
     }
     private void draw(Road road, Node source, Graphics2D g2d, Color color) {
         int x1 = source.x();
@@ -141,6 +128,16 @@ public class ServerScreen extends JFrame {
 
         g2d.setColor(Color.BLACK);
         g2d.drawString(costText, labelX, labelY);
+
+        costText = String.valueOf(source.name());
+        textWidth = metrics.stringWidth(costText);
+        textHeight = metrics.getHeight();
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(x1 - 22, y1 - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+        g2d.setColor(Color.BLACK);
+        g2d.drawRect(x1 - 22, y1 - textHeight + metrics.getDescent() - 2, textWidth + 4, textHeight);
+        g2d.drawString(source.name(), x1-20, y1);
+
     }
     private void highlightPath(Graphics2D g2d, Color color) {
         if (pathToDisplay != null) {

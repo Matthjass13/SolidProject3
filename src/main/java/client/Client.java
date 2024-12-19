@@ -39,6 +39,7 @@ public class Client extends JFrame {
         registrationScreen = new RegistrationPanel(this);
         appScreen = new AppPanel(this);
         adminAppScreen = new AdminAppPanel(this);
+        //currentState = connectionScreen;
         currentState = adminAppScreen;
 
         cardLayout = new CardLayout();
@@ -88,7 +89,7 @@ public class Client extends JFrame {
     public void start() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        setBounds(0, 0, 800, 450);
+        setBounds(0, 0, 820, 450);
         try {
             Socket socket = new Socket(serverAddress, serverPort);
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));

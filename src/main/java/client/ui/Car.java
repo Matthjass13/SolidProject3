@@ -14,8 +14,8 @@ import java.awt.*;
  */
 public class Car extends JPanel {
 
-    private double currentX;
-    private double currentY;
+    private double currentX = -30;
+    private double currentY = -30;
 
     private Image image;
     private final Image downImage;
@@ -28,10 +28,10 @@ public class Car extends JPanel {
     public Car() {
         String folderPath = "src/main/resources/car/";
 
-        downImage = new ImageIcon(folderPath + "down.png").getImage();
-        upImage = new ImageIcon(folderPath + "up.png").getImage();
-        leftImage = new ImageIcon(folderPath + "left.png").getImage();
-        rightImage = new ImageIcon(folderPath + "right.png").getImage();
+        downImage = new ImageIcon(folderPath + "down2.png").getImage();
+        upImage = new ImageIcon(folderPath + "up2.png").getImage();
+        leftImage = new ImageIcon(folderPath + "left2.png").getImage();
+        rightImage = new ImageIcon(folderPath + "right2.png").getImage();
 
         image = rightImage;
     }

@@ -26,14 +26,14 @@ public class RegistrationPanel extends ClientPanel implements ClientState {
         super(client);
         super.drawTitle("Registration");
 
-        Rectangle connectionForm = new Rectangle(30, 110, 500, 300, this);
+        Rectangle connectionForm = new Rectangle(30, 100, 500, 300, this);
 
         username = new TextField("Username", 0, 0, connectionForm);
         password = new PasswordField("Password", 0, 50, connectionForm);
         mail = new TextField("Mail", 0, 100, connectionForm);
         phone = new TextField("Phone", 0, 150, connectionForm);
         address = new TextField("Address", 0, 200, connectionForm);
-        message = new Label("Hello", 0, 240, 500, connectionForm);
+        message = new Label("", 0, 240, 500, connectionForm);
 
         new Label("Admin", 220, 0, 100, connectionForm);
         admin = new JCheckBox();

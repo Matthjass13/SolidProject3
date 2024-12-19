@@ -24,9 +24,9 @@ public class AdminAppPanel extends AppPanel {
         titleLabel.setText("Admin App");
         super.drawTitle("Admin App");
 
-        Rectangle updateForm = new Rectangle(450, 110, 320, 300, this);
+        Rectangle updateForm = new Rectangle(450, 100, 320, 300, this);
         new Label("Change road cost to ", 0, 0, 250, true, updateForm);
-        roadCost = new TextField("New cost", 205, 0, 85, updateForm);
+        roadCost = new TextField("Cost", 210, 0, 60, updateForm);
         new Label("from", 0, 50, updateForm);
         adminSource = new TextField("First Node", 0, 80, updateForm);
         new Label("to", 0, 110, updateForm);

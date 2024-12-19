@@ -20,16 +20,16 @@ public class ConnectionPanel extends ClientPanel {
         super(client);
         super.drawTitle("Connection");
 
-        Rectangle connectionForm = new Rectangle(30, 110, 250, 200, this);
+        Rectangle connectionForm = new Rectangle(30, 100, 250, 220, this);
 
         username = new TextField("Enter username", 0, 0, connectionForm);
         password = new PasswordField("Enter password", 0, 50, connectionForm);
-        message = new Label("", 0, 75, 500, connectionForm);
+        message = new Label("Wrong identifiers !", 0, 160, 500, connectionForm);
 
         Button login = new Button("Login", 0, 100, connectionForm);
         login.addActionListener(e -> sendRequest("User check : " + username.getText() + " : " + password.getText()));
 
-        Button signUp = new Button("Sign up", 300, 220, this);
+        Button signUp = new Button("Sign up", 300, 200, this);
         signUp.addActionListener(e -> goToRegistration());
 
         revalidate();
@@ -45,7 +45,7 @@ public class ConnectionPanel extends ClientPanel {
                 logIn(false);
             }
             else {
-                message.setText("Wrong username or password, please try again !");
+                message.setText("Wrong identifiers !");
             }
         }
     }

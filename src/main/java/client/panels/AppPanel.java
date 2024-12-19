@@ -36,7 +36,7 @@ public class AppPanel extends ClientPanel {
         super(client);
         super.drawTitle("App");
 
-        Rectangle researchForm = new Rectangle(30, 110, 400, 300, this);
+        Rectangle researchForm = new Rectangle(30, 100, 400, 300, this);
         Label shortestPath = new Label("Shortest path", 0, 0, true, researchForm);
 
         new Label("from", 0, 50, researchForm);
@@ -44,7 +44,7 @@ public class AppPanel extends ClientPanel {
         new Label("to", 0, 110, researchForm);
         sink = new TextField("Second node", 0, 140, researchForm);
 
-        Button dijkstra = new Button("Search", 0, 200, researchForm);
+        Button dijkstra = new Button("Dijkstra", 0, 200, researchForm);
         dijkstra.addActionListener(e -> {
                 sendRequest("Dijkstra : "
                         + source.getText() + " : "
@@ -53,7 +53,7 @@ public class AppPanel extends ClientPanel {
             }
         );
 
-        Button hamilton = new Button("Hamilton", 200, 200, Color.decode("#FFC934"), researchForm);
+        Button hamilton = new Button("Hamilton", 200, 200, Color.decode("#DB7B27"), researchForm);
         hamilton.addActionListener(e ->
                 sendRequest("Hamilton : " + source.getText() + " : "  + sink.getText())
         );
@@ -65,21 +65,29 @@ public class AppPanel extends ClientPanel {
         pathDescription.setOpaque(false);
         researchForm.add(pathDescription);
 
-        animate = new Button("Animate", 250, 20, Color.decode("#CD5C5C"), this);
+        animate = new Button("", 335, 10, Color.blue /*Color.decode("#CD5C5C")*/, this);
+        animate.setIcon(new ImageIcon("src/main/resources/car/right2.png"));
         animate.addActionListener(e -> sendRequest("Car animation"));
+        animate.setBounds(animate.getX(), animate.getY(), 64, 50);
+        animate.setBackground(null);
+        animate.setText(null);
+        animate.setMargin(new Insets(0, 0, 0, 0));
+        animate.setBorderPainted(false);
+        animate.setFocusPainted(false);
+        animate.setContentAreaFilled(false);
         animate.setVisible(false);
 
-        previous = new Button("Previous", 425, 20, Color.decode("#A9E53D"), this);
+        previous = new Button("Previous", 425, 10, Color.decode("#A9E53D"), this);
         previous.addActionListener(e -> {
                     pathCaretaker.revert(this);
-                    sendRequest("Destination Search : "
+                    sendRequest("Dijkstra : "
                             + source.getText() + " : "
                             + sink.getText());
                 }
         );
         previous.setVisible(false);
 
-        logOut = new Button("Log out", 600, 20, Color.LIGHT_GRAY, this);
+        logOut = new Button("Log out", 600, 10, Color.LIGHT_GRAY, this);
         logOut.addActionListener(e -> logOut());
 
         revalidate();
@@ -97,7 +105,7 @@ public class AppPanel extends ClientPanel {
         String[] parties = response.split(" : ");
         pathDescription.setText("Shortest path : \n");
         for(int i=0; i<parties.length-1; ++i)
-            pathDescription.append(" -> " + parties[i] + "\n");
+            pathDescription.append("→ " + parties[i] + "\n");
         pathDescription.append("Path cost : " + parties[parties.length-1]);
         animate.setVisible(true);
         previous.setVisible(true);
