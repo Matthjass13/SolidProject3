@@ -21,7 +21,14 @@ public class ServerScreen extends JFrame {
     private final Network network;
     private final DrawNetwork drawNetwork;
     private Path pathToDisplay = null;
-    private final Color pathColor;
+
+    /**
+     * Type of the path to highlight
+     * (Dijkstra or Hamilton)
+     */
+    private String pathType = "Dijkstra";
+    private final Color dijkstraColor = Color.BLUE;
+    private final Color hamiltonColor = Color.decode("#FFC934");
     private final BasicStroke thickStroke = new BasicStroke(5.0f);
     private final BasicStroke thinStroke = new BasicStroke(1.0f);
     private final Font boldFont = new Font("Tahoma", Font.BOLD, 15);
@@ -32,7 +39,6 @@ public class ServerScreen extends JFrame {
 
         setBounds(550, 0, 993, 925);
         this.network = network;
-        pathColor = Color.blue;
 
         JLayeredPane layeredPane = new JLayeredPane();
         layeredPane.setBounds(0, 0, 993, 925);
@@ -50,7 +56,7 @@ public class ServerScreen extends JFrame {
 
         this.car = new Car();
         car.setBounds(400, 400, 100, 100);
-        car.setVisible(true);
+        car.setVisible(false);
         layeredPane.add(car, 2);
 
         //test();
@@ -61,6 +67,9 @@ public class ServerScreen extends JFrame {
     }
     public void setRoadCost(int i, int j, int cost) {
         network.setCost(i, j, cost);
+    }
+    public void setPathType(String pathType) {
+        this.pathType = pathType;
     }
 
     public class DrawNetwork extends JPanel {
@@ -73,7 +82,10 @@ public class ServerScreen extends JFrame {
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             draw(network, g2d);
-            highlightPath(g2d, pathColor);
+            if(pathType.equals("Dijkstra"))
+                highlightPath(g2d, dijkstraColor);
+            else
+                highlightPath(g2d, hamiltonColor);
             g.drawImage(car.getImage(), (int) car.getCurrentX() - 32, (int) car.getCurrentY() - 32, this);
         }
     }
@@ -142,8 +154,10 @@ public class ServerScreen extends JFrame {
     }
 
     public void animateCar() {
-        if(pathToDisplay !=null)
+        if(pathToDisplay !=null) {
+            car.setVisible(true);
             car.startAnimation(pathToDisplay);
+        }
     }
 
     public void repaint() {
@@ -156,6 +170,7 @@ public class ServerScreen extends JFrame {
     public void test() {
         Hamilton h = new Hamilton(network);
         pathToDisplay = h.findPath(0, 1);
+        pathType = "Hamilton";
         animateCar();
     }
 

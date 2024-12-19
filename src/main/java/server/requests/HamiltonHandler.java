@@ -28,9 +28,10 @@ public class HamiltonHandler extends Handler {
         int node2ID = network.getIDByName(node2);
 
         Hamilton hamilton = new Hamilton(network);
-        Path shortestPathToDisplay = hamilton.findPath(node1ID, node2ID);
+        Path path = hamilton.findPath(node1ID, node2ID);
 
-        serverScreen.setPathToDisplay(shortestPathToDisplay);
+        serverScreen.setPathToDisplay(path);
+        serverScreen.setPathType("Hamilton");
         serverScreen.repaint();
 
         return "";

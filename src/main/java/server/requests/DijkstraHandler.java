@@ -32,6 +32,7 @@ public class DijkstraHandler extends Handler {
         Path shortestPathToDisplay = dijkstra.findPath(node1ID, node2ID);
 
         serverScreen.setPathToDisplay(shortestPathToDisplay);
+        serverScreen.setPathType("Dijkstra");
         serverScreen.repaint();
 
         return shortestPathToDisplay.toString();

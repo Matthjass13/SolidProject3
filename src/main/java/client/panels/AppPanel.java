@@ -53,7 +53,7 @@ public class AppPanel extends ClientPanel {
             }
         );
 
-        Button hamilton = new Button("Hamilton", 200, 200, Color.YELLOW, researchForm);
+        Button hamilton = new Button("Hamilton", 200, 200, Color.decode("#FFC934"), researchForm);
         hamilton.addActionListener(e ->
                 sendRequest("Hamilton : " + source.getText() + " : "  + sink.getText())
         );
