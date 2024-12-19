@@ -39,8 +39,8 @@ public class Client extends JFrame {
         registrationScreen = new RegistrationPanel(this);
         appScreen = new AppPanel(this);
         adminAppScreen = new AdminAppPanel(this);
-        //currentState = connectionScreen;
-        currentState = adminAppScreen;
+        currentState = connectionScreen;
+        //currentState = adminAppScreen;
 
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);

@@ -12,7 +12,7 @@ import javax.swing.*;
  * @author Sara Pereira
  * @since 09.12.2024
  */
-public class RegistrationPanel extends ClientPanel implements ClientState {
+public class RegistrationPanel extends ClientPanel {
 
     private final TextField username;
     private final PasswordField password;

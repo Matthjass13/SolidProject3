@@ -20,6 +20,7 @@ public class AppPanel extends ClientPanel {
 
     private final TextField source;
     private final TextField sink;
+    private String pathType;
     private final JTextArea pathDescription;
     private final Button animate;
 
@@ -49,13 +50,19 @@ public class AppPanel extends ClientPanel {
                 sendRequest("Dijkstra : "
                         + source.getText() + " : "
                         + sink.getText());
+                pathType = "Dijkstra";
                 pathCaretaker.save(createMemento());
             }
         );
 
         Button hamilton = new Button("Hamilton", 200, 200, Color.decode("#DB7B27"), researchForm);
-        hamilton.addActionListener(e ->
-                sendRequest("Hamilton : " + source.getText() + " : "  + sink.getText())
+        hamilton.addActionListener(e -> {
+                    sendRequest("Hamilton : "
+                            + source.getText() + " : "
+                            + sink.getText());
+                    pathType = "Hamilton";
+                    pathCaretaker.save(createMemento());
+            }
         );
 
         pathDescription = new JTextArea("");
@@ -80,7 +87,7 @@ public class AppPanel extends ClientPanel {
         previous = new Button("Previous", 425, 10, Color.decode("#A9E53D"), this);
         previous.addActionListener(e -> {
                     pathCaretaker.revert(this);
-                    sendRequest("Dijkstra : "
+                    sendRequest(pathType + " : "
                             + source.getText() + " : "
                             + sink.getText());
                 }
@@ -112,25 +119,31 @@ public class AppPanel extends ClientPanel {
     }
 
     public Memento createMemento() {
-        return new Memento(source.getText(), sink.getText());
+        return new Memento(source.getText(), sink.getText(), pathType);
     }
     public void setMemento(Memento memento) {
         source.setText(memento.getSource());
         sink.setText(memento.getSink());
+        pathType = memento.getType();
     }
     public class Memento {
         private final String source;
         private final String sink;
+        private final String type;
 
-        public Memento(String startNode, String endNode) {
+        public Memento(String startNode, String endNode, String type) {
             this.source = startNode;
             this.sink = endNode;
+            this.type = type;
         }
         public String getSource() {
             return source;
         }
         public String getSink() {
             return sink;
+        }
+        public String getType() {
+            return type;
         }
     }
 
