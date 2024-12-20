@@ -48,9 +48,9 @@ public class Network {
         nodes[3] = new Node("Orsay Museum", 484, 559, 3);
         nodes[4] = new Node("Catacombs", 490, 717, 4);
         nodes[5] = new Node("Pantheon", 582, 596, 5);
-        nodes[6] = new Node("Louvre museum", 506, 439, 6);
+        nodes[6] = new Node("Louvre Museum", 506, 439, 6);
         nodes[7] = new Node("Notre Dame", 605, 520, 7);
-        nodes[8] = new Node("Père Lachaise", 850, 443, 8);
+        nodes[8] = new Node("Père Laadmichaise", 850, 443, 8);
         nodes[9] = new Node("Sacré Coeur", 600, 244, 9);
         nodes[10] = new Node("City of Science", 824, 168, 10);
         nodes[11] = new Node("Bastille", 720, 512, 11);

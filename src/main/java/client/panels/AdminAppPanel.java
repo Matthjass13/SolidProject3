@@ -28,7 +28,7 @@ public class AdminAppPanel extends AppPanel {
         new Label("Change road cost to ", 0, 0, 250, true, updateForm);
         roadCost = new TextField("Cost", 210, 0, 60, updateForm);
         new Label("from", 0, 50, updateForm);
-        adminSource = new TextField("First Node", 0, 80, updateForm);
+        adminSource = new TextField("First node", 0, 80, updateForm);
         new Label("to", 0, 110, updateForm);
         adminSink = new TextField("Second node", 0, 140, updateForm);
 
